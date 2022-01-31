@@ -17,7 +17,7 @@ public class AdminController {
     public String userList(Model model) {
         model.addAttribute("allUsers", userService.allUsers());
         //return "admin";
-        return null;
+        return "test";
     }
 
     @PostMapping("/admin")
@@ -28,6 +28,6 @@ public class AdminController {
             userService.deleteUser(userId);
         }
         //return "redirect:/admin";
-        return null;
+        return "test";
     }
 }

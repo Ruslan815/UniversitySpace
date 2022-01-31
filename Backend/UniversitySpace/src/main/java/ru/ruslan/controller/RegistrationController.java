@@ -22,7 +22,8 @@ public class RegistrationController {
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
-        return "registration";
+        //return "registration";
+        return "test";
     }
 
     @PostMapping("/registration")
@@ -40,6 +41,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        return "redirect:/";
+        //return "redirect:/";
+        return "test";
     }
 }

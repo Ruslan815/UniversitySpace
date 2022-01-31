@@ -21,42 +21,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Override
+    /*@Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable();
         httpSecurity.headers().frameOptions().disable();
 
         httpSecurity
                 .authorizeRequests()
-                    //Доступ только для не зарегистрированных пользователей
-                    .antMatchers("/registration").not().fullyAuthenticated()
-                    //Доступ только для пользователей с ролью ADMIN
-                    .antMatchers("/admin/**").hasRole("ADMIN")
-                    //Доступ только для пользователей с ролью USER
-                    .antMatchers("/news").hasRole("USER")
-                    //Доступ разрешен всем пользователей
-                    .antMatchers("/", "/resources/**", "/h2-console/**").permitAll()
+                //Доступ только для не зарегистрированных пользователей
+                .antMatchers("/registration").not().fullyAuthenticated()
+                //Доступ только для пользователей с ролью ADMIN
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                //Доступ только для пользователей с ролью USER
+                .antMatchers("/news").hasRole("USER")
+                //Доступ разрешен всем пользователей
+                .antMatchers("/", "/resources/**", "/h2-console/**").permitAll()
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()
-                    //Настройка для входа в систему
-                    .formLogin()
-                    .loginPage("/login")
-                    //Перенарпавление на главную страницу после успешного входа
-                    .defaultSuccessUrl("/")
-                    .permitAll()
+                //Настройка для входа в систему
+                .formLogin()
+                .loginPage("/login")
+                //Перенарпавление на главную страницу после успешного входа
+                .defaultSuccessUrl("/")
+                .permitAll()
                 .and()
-                    .logout()
-                    .permitAll()
-                    .logoutSuccessUrl("/");
-    }
+                .logout()
+                .permitAll()
+                .logoutSuccessUrl("/");
+    }*/
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(securityUserService).passwordEncoder(bCryptPasswordEncoder());
     }
 
-    /*@Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
@@ -64,5 +64,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
         http.headers().frameOptions().disable();
-    }*/
+    }
+
 }
