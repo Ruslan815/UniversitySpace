@@ -1,3 +1,4 @@
+/*
 package ru.ruslan.controller;
 
 import org.slf4j.Logger;
@@ -40,3 +41,4 @@ public class WebSocketEventListener {
         }
     }
 }
+*/

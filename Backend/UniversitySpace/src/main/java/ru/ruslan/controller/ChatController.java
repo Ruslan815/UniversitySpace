@@ -1,3 +1,4 @@
+/*
 package ru.ruslan.controller;
 
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -26,3 +27,4 @@ public class ChatController {
     }
 
 }
+*/
