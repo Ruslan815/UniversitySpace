@@ -41,9 +41,10 @@ public class UserService {
         user.setRoles(Collections.singleton(new Role((long) ROLES.ROLE_USER.ordinal(), "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
-        System.out.println(user);
-
         userRepository.save(user);
+
+        System.out.println("User was saved to DB: " + user);
+
         return true;
     }
 

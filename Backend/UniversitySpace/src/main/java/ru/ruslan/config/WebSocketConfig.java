@@ -1,4 +1,3 @@
-/*
 package ru.ruslan.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -24,15 +23,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
         //   Use this for enabling a Full featured broker like RabbitMQ
 
-        */
-/*
-        registry.enableStompBrokerRelay("/topic")
+        /*registry.enableStompBrokerRelay("/topic")
                 .setRelayHost("localhost")
                 .setRelayPort(61613)
                 .setClientLogin("guest")
-                .setClientPasscode("guest");
-        *//*
+                .setClientPasscode("guest");*/
+
 
     }
 }
-*/

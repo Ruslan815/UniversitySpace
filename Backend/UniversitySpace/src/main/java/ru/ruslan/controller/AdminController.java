@@ -20,7 +20,7 @@ public class AdminController {
         //return "test";
     }
 
-    @PostMapping("/admin")
+    /*@PostMapping("/admin")
     public String deleteUser(@RequestParam(required = true, defaultValue = "") Long userId,
                              @RequestParam(required = true, defaultValue = "") String action,
                              Model model) {
@@ -29,5 +29,5 @@ public class AdminController {
         }
         //return "redirect:/admin";
         return "test";
-    }
+    }*/
 }
