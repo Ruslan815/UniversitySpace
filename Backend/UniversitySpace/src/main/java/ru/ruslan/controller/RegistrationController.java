@@ -18,17 +18,12 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login")
-    public String login() {
-        return "test";
-    }
-
     @GetMapping("/registration")
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
-        //return "registration";
-        return "test";
+        return "registration";
+        //return "test";
     }
 
     @PostMapping("/registration")
@@ -46,7 +41,7 @@ public class RegistrationController {
             return "registration";
         }
 
-        //return "redirect:/";
-        return "test";
+        return "redirect:/";
+        //return "test";
     }
 }
