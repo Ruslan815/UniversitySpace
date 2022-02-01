@@ -16,7 +16,7 @@ public class AdminController {
     @GetMapping("/admin")
     public String userList(Model model) {
         model.addAttribute("allUsers", userService.allUsers());
-        return "adminTable";
+        return "html/adminTable";
         //return "test";
     }
 

@@ -22,7 +22,7 @@ public class RegistrationController {
     public String registration(Model model) {
         model.addAttribute("userForm", new User());
 
-        return "registration";
+        return "html/registration";
         //return "test";
     }
 

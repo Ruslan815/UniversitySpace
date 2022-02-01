@@ -28,6 +28,6 @@ public class ChatController {
 
     @GetMapping("/chatPage")
     public String getChatPage() {
-        return "chatPage";
+        return "html/chatPage";
     }
 }

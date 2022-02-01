@@ -10,12 +10,12 @@ public class PublicationController {
 
     @GetMapping("/publication")
     public String getAllPublications(@RequestParam String pageNumber) {
-        return "index";
+        return "html/test";
     }
 
     @GetMapping("/publication/{id}")
     public String getPublication(@PathVariable String id, @RequestParam String pageNumber) {
         // Get Publication with specified ID
-        return "index";
+        return "html/test";
     }
 }

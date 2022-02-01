@@ -10,12 +10,12 @@ public class TaskController {
 
     @GetMapping("/task")
     public String getAllTasks(@RequestParam String pageNumber) {
-        return "index";
+        return "html/test";
     }
 
     @GetMapping("/task/{id}")
     public String getPublication(@PathVariable String id, @RequestParam String pageNumber) {
         // Get Task with specified ID
-        return "index";
+        return "html/test";
     }
 }
