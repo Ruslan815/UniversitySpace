@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     SecurityUserService securityUserService;
 
@@ -51,7 +52,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/");
     }
 
-
+    @Autowired
+    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(securityUserService).passwordEncoder(bCryptPasswordEncoder());
+    }
 
     /*@Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -67,11 +71,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll();
     }*/
-
-    @Autowired
-    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(securityUserService).passwordEncoder(bCryptPasswordEncoder());
-    }
 
     /*@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
