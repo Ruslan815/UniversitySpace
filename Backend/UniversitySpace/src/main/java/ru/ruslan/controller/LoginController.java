@@ -9,11 +9,13 @@ public class LoginController {
 
     @GetMapping("/login")
     public String getLoginPage() {
+        System.out.println("LOGIN 1");
         return "login";
     }
 
     @PostMapping("/login")
     public String enterLogin() {
+        System.out.println("LOGIN 2");
         return "test";
     }
 }
