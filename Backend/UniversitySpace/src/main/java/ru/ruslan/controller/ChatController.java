@@ -1,5 +1,5 @@
 package ru.ruslan.controller;
-
+/*
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -7,7 +7,11 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.ruslan.entity.ChatMessage;
-
+*/
+/**
+ * In wait list: Chat
+ */
+/*
 @Controller
 public class ChatController {
 
@@ -31,3 +35,4 @@ public class ChatController {
         return "html/chatPage";
     }
 }
+*/

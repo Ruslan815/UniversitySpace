@@ -1,5 +1,9 @@
 package ru.ruslan.entity;
 
+/**
+ * In wait list: Chat
+ */
+/*
 public class ChatMessage {
     private MessageType type;
     private String content;
@@ -35,3 +39,4 @@ public class ChatMessage {
         LEAVE
     }
 }
+*/

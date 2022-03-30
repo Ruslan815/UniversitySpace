@@ -2,6 +2,10 @@ package ru.ruslan.entity;
 
 import java.util.ArrayList;
 
+/**
+ * In wait list: Chat
+ */
+/*
 public class ChatRoom {
     private Long id;
     private String roomName;
@@ -40,3 +44,4 @@ public class ChatRoom {
         this.history = history;
     }
 }
+*/
