@@ -38,6 +38,10 @@ public class ChatService {
         return chatRepository.findById(chatId).orElseThrow();
     }
 
+    public boolean isChatNameExists(String name) {
+        return chatRepository.findByName(name) != null;
+    }
+
     @Transactional
     public boolean enterChat(User user, Integer chatId) {
         Chat chat = chatRepository.getByChatId(chatId);

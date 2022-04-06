@@ -25,11 +25,16 @@ public class ChatController {
     public ResponseEntity<?> create(@RequestBody Chat someChat) {
         ResponseEntity<?> responseEntity;
         ChatView response;
+
+        if (chatService.isChatNameExists(someChat.getName())) {
+            return ResponseEntity.status(500).body("CHAT NAME IS BUSY");
+        }
+
         try {
             response = chatService.create(someChat);
             responseEntity = ResponseEntity.ok(response);
         } catch (Exception e) {
-            responseEntity = ResponseEntity.badRequest().body("CHAT NAME NOT FOUND");
+            responseEntity = ResponseEntity.status(500).body("CHAT NAME NOT FOUND");
         }
         return responseEntity;
     }
