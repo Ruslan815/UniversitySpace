@@ -53,16 +53,22 @@ public class MessageController {
 
     @GetMapping("/messages/unread")
     public ResponseEntity<?> getUnreadMessages(@RequestParam Integer userId, @RequestParam Integer chatId) {
+        ResponseEntity<?> responseEntity;
+        if (messageService.isUnreadMessagesExist(userService.findUserById((long) userId), chatId)) {
+            responseEntity = ResponseEntity.ok(messageService.readMessages(userService.findUserById((long) userId), chatId));
+            return responseEntity;
+        }
+
+        // Wait for new messages
         try {
             Thread.sleep(250);
         } catch (Exception ignored) {}
 
-        ResponseEntity<?> responseEntity;
-         if (messageService.isUnreadMessagesExist(userService.findUserById((long)userId), chatId)) {
-             responseEntity = ResponseEntity.ok(messageService.readMessages(userService.findUserById((long) userId), chatId));
-         } else {
-             responseEntity = ResponseEntity.ok("");
-         }
+        if (messageService.isUnreadMessagesExist(userService.findUserById((long) userId), chatId)) {
+            responseEntity = ResponseEntity.ok(messageService.readMessages(userService.findUserById((long) userId), chatId));
+        } else {
+            responseEntity = ResponseEntity.ok("");
+        }
 
         return responseEntity;
     }
