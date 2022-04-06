@@ -2,6 +2,7 @@ package ru.ruslan.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -10,14 +11,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Size(min = 2, message = "Не меньше 2 знаков")
     private String username;
+
     @Size(min = 2, message = "Не меньше 2 знаков")
     private String password;
+
     @Transient
     private String passwordConfirm;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "chatMembers")
+    private Set<Chat> availableChats = new HashSet<>();
 
     public User() {
     }

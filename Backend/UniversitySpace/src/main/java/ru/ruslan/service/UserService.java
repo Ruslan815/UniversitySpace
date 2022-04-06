@@ -22,6 +22,11 @@ public class UserService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    public boolean isUserExist(Long userId) {
+        if (userId == null) return false;
+        return userRepository.existsById(userId);
+    }
+
     public User findUserById(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
         return userFromDb.orElse(new User());

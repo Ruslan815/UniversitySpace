@@ -1,0 +1,61 @@
+package ru.ruslan.controller;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import ru.ruslan.entity.Chat;
+import ru.ruslan.entity.ChatMember;
+import ru.ruslan.entity.ChatView;
+import ru.ruslan.service.ChatService;
+import ru.ruslan.service.UserService;
+
+import java.util.List;
+
+@CrossOrigin
+@RestController
+public class ChatController {
+    private final ChatService chatService;
+    private final UserService userService;
+
+    public ChatController(ChatService chatService, UserService userService) {
+        this.chatService = chatService;
+        this.userService = userService;
+    }
+
+    @PostMapping("/chat")
+    public ResponseEntity<?> create(@RequestBody Chat someChat) {
+        ResponseEntity<?> responseEntity;
+        ChatView response;
+        try {
+            response = chatService.create(someChat);
+            responseEntity = ResponseEntity.ok(response);
+        } catch (Exception e) {
+            responseEntity = ResponseEntity.badRequest().body("CHAT NAME NOT FOUND");
+        }
+        return responseEntity;
+    }
+
+    @GetMapping("/chats")
+    public List<ChatView> get() {
+        return chatService.getAll();
+    }
+
+    @PostMapping("/chat/enter")
+    public ResponseEntity<?> enterChat(@RequestBody ChatMember chatMember) {
+        ResponseEntity<?> response = ResponseEntity.ok("Successfully entered the chat!");
+        Integer userId = chatMember.getUserId();
+        Integer chatId = chatMember.getChatId();
+        chatService.enterChat(userService.findUserById((long)userId), chatId);
+
+        return response;
+    }
+
+    @PostMapping("/chat/leave")
+    public ResponseEntity<?> leaveChat(@RequestBody ChatMember chatMember) {
+        ResponseEntity<?> response = ResponseEntity.ok("Successfully left the chat!");
+        Integer userId = chatMember.getUserId();
+        Integer chatId = chatMember.getChatId();
+        chatService.leaveChat(userService.findUserById((long)userId), chatId);
+
+        return response;
+    }
+}
