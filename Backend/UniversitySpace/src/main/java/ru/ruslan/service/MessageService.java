@@ -34,4 +34,28 @@ public class MessageService {
 
         return responseList;
     }
+
+    public List<MessageView> readMessages(User someUser, Integer chatId) {
+        List<Message> chatMessagesList = messageRepository.findAllByChatId(chatId, Sort.by(Sort.Direction.DESC, "sendTime"));
+        List<MessageView> responseList = new ArrayList<>();
+        for (Message someMessage : chatMessagesList) {
+            if (someMessage.getUsersWhoDidNotRead().remove(someUser)) {
+                responseList.add(new MessageView(someMessage));
+            }
+        }
+        messageRepository.saveAll(chatMessagesList);
+
+        return responseList;
+    }
+
+    public boolean isUnreadMessagesExist(User someUser, Integer chatId) {
+        List<Message> chatMessagesList = messageRepository.findAllByChatId(chatId, Sort.by(Sort.Direction.DESC, "sendTime"));
+        for (Message someMessage : chatMessagesList) {
+            if (someMessage.getUsersWhoDidNotRead().contains(someUser)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

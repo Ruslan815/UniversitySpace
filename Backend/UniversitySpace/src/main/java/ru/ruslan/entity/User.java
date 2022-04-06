@@ -2,7 +2,9 @@ package ru.ruslan.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,6 +28,9 @@ public class User {
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "chatMembers")
     private Set<Chat> availableChats = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "usersWhoDidNotRead")
+    private List<Message> unreadMessages = new ArrayList<>();
 
     public User() {
     }
@@ -68,6 +73,22 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public Set<Chat> getAvailableChats() {
+        return availableChats;
+    }
+
+    public void setAvailableChats(Set<Chat> availableChats) {
+        this.availableChats = availableChats;
+    }
+
+    public List<Message> getUnreadMessages() {
+        return unreadMessages;
+    }
+
+    public void setUnreadMessages(List<Message> unreadMessages) {
+        this.unreadMessages = unreadMessages;
     }
 
     @Override

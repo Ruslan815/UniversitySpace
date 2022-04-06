@@ -27,6 +27,9 @@ public class Message {
     @Column(nullable = false)
     private Long sendTimeSec;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<User> usersWhoDidNotRead = new ArrayList<>();
+
     public Message(Integer messageId, Integer userId, Integer chatId, String text, String sendTime) {
         this.messageId = messageId;
         this.userId = userId;
@@ -84,6 +87,14 @@ public class Message {
 
     public void setSendTimeSec(Long sendTimeSec) {
         this.sendTimeSec = sendTimeSec;
+    }
+
+    public List<User> getUsersWhoDidNotRead() {
+        return usersWhoDidNotRead;
+    }
+
+    public void setUsersWhoDidNotRead(List<User> usersWhoDidNotRead) {
+        this.usersWhoDidNotRead = usersWhoDidNotRead;
     }
 
     @Override

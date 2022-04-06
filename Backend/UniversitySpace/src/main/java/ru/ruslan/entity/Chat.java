@@ -1,9 +1,7 @@
 package ru.ruslan.entity;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity(name = "chats")
 public class Chat {
