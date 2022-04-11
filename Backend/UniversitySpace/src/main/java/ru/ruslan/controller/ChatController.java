@@ -10,7 +10,6 @@ import ru.ruslan.service.UserService;
 
 import java.util.List;
 
-@CrossOrigin
 @RestController
 public class ChatController {
     private final ChatService chatService;

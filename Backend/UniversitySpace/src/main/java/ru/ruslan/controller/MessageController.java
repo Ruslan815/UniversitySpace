@@ -14,7 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.concurrent.*;
 
-@CrossOrigin
 @RestController
 public class MessageController {
     private final MessageService messageService;
