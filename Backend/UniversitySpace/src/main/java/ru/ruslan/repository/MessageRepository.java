@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Integer> {
+    //@Lock(LockModeType.PESSIMISTIC_WRITE)
     List<Message> findAllByChatId(Integer chatId, Sort sort);
 }

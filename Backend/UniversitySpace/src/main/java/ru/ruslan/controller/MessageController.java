@@ -1,7 +1,9 @@
 package ru.ruslan.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import ru.ruslan.entity.Chat;
@@ -12,13 +14,19 @@ import ru.ruslan.service.UserService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 
 @RestController
 public class MessageController {
+    @Autowired
     private final MessageService messageService;
+    @Autowired
     private final UserService userService;
+    @Autowired
     private final ChatService chatService;
+    private final ExecutorService executorService = Executors.newFixedThreadPool(4);
 
     public MessageController(MessageService messageService, UserService userService, ChatService chatService) {
         this.messageService = messageService;
@@ -51,24 +59,23 @@ public class MessageController {
     }
 
     @GetMapping("/messages/unread")
-    public ResponseEntity<?> getUnreadMessages(@RequestParam Integer userId, @RequestParam Integer chatId) {
-        ResponseEntity<?> responseEntity;
-        if (messageService.isUnreadMessagesExist(userService.findUserById((long) userId), chatId)) {
-            responseEntity = ResponseEntity.ok(messageService.readMessages(userService.findUserById((long) userId), chatId));
-            return responseEntity;
+    public DeferredResult<ResponseEntity<?>> getUnreadMessages(@RequestParam Integer userId, @RequestParam Integer chatId) {
+        DeferredResult<ResponseEntity<?>> output = new DeferredResult<>();
+
+        //executorService.execute(() -> {
+        while (!messageService.isUnreadMessagesExist(userService.findUserById((long) userId), chatId)) {
+            try {
+                Thread.sleep(150);
+                System.out.println(Thread.currentThread().getId() + ") sleep");
+            } catch (InterruptedException ignored) {
+            }
         }
 
-        // Wait for new messages
-        try {
-            Thread.sleep(250);
-        } catch (Exception ignored) {}
+        System.out.println(Thread.currentThread().getId() + ") complete");
+        ResponseEntity<?> someResponse = ResponseEntity.ok(messageService.readMessages(userService.findUserById((long) userId), chatId));
+        output.setResult(someResponse);
+        //});
 
-        if (messageService.isUnreadMessagesExist(userService.findUserById((long) userId), chatId)) {
-            responseEntity = ResponseEntity.ok(messageService.readMessages(userService.findUserById((long) userId), chatId));
-        } else {
-            responseEntity = ResponseEntity.ok("");
-        }
-
-        return responseEntity;
+        return output;
     }
 }
