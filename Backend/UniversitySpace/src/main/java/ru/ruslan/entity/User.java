@@ -2,10 +2,7 @@ package ru.ruslan.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "user")
@@ -29,7 +26,7 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "chatMembers")
     private Set<Chat> availableChats = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "usersWhoDidNotRead")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "usersWhoDidNotRead")
     private List<Message> unreadMessages = new ArrayList<>();
 
     public User() {
@@ -100,5 +97,18 @@ public class User {
                 ", passwordConfirm='" + passwordConfirm + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

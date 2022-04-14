@@ -27,7 +27,7 @@ public class Message {
     @Column(nullable = false)
     private Long sendTimeSec;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<User> usersWhoDidNotRead = new ArrayList<>();
 
     public Message(Integer messageId, Integer userId, Integer chatId, String text, String sendTime) {
@@ -114,11 +114,11 @@ public class Message {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-        return Objects.equals(messageId, message.messageId) && Objects.equals(userId, message.userId) && Objects.equals(chatId, message.chatId) && Objects.equals(text, message.text) && Objects.equals(sendTime, message.sendTime) && Objects.equals(sendTimeSec, message.sendTimeSec);
+        return Objects.equals(messageId, message.messageId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(messageId, userId, chatId, text, sendTime, sendTimeSec);
+        return Objects.hash(messageId);
     }
 }
