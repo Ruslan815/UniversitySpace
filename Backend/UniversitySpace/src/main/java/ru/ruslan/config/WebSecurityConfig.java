@@ -1,5 +1,7 @@
 package ru.ruslan.config;
 
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import ru.ruslan.service.SecurityUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 //Доступ только для пользователей с ролью USER
                 .antMatchers("/news").hasRole("USER")
                 //Доступ разрешен всем пользователей
-                .antMatchers("/", "/resources/**", "/h2-console/**", "/chat/**", "/chats", "/message", "/messages/**").permitAll()
+                .antMatchers("/**", "/resources/**", "/h2-console/**", "/chat/**", "/chats", "/message", "/messages/**").permitAll()
                 //Все остальные страницы требуют аутентификации
                 .anyRequest().authenticated()
                 .and()
