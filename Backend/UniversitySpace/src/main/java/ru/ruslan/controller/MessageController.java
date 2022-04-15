@@ -1,9 +1,8 @@
 package ru.ruslan.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import ru.ruslan.entity.Chat;
@@ -14,9 +13,6 @@ import ru.ruslan.service.UserService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ForkJoinPool;
 
 @RestController
 public class MessageController {
@@ -26,7 +22,7 @@ public class MessageController {
     private final UserService userService;
     @Autowired
     private final ChatService chatService;
-    private final ExecutorService executorService = Executors.newFixedThreadPool(4);
+    // private final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     public MessageController(MessageService messageService, UserService userService, ChatService chatService) {
         this.messageService = messageService;
@@ -62,19 +58,34 @@ public class MessageController {
     public DeferredResult<ResponseEntity<?>> getUnreadMessages(@RequestParam Integer userId, @RequestParam Integer chatId) {
         DeferredResult<ResponseEntity<?>> output = new DeferredResult<>();
 
-        //executorService.execute(() -> {
-        while (!messageService.isUnreadMessagesExist(userService.findUserById((long) userId), chatId)) {
-            try {
-                Thread.sleep(150);
-                System.out.println(Thread.currentThread().getId() + ") sleep");
-            } catch (InterruptedException ignored) {
-            }
-        }
+        output.onError((Throwable t) -> {
+            output.setErrorResult(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error"));
+        });
 
-        System.out.println(Thread.currentThread().getId() + ") complete");
-        ResponseEntity<?> someResponse = ResponseEntity.ok(messageService.readMessages(userService.findUserById((long) userId), chatId));
-        output.setResult(someResponse);
-        //});
+        /// System.out.println(Thread.currentThread().getId() + " = " + userId);
+
+        Thread newThread = new Thread(() -> {
+            int timeoutCounter = 0;
+            /// System.out.println(Thread.currentThread().getId() + " == " + userId);
+            while (!messageService.isUnreadMessagesExist(userService.findUserById((long) userId), chatId)) {
+                if (timeoutCounter++ > 165) {
+                    output.setErrorResult(ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body("Request timeout"));
+                    return;
+                }
+
+                try {
+                    Thread.sleep(180);
+                    /// System.out.println(Thread.currentThread().getId() + ") sleep");
+                } catch (InterruptedException ignored) {
+                }
+            }
+
+            /// System.out.println(Thread.currentThread().getId() + ") complete");
+            ResponseEntity<?> someResponse = ResponseEntity
+                    .ok(messageService.readMessages(userService.findUserById((long) userId), chatId));
+            output.setResult(someResponse);
+        });
+        newThread.start();
 
         return output;
     }
