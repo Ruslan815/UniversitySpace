@@ -62,11 +62,8 @@ public class MessageController {
             output.setErrorResult(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error"));
         });
 
-        /// System.out.println(Thread.currentThread().getId() + " = " + userId);
-
         Thread newThread = new Thread(() -> {
             int timeoutCounter = 0;
-            /// System.out.println(Thread.currentThread().getId() + " == " + userId);
             while (!messageService.isUnreadMessagesExist(userService.findUserById((long) userId), chatId)) {
                 if (timeoutCounter++ > 165) {
                     output.setErrorResult(ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body("Request timeout"));
@@ -75,12 +72,10 @@ public class MessageController {
 
                 try {
                     Thread.sleep(180);
-                    /// System.out.println(Thread.currentThread().getId() + ") sleep");
                 } catch (InterruptedException ignored) {
                 }
             }
 
-            /// System.out.println(Thread.currentThread().getId() + ") complete");
             ResponseEntity<?> someResponse = ResponseEntity
                     .ok(messageService.readMessages(userService.findUserById((long) userId), chatId));
             output.setResult(someResponse);

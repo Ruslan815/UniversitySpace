@@ -34,11 +34,8 @@ public class MessageService {
     public List<MessageView> getAllByChatId(Integer chatId) {
         List<Message> tempList = messageRepository.findAllByChatId(chatId, Sort.by(Sort.Direction.DESC, "sendTime"));
         List<MessageView> responseList = new ArrayList<>();
-        long currentTimeSec = System.currentTimeMillis() / 1000;
         for (Message message : tempList) {
-            if (message.getSendTimeSec() <= currentTimeSec) {
-                responseList.add(new MessageView(message));
-            }
+            responseList.add(new MessageView(message));
         }
 
         return responseList;
