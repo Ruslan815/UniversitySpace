@@ -1,18 +1,26 @@
 package ru.ruslan.controller;
 
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import ru.ruslan.entity.SecurityUser;
+import ru.ruslan.service.PublicationService;
 
 @Controller
 public class PublicationController {
 
-    @GetMapping("/publication")
-    public String getAllPublications(@RequestParam String pageNumber) {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    @Autowired
+    private PublicationService publicationService;
+
+    public PublicationController(PublicationService publicationService) {
+        this.publicationService = publicationService;
+    }
+
+
+    @GetMapping("/publications")
+    public ResponseEntity<?>  getAllPublications() {
+        /*Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         String username;
         if (principal instanceof SecurityUser) {
@@ -20,13 +28,13 @@ public class PublicationController {
         } else {
             username = principal.toString();
         }
-        System.out.println(username);
-        return "html/test";
+        System.out.println(username);*/
+
+        return ResponseEntity.ok().body(publicationService.getAllPublications());
     }
 
     @GetMapping("/publication/{id}")
-    public String getPublication(@PathVariable String id, @RequestParam String pageNumber) {
-        // Get Publication with specified ID
-        return "html/test";
+    public ResponseEntity<?> getPublication(@PathVariable Long id) {
+        return ResponseEntity.ok().body(publicationService.getPublicationById(id));
     }
 }

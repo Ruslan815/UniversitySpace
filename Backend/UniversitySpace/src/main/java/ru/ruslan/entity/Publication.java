@@ -5,7 +5,7 @@ public class Publication {
     private Long id;
     private String title;
     private String content;
-    private User author;
+    private Long authorId;
     private String date;
 
     public Long getId() {
@@ -32,12 +32,12 @@ public class Publication {
         this.content = content;
     }
 
-    public User getAuthor() {
-        return author;
+    public Long getAuthor() {
+        return authorId;
     }
 
-    public void setAuthor(User author) {
-        this.author = author;
+    public void setAuthor(Long authorId) {
+        this.authorId = authorId;
     }
 
     public String getDate() {
