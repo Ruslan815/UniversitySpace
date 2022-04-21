@@ -3,7 +3,8 @@ function printText(someText) {
 }
 
 function getAllChatsList(elem) {
-    var url = "http://localhost:8080/chats";
+    var url = "http://localhost:8080/chatsList";
+    var userId = parseInt(document.getElementById('divUserId').innerHTML, 10);
 
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false); // false - Synchronous request
@@ -12,15 +13,15 @@ function getAllChatsList(elem) {
 
     var obj = JSON.parse(message);
     for (var x of obj) {
-        var a = document.createElement('a');
-        var linkText = document.createTextNode(x.name);
-        a.appendChild(linkText);
-        a.title = x.name;
-        a.href = "http://localhost:8080/messages?chatId=" + x.chatId;
+      var a = document.createElement('a');
+      var linkText = document.createTextNode(x.name);
+      a.appendChild(linkText);
+      a.title = x.name;
+      a.href = "http://localhost:8080/chat?chatId=" + x.chatId + "&userId=" + userId;
 
-        let messageElem = document.createElement('li');
-        messageElem.append(a);
-        elem.append(messageElem);
+      let messageElem = document.createElement('li');
+      messageElem.append(a);
+      elem.append(messageElem);
     }
 }
 

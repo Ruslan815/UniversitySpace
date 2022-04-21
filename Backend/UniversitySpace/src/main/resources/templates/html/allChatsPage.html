@@ -1,16 +1,17 @@
-<!DOCType HTML>
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>All chats</title>
+    <script src="/js/allChatsPage.js"></script>
 </head>
 
 <body onload="getAllChatsList(document.getElementById('chatsList'))">
-    
+
     <ol id="chatsList"></ol>
 
     <input id="newChatName" type="text">
     <input type="button" onclick="createNewChat(document.getElementById('newChatName').value)" value="Создать чат">
 
-    <script src="js/AllChatsPage.js"></script>
+    <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}" ></div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package ru.ruslan.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.ruslan.entity.Chat;
 import ru.ruslan.entity.ChatMember;
@@ -10,7 +11,7 @@ import ru.ruslan.service.UserService;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class ChatController {
     private final ChatService chatService;
     private final UserService userService;
@@ -39,6 +40,12 @@ public class ChatController {
     }
 
     @GetMapping("/chats")
+    public String getAllChatsPage() {
+        return "html/allChatsPage";
+    }
+
+    @GetMapping("/chatsList")
+    @ResponseBody
     public List<ChatView> get() {
         return chatService.getAll();
     }
