@@ -21,6 +21,11 @@ public class ChatController {
         this.userService = userService;
     }
 
+    @GetMapping("/chat")
+    public String getChatPage(@RequestParam Long userId, @RequestParam Long chatId) {
+        return "html/chatPage";
+    }
+
     @PostMapping("/chat")
     public ResponseEntity<?> create(@RequestBody Chat someChat) {
         ResponseEntity<?> responseEntity;

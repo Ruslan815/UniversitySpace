@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Chat</title>
+    <link rel="stylesheet" href="/css/chatPage.css"/>
+    <script src="/js/chatPage.js"></script>
+</head>
+
+<body onload="getAllChatMessages()">
+    <h1>Simple Chat</h1>
+
+    <ul id="messages"></ul>
+
+    <input type="text" name="sendMessageContent" id="sendMessageContent"/>
+    <input type="button" onclick="sendMessage()" value="Отправить">
+    <input type="button" onclick="startListenChat()" value="Слушать чат">
+    <p>Back to the <a href="http://localhost:8080/chats">all chats</a>.</p>
+</body>
+</html>
