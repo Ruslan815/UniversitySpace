@@ -20,16 +20,6 @@ public class PublicationController {
 
     @GetMapping("/publications")
     public ResponseEntity<?>  getAllPublications() {
-        /*Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        String username;
-        if (principal instanceof SecurityUser) {
-            username = ((SecurityUser) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-        System.out.println(username);*/
-
         return ResponseEntity.ok().body(publicationService.getAllPublications());
     }
 

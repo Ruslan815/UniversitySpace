@@ -59,27 +59,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
         auth.userDetailsService(securityUserService).passwordEncoder(bCryptPasswordEncoder());
     }
 
+    /* TODO: get username from code
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    String username;
+    if (principal instanceof SecurityUser) {
+        username = ((SecurityUser) principal).getUsername();
+    } else {
+        username = principal.toString();
+    }
+    System.out.println(username);
+    */
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("*") // Change for security in Internet
                 .allowedMethods("*");
     }
-
-    /*@Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/css/**", "/js/**", "/registration", "/h2-console/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .permitAll();
-    }*/
 
     /*@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth)
@@ -89,16 +85,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
                 .withUser("user").password(bCryptPasswordEncoder().encode("password")).roles("USER")
                 .and()
                 .withUser("admin").password(bCryptPasswordEncoder().encode("admin")).roles("ADMIN");
-    }*/
-
-    /*@Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/h2-console/**").permitAll();
-
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
     }*/
 
 }
