@@ -15,17 +15,19 @@ public class Publication {
     private String title;
     private String content;
     private Long authorId;
-    private String date;
+    private String creationTime;
+    private boolean isModified = false;
+    private String lastModifiedTime;
 
     public Publication() {
     }
 
-    public Publication(Long publicationId, String title, String content, Long authorId, String date) {
+    public Publication(Long publicationId, String title, String content, Long authorId, String creationTime) {
         this.publicationId = publicationId;
         this.title = title;
         this.content = content;
         this.authorId = authorId;
-        this.date = date;
+        this.creationTime = creationTime;
     }
 
     public Long getPublicationId() {
@@ -52,30 +54,46 @@ public class Publication {
         this.content = content;
     }
 
-    public Long getAuthor() {
+    public Long getAuthorId() {
         return authorId;
     }
 
-    public void setAuthor(Long authorId) {
+    public void setAuthorId(Long authorId) {
         this.authorId = authorId;
     }
 
-    public String getDate() {
-        return date;
+    public String getCreationTime() {
+        return creationTime;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public boolean isModified() {
+        return isModified;
+    }
+
+    public void setModified(boolean modified) {
+        isModified = modified;
+    }
+
+    public String getLastModifiedTime() {
+        return lastModifiedTime;
+    }
+
+    public void setLastModifiedTime(String lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
     }
 
     @Override
     public String toString() {
         return "Publication{" +
-                "id=" + publicationId +
+                "publicationId=" + publicationId +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", authorId=" + authorId +
-                ", date='" + date + '\'' +
+                ", creationTime='" + creationTime + '\'' +
                 '}';
     }
 
@@ -84,12 +102,13 @@ public class Publication {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Publication that = (Publication) o;
-        return Objects.equals(publicationId, that.publicationId) && Objects.equals(title, that.title) && Objects.equals(content, that.content)
-                && Objects.equals(authorId, that.authorId) && Objects.equals(date, that.date);
+        return Objects.equals(publicationId, that.publicationId) && Objects.equals(title, that.title)
+                && Objects.equals(content, that.content) && Objects.equals(authorId, that.authorId)
+                && Objects.equals(creationTime, that.creationTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(publicationId, title, content, authorId, date);
+        return Objects.hash(publicationId, title, content, authorId, creationTime);
     }
 }
