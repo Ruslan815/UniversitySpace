@@ -1,5 +1,5 @@
 function getAllPublicationsList(elem) {
-    var url = "http://localhost:8080/publications";
+    var url = "http://localhost:8080/api/publications";
 
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false); // false - Synchronous request
@@ -12,7 +12,7 @@ function getAllPublicationsList(elem) {
         var linkText = document.createTextNode(x.title);
         a.appendChild(linkText);
         a.title = x.title;
-        a.href = "publicationPage.html?publicationId=" + x.publicationId;
+        a.href = "http://localhost:8080/publication?publicationId=" + x.publicationId;
 
         let publicationElem = document.createElement('li');
         publicationElem.append(a);

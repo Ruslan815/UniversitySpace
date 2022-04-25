@@ -23,17 +23,27 @@ public class PublicationController {
         this.userService = userService;
     }
 
-    @GetMapping("/publications")
-    public ResponseEntity<?>  getAllPublications() {
+    @GetMapping("/api/publications")
+    public ResponseEntity<?> getAllPublications() {
         return ResponseEntity.ok().body(publicationService.getAllPublications());
     }
 
-    @GetMapping("/publication")
+    @GetMapping("/publications")
+    public String getAllPublicationsPage() {
+        return "html/Publication/allPublicationsPage.html";
+    }
+
+    @GetMapping("/api/publication")
     public ResponseEntity<?> getPublicationById(@RequestParam Long publicationId) {
         return ResponseEntity.ok().body(publicationService.getPublicationById(publicationId));
     }
 
-    @PostMapping("/publication")
+    @GetMapping("/publication")
+    public String getPublicationByIdPage(@RequestParam Long publicationId) {
+        return "html/Publication/publicationPage.html";
+    }
+
+    @PostMapping("/api/publication")
     public ResponseEntity<?> createPublication(@RequestBody Publication somePublication) {
         if (somePublication.getAuthorId() == null) {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -44,16 +54,22 @@ public class PublicationController {
                 userId = userService.findUserByUsername(principal.toString()).getId();
             }
             System.out.println(userId);
+            somePublication.setAuthorId(userId);
         }
         return ResponseEntity.ok().body(publicationService.createPublication(somePublication));
     }
 
-    @PostMapping("/publication/update")
+    @GetMapping("/createPublication")
+    public String getCreatePublicationPage() {
+        return "html/Publication/newPublicationPage.html";
+    }
+
+    @PostMapping("/api/publication/update")
     public ResponseEntity<?> updatePublication(@RequestBody Publication somePublication) {
         return ResponseEntity.ok().body(publicationService.updatePublication(somePublication));
     }
 
-    @PostMapping("/publication/delete")
+    @PostMapping("/api/publication/delete")
     public ResponseEntity<?> deletePublicationById(@RequestParam Long publicationId) {
         return ResponseEntity.ok().body(publicationService.deletePublicationById(publicationId));
     }

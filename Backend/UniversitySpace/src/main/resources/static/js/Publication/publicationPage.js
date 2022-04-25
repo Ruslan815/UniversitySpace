@@ -8,7 +8,7 @@ function getUrlParam(paramName) {
 }
 
 function getPublication() {
-    var url = "http://localhost:8080/publication?publicationId=" + publicationId;
+    var url = "http://localhost:8080/api/publication?publicationId=" + publicationId;
 
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false); // false - Synchronous request
@@ -32,8 +32,8 @@ function updatePublication() {
     var data = JSON.stringify({"publicationId": publicationId, "title": publicationObject.title, "content": publicationContent, 
                                 "authorId": publicationObject.authorId, "creationTime": publicationObject.creationTime});
     var xhr = new XMLHttpRequest();
-    var url = "http://localhost:8080/publication/update";
-    xhr.open("POST", url, true);
+    var url = "http://localhost:8080/api/publication/update";
+    xhr.open("POST", url, false); // false - Synchronous request
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status != 200) {
@@ -42,12 +42,13 @@ function updatePublication() {
     };
 
     xhr.send(data);
+    window.location.replace("http://localhost:8080/publications");
 }
 
 function deletePublication() {
     var data = JSON.stringify({});
     var xhr = new XMLHttpRequest();
-    var url = "http://localhost:8080/publication/delete?publicationId=" + publicationId;
+    var url = "http://localhost:8080/api/publication/delete?publicationId=" + publicationId;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -57,5 +58,6 @@ function deletePublication() {
     };
 
     xhr.send(data);
+    window.location.replace("http://localhost:8080/publications");
 }
 

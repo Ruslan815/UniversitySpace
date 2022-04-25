@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Welcome to Spring Security Thymeleaf tutorial</title>
+    <title>Welcome to the University</title>
 </head>
 
 <body>
 <h2>Welcome</h2>
-<p>Spring Security Thymeleaf tutorial</p>
+<p>University</p>
 <div sec:authorize="hasRole('USER')">Text visible to user.</div>
 <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
 <div sec:authorize="isAuthenticated()"> Text visible only to authenticated users. </div>
@@ -17,8 +17,10 @@
 Authenticated user roles:
 <div sec:authentication="principal.authorities"></div> -->
 
-<a href="http://localhost:8080/login">Log in</a> <p></p>
-<a href="http://localhost:8080/registration">Registration</a> <p></p>
-<a href="http://localhost:8080/chats">Список чатов</a> <p></p>
+<a sec:authorize="!isAuthenticated()" href="http://localhost:8080/login">Log in</a> <p></p>
+<a sec:authorize="!isAuthenticated()" href="http://localhost:8080/registration">Registration</a> <p></p>
+<a sec:authorize="isAuthenticated()" href="http://localhost:8080/logout">Log out</a> <p></p>
+<a sec:authorize="isAuthenticated()" href="http://localhost:8080/chats">Список чатов</a> <p></p>
+<a sec:authorize="isAuthenticated()" href="http://localhost:8080/publications">Публикации</a> <p></p>
 </body>
 </html>
