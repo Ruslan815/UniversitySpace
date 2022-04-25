@@ -1,21 +1,62 @@
 package ru.ruslan.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity(name = "tasks")
 public class Task {
 
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long taskId;
+    private Long ownerId;
+    private Long workerId;
     private String title;
-    private String content;
-    private User author;
-    private Long cost;
-    private TaskStatus status;
-    private User worker;
+    private String description;
+    private Integer cost;
+    private String creationTime;
+    private String completionTime;
+    private TaskStatus status = TaskStatus.Unresolved;
 
-    public Long getId() {
-        return id;
+    public Task() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Task(Long taskId, Long ownerId, Long workerId, String title, String description, Integer cost, String creationDate, String completionDate, TaskStatus status) {
+        this.taskId = taskId;
+        this.ownerId = ownerId;
+        this.workerId = workerId;
+        this.title = title;
+        this.description = description;
+        this.cost = cost;
+        this.creationTime = creationDate;
+        this.completionTime = completionDate;
+        this.status = status;
+    }
+
+    public Long getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Long taskId) {
+        this.taskId = taskId;
+    }
+
+    public Long getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public Long getWorkerId() {
+        return workerId;
+    }
+
+    public void setWorkerId(Long workerId) {
+        this.workerId = workerId;
     }
 
     public String getTitle() {
@@ -26,28 +67,36 @@ public class Task {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
+    public String getDescription() {
+        return description;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public Long getCost() {
+    public Integer getCost() {
         return cost;
     }
 
-    public void setCost(Long cost) {
+    public void setCost(Integer cost) {
         this.cost = cost;
+    }
+
+    public String getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public String getCompletionTime() {
+        return completionTime;
+    }
+
+    public void setCompletionTime(String completionTime) {
+        this.completionTime = completionTime;
     }
 
     public TaskStatus getStatus() {
@@ -56,14 +105,6 @@ public class Task {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
-    }
-
-    public User getWorker() {
-        return worker;
-    }
-
-    public void setWorker(User worker) {
-        this.worker = worker;
     }
 
     public enum TaskStatus {

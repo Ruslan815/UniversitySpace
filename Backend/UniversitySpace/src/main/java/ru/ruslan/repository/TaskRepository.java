@@ -1,4 +1,7 @@
 package ru.ruslan.repository;
 
-public interface TaskRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import ru.ruslan.entity.Task;
+
+public interface TaskRepository extends JpaRepository<Task, Long> {
 }

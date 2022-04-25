@@ -1,21 +1,83 @@
 package ru.ruslan.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import ru.ruslan.entity.Publication;
+import ru.ruslan.entity.SecurityUser;
+import ru.ruslan.entity.Task;
+import ru.ruslan.service.TaskService;
+import ru.ruslan.service.UserService;
 
 @Controller
 public class TaskController {
 
-    @GetMapping("/task")
-    public String getAllTasks(@RequestParam String pageNumber) {
-        return "html/test";
+    @Autowired
+    private final TaskService taskService;
+    @Autowired
+    private final UserService userService;
+
+    public TaskController(TaskService taskService, UserService userService) {
+        this.taskService = taskService;
+        this.userService = userService;
     }
 
-    @GetMapping("/task/{id}")
-    public String getPublication(@PathVariable String id, @RequestParam String pageNumber) {
-        // Get Task with specified ID
-        return "html/test";
+    @GetMapping("/api/tasks")
+    public ResponseEntity<?> getAllTasks() {
+        return ResponseEntity.ok().body(taskService.getAllTasks());
+    }
+
+    /*@GetMapping("/tasks")
+    public String getAllTasksPage() {
+        return "html/Publication/allPublicationsPage.html";
+    }*/
+
+    @GetMapping("/api/task")
+    public ResponseEntity<?> getTaskById(@RequestParam Long taskId) {
+        return ResponseEntity.ok().body(taskService.getTaskById(taskId));
+    }
+
+    /*@GetMapping("/task")
+    public String getTaskByIdPage(@RequestParam Long publicationId) {
+        return "html/Publication/publicationPage.html";
+    }*/
+
+    @PostMapping("/api/task")
+    public ResponseEntity<?> createTask(@RequestBody Task someTask) {
+        if (someTask.getOwnerId() == null) {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            Long userId;
+            if (principal instanceof SecurityUser) {
+                userId = ((SecurityUser) principal).getUserId();
+            } else {
+                userId = userService.findUserByUsername(principal.toString()).getId();
+            }
+            System.out.println(userId);
+            someTask.setOwnerId(userId);
+        }
+
+        return ResponseEntity.ok().body(taskService.createTask(someTask));
+    }
+
+    /*@GetMapping("/createTask")
+    public String getCreateTaskPage() {
+        return "html/Publication/newPublicationPage.html";
+    }*/
+
+    @PostMapping("/api/task/setWorker")
+    public ResponseEntity<?> setTaskWorkerById(@RequestParam Long taskId, @RequestParam Long workerId) {
+        return ResponseEntity.ok().body(taskService.setTaskWorker(taskId, workerId));
+    }
+
+    @PostMapping("/api/task/update")
+    public ResponseEntity<?> updateTask(@RequestBody Task someTask) {
+        return ResponseEntity.ok().body(taskService.updateTask(someTask));
+    }
+
+    @PostMapping("/api/task/delete")
+    public ResponseEntity<?> deleteTaskById(@RequestParam Long taskId) {
+        return ResponseEntity.ok().body(taskService.deleteTaskById(taskId));
     }
 }
