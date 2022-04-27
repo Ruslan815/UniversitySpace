@@ -12,26 +12,25 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long taskId;
     private Long ownerId;
-    private Long workerId;
     private String title;
     private String description;
     private Integer cost;
     private String creationTime;
-    private String completionTime;
+    private String deadline;
     private TaskStatus status = TaskStatus.Unresolved;
 
     public Task() {
     }
 
-    public Task(Long taskId, Long ownerId, Long workerId, String title, String description, Integer cost, String creationDate, String completionDate, TaskStatus status) {
+    public Task(Long taskId, Long ownerId, String title, String description, Integer cost,
+                String creationTime, String deadline, TaskStatus status) {
         this.taskId = taskId;
         this.ownerId = ownerId;
-        this.workerId = workerId;
         this.title = title;
         this.description = description;
         this.cost = cost;
-        this.creationTime = creationDate;
-        this.completionTime = completionDate;
+        this.creationTime = creationTime;
+        this.deadline = deadline;
         this.status = status;
     }
 
@@ -49,14 +48,6 @@ public class Task {
 
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
-    }
-
-    public Long getWorkerId() {
-        return workerId;
-    }
-
-    public void setWorkerId(Long workerId) {
-        this.workerId = workerId;
     }
 
     public String getTitle() {
@@ -91,12 +82,12 @@ public class Task {
         this.creationTime = creationTime;
     }
 
-    public String getCompletionTime() {
-        return completionTime;
+    public String getDeadline() {
+        return deadline;
     }
 
-    public void setCompletionTime(String completionTime) {
-        this.completionTime = completionTime;
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
     }
 
     public TaskStatus getStatus() {
@@ -109,7 +100,6 @@ public class Task {
 
     public enum TaskStatus {
         Unresolved,
-        InProgress,
         Resolved
     }
 }
