@@ -1,0 +1,29 @@
+<!DOCType HTML>
+<html>
+<head>
+    <title>New task</title>
+    <script src="/js/Task/newTaskPage.js"></script>
+</head>
+
+<body>
+    <h2>Title</h2>
+    <input type="text" name="taskTitle" id="taskTitle" size="80" maxlength="255" placeholder="Write something..."/>
+
+    <h2>Task description</h2>
+    <textarea id="taskDescription" name="taskDescription" rows="25" cols="80" placeholder="Write something..." style="resize:none"></textarea>
+    <p></p>
+
+    <h2>Deadline</h2>
+    <input type="datetime-local" name="taskDeadline" id="taskDeadline"/>
+    <p></p>
+
+    <h2>Cost</h2>
+    <input type="text" name="taskCost" id="taskCost" size="10" maxlength="10" placeholder="How much?"/>
+    <p></p>
+
+    <input type="button" value="Publish" onclick="createNewTask()">
+    <p></p>
+
+    <a href="http://localhost:8080/tasks">All tasks</a>
+</body>
+</html>

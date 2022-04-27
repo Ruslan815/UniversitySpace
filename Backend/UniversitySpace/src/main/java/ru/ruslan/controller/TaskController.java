@@ -29,20 +29,20 @@ public class TaskController {
         return ResponseEntity.ok().body(taskService.getAllTasks());
     }
 
-    /*@GetMapping("/tasks")
+    @GetMapping("/tasks")
     public String getAllTasksPage() {
-        return "html/Publication/allPublicationsPage.html";
-    }*/
+        return "html/Task/allTasksPage.html";
+    }
 
     @GetMapping("/api/task")
     public ResponseEntity<?> getTaskById(@RequestParam Long taskId) {
         return ResponseEntity.ok().body(taskService.getTaskById(taskId));
     }
 
-    /*@GetMapping("/task")
-    public String getTaskByIdPage(@RequestParam Long publicationId) {
-        return "html/Publication/publicationPage.html";
-    }*/
+    @GetMapping("/task")
+    public String getTaskByIdPage(@RequestParam Long taskId) {
+        return "html/Task/taskPage.html";
+    }
 
     @PostMapping("/api/task")
     public ResponseEntity<?> createTask(@RequestBody Task someTask) {
@@ -61,14 +61,9 @@ public class TaskController {
         return ResponseEntity.ok().body(taskService.createTask(someTask));
     }
 
-    /*@GetMapping("/createTask")
+    @GetMapping("/createTask")
     public String getCreateTaskPage() {
-        return "html/Publication/newPublicationPage.html";
-    }*/
-
-    @PostMapping("/api/task/setWorker")
-    public ResponseEntity<?> setTaskWorkerById(@RequestParam Long taskId, @RequestParam Long workerId) {
-        return ResponseEntity.ok().body(taskService.setTaskWorker(taskId, workerId));
+        return "html/Task/newTaskPage.html";
     }
 
     @PostMapping("/api/task/update")

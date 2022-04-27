@@ -1,0 +1,33 @@
+<!DOCType HTML>
+<html>
+<head>
+    <title>Task</title>
+    <script src="/js/Task/taskPage.js"></script>
+</head>
+
+<body onload="getTask()">
+    <h2>Title</h2>
+    <h3 id="taskTitle" name="taskTitle"></h3>
+
+    <h5>Owner ID (change to username)</h5>
+    <h5 id="taskOwner" name="taskOwner"></h5>
+
+    <h5>Task cost</h5>
+    <h5 id="taskCost" name="taskCost"></h5>
+
+    <h5>Task was created:</h5>
+    <h5 id="creationTaskTime" name="creationTaskTime"></h5>
+
+    <h5>Deadline:</h5>
+    <h5 id="deadline" name="deadline"></h5>
+
+    <h5>Task status</h5>
+    <h5 id="taskStatus" name="taskStatus"></h5>
+
+    <h2>Task description</h2>
+    <textarea id="taskDescription" name="taskDescription" rows="25" cols="80" style="resize:none" readonly></textarea>
+    <p></p>
+
+    <a href="http://localhost:8080/tasks">All tasks</a>
+</body>
+</html>

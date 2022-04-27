@@ -1,0 +1,4 @@
+2022-04-27 21:01:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Значение слишком длинное для поля "TITLE VARCHAR(255)": "'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww... (256)"
+Value too long for column "TITLE VARCHAR(255)": "'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww... (256)"; SQL statement:
+insert into tasks (task_id, completion_time, cost, creation_time, deadline, description, owner_id, status, title, worker_id) values (null, ?, ?, ?, ?, ?, ?, ?, ?, ?) [22001-197]
