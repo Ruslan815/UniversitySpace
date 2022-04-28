@@ -27,8 +27,8 @@ public class TaskCommentController {
     }
 
     @GetMapping("/api/task/comments")
-    public ResponseEntity<?> getAllTaskComments() {
-        return ResponseEntity.ok().body(taskCommentService.getAllTaskComments());
+    public ResponseEntity<?> getAllTaskCommentsByTaskId(@RequestParam Long taskId) {
+        return ResponseEntity.ok().body(taskCommentService.getAllTaskCommentsByTaskId(taskId));
     }
 
     @GetMapping("/api/task/comment")

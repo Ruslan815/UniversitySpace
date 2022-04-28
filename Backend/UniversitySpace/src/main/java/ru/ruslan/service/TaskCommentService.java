@@ -18,8 +18,8 @@ public class TaskCommentService {
         this.taskCommentRepository = taskCommentRepository;
     }
 
-    public List<TaskComment> getAllTaskComments() {
-        return taskCommentRepository.findAll();
+    public List<TaskComment> getAllTaskCommentsByTaskId(Long taskId) {
+        return taskCommentRepository.findAllByTaskId(taskId);
     }
 
     public TaskComment getTaskCommentById(Long taskCommentId) {
