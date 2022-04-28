@@ -22,7 +22,6 @@ public class TaskCommentController {
 
     @PostMapping("/api/task/comment")
     public ResponseEntity<?> createTaskComment(@RequestBody TaskComment taskComment) {
-        System.out.println(taskComment);
         return ResponseEntity.ok().body(taskCommentService.createTaskComment(taskComment));
     }
 
