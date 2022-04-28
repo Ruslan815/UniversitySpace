@@ -22,5 +22,13 @@
     <input id="saveButton" name="saveButton" type="button" value="Save changes" onclick="updatePublication()" hidden="hidden">
     <p></p>
     <input id="deleteButton" name="deleteButton" type="button" value="Delete" onclick="deletePublication()">
+
+    <h2>Write a comment</h2>
+    <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}"></div>
+    <textarea id="newCommentText" name="newCommentText" rows="15" cols="50" style="resize:none" placeholder="Write your opinion about this..."></textarea>
+    <input type="button" value="Publish" onclick="createPublicationComment()"> <p></p>
+
+    <h2>Comments</h2>
+    <div id="commentsDiv"></div>
 </body>
 </html>
