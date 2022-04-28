@@ -6,6 +6,8 @@
 </head>
 
 <body onload="getTask()">
+    <a href="http://localhost:8080/tasks">All tasks</a>
+
     <h2>Title</h2>
     <h3 id="taskTitle" name="taskTitle"></h3>
 
@@ -28,6 +30,12 @@
     <textarea id="taskDescription" name="taskDescription" rows="25" cols="80" style="resize:none" readonly></textarea>
     <p></p>
 
-    <a href="http://localhost:8080/tasks">All tasks</a>
+    <h2>Write a comment</h2>
+    <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}"></div>
+    <textarea id="newCommentText" name="newCommentText" rows="15" cols="50" style="resize:none" placeholder="Write your opinion about this..."></textarea>
+    <input type="button" value="Publish" onclick="createTaskComment()"> <p></p>
+
+    <h2>Comments</h2>
+    <div id="commentsDiv"></div>
 </body>
 </html>

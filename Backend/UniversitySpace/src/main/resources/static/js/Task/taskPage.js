@@ -1,4 +1,5 @@
 var taskId = parseInt(getUrlParam('taskId'), 10);
+var userId;
 var taskObject;
 
 function getUrlParam(paramName) {
@@ -8,6 +9,7 @@ function getUrlParam(paramName) {
 }
 
 function getTask() {
+    userId = parseInt(document.getElementById('divUserId').innerHTML, 10);
     var url = "http://localhost:8080/api/task?taskId=" + taskId;
 
     var xmlHttp = new XMLHttpRequest();
@@ -24,4 +26,50 @@ function getTask() {
     document.getElementById("creationTaskTime").innerHTML = taskObject.creationTime;
     document.getElementById("deadline").innerHTML = taskObject.deadline;
     document.getElementById("taskStatus").innerHTML = taskObject.status;
+    loadComments();
+}
+
+function loadComments() {
+    var url = "http://localhost:8080/api/task/comments?taskId=" + taskId;
+    var elem = document.getElementById("commentsDiv");
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", url, false); // false - Synchronous request
+    xmlHttp.send(null);
+    let comments = xmlHttp.responseText;
+
+    var obj = JSON.parse(comments);
+    for (var x of obj) { // creating comments list
+        var authorIdElement = document.createElement('p');
+        authorIdElement.innerText = userId;
+        var creationTimeElement = document.createElement('p');
+        creationTimeElement.innerText = x.creationTime;
+        var commentTextElement = document.createElement('p');
+        commentTextElement.innerText = x.text;
+
+        var someCommentDiv = document.createElement('div');
+        someCommentDiv.append(authorIdElement);
+        someCommentDiv.append(creationTimeElement);
+        someCommentDiv.append(commentTextElement);
+
+        elem.append(someCommentDiv);
+    }
+}
+
+function createTaskComment() {
+    var commentText = document.getElementById("newCommentText").value;
+                                                                                    // GET USER ID through Thymeleaf
+    var data = JSON.stringify({"authorId": userId, "text": commentText, "taskId": taskId});
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:8080/api/task/comment";
+    xhr.open("POST", url, false); // false - Synchronous request
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status != 200) {
+            alert("Error while send!");
+        }
+    };
+
+    xhr.send(data);
+    window.location.replace("http://localhost:8080/task?taskId=" + taskId);
 }
