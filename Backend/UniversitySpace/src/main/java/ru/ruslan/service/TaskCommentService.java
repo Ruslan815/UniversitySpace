@@ -22,14 +22,6 @@ public class TaskCommentService {
         return taskCommentRepository.findAllByTaskId(taskId);
     }
 
-    public TaskComment getTaskCommentById(Long taskCommentId) {
-        return taskCommentRepository.findById(taskCommentId).orElseThrow();
-    }
-
-    public TaskComment getTaskCommentByTaskId(Long taskId) {
-        return taskCommentRepository.findByTaskId(taskId);
-    }
-
     public String createTaskComment(TaskComment someTaskComment) {
         long currentTimeInMillis = System.currentTimeMillis();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

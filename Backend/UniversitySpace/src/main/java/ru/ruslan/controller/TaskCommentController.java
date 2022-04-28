@@ -30,16 +30,6 @@ public class TaskCommentController {
         return ResponseEntity.ok().body(taskCommentService.getAllTaskCommentsByTaskId(taskId));
     }
 
-    @GetMapping("/api/task/comment")
-    public ResponseEntity<?> getTaskCommentById(@RequestParam Long taskCommentId) {
-        return ResponseEntity.ok().body(taskCommentService.getTaskCommentById(taskCommentId));
-    }
-
-    @GetMapping("/api/task/comment/byTaskId")
-    public ResponseEntity<?> getTaskCommentByTaskId(@RequestParam Long taskId) {
-        return ResponseEntity.ok().body(taskCommentService.getTaskCommentByTaskId(taskId));
-    }
-
     @PostMapping("/api/task/comment/update")
     public ResponseEntity<?> updateTaskComment(@RequestBody TaskComment taskComment) {
         return ResponseEntity.ok().body(taskCommentService.updateTaskComment(taskComment));
