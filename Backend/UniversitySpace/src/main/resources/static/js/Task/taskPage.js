@@ -26,10 +26,15 @@ function getTask() {
     document.getElementById("creationTaskTime").innerHTML = taskObject.creationTime;
     document.getElementById("deadline").innerHTML = taskObject.deadline;
     document.getElementById("taskStatus").innerHTML = taskObject.status;
-    loadComments();
+
+    if (taskObject.status == "Unresolved") {
+        loadComments(false, null);
+    } else {
+        loadComments(true, taskObject.taskCommentSolutionId);
+    }
 }
 
-function loadComments() {
+function loadComments(isResolved, taskCommentId) {
     var url = "http://localhost:8080/api/task/comments?taskId=" + taskId;
     var elem = document.getElementById("commentsDiv");
 
@@ -37,23 +42,56 @@ function loadComments() {
     xmlHttp.open("GET", url, false); // false - Synchronous request
     xmlHttp.send(null);
     let comments = xmlHttp.responseText;
-
     var obj = JSON.parse(comments);
-    for (var x of obj) { // creating comments list
-        var authorIdElement = document.createElement('p');
-        authorIdElement.innerText = userId;
-        var creationTimeElement = document.createElement('p');
-        creationTimeElement.innerText = x.creationTime;
-        var commentTextElement = document.createElement('p');
-        commentTextElement.innerText = x.text;
 
-        var someCommentDiv = document.createElement('div');
-        someCommentDiv.append(authorIdElement);
-        someCommentDiv.append(creationTimeElement);
-        someCommentDiv.append(commentTextElement);
+    if (!isResolved && userId == taskObject.ownerId) { // mark as resolve
+        for (var x of obj) { // creating comments list
+            var authorIdElement = document.createElement('p');
+            authorIdElement.innerText = userId;
+            var creationTimeElement = document.createElement('p');
+            creationTimeElement.innerText = x.creationTime;
+            var commentTextElement = document.createElement('p');
+            commentTextElement.innerText = x.text;
+            var solutionButton = document.createElement('button');
+    
+            var someCommentDiv = document.createElement('div');
+            someCommentDiv.append(authorIdElement);
+            someCommentDiv.append(creationTimeElement);
+            someCommentDiv.append(commentTextElement);
+            someCommentDiv.append(solutionButton);
+            
+            //////////////////////////
+            // Add onClick listener //
+            //////////////////////////
+    
+            elem.append(someCommentDiv);
+        }
+    } else {
+        for (var x of obj) { // creating comments list
+            var authorIdElement = document.createElement('p');
+            authorIdElement.innerText = userId;
+            var creationTimeElement = document.createElement('p');
+            creationTimeElement.innerText = x.creationTime;
+            var commentTextElement = document.createElement('p');
+            commentTextElement.innerText = x.text;
+    
+            var someCommentDiv = document.createElement('div');
+            someCommentDiv.append(authorIdElement);
+            someCommentDiv.append(creationTimeElement);
+            someCommentDiv.append(commentTextElement);
 
-        elem.append(someCommentDiv);
-    }
+            if (x.commentId == taskCommentId) { // highlight an ANSWER 
+                someCommentDiv.append(document.createElement('p').innerText = "ANSWER");
+            }
+    
+            elem.append(someCommentDiv);
+        }
+    }  
+}
+
+function markCommentAsSolution() {
+    // send POST request on /api/task/resolve
+    // Add hidden field on comment with ID
 }
 
 function createTaskComment() {
