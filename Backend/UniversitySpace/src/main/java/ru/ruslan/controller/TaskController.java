@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import ru.ruslan.entity.Publication;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.ruslan.entity.SecurityUser;
 import ru.ruslan.entity.Task;
+import ru.ruslan.entity.User;
 import ru.ruslan.service.TaskService;
 import ru.ruslan.service.UserService;
 
@@ -44,6 +48,7 @@ public class TaskController {
         return "html/Task/taskPage.html";
     }
 
+    @Transactional
     @PostMapping("/api/task")
     public ResponseEntity<?> createTask(@RequestBody Task someTask) {
         if (someTask.getOwnerId() == null) {
@@ -57,6 +62,15 @@ public class TaskController {
             System.out.println(userId);
             someTask.setOwnerId(userId);
         }
+
+        User someUser = userService.findUserById(someTask.getOwnerId());
+        double userBalance = someUser.getBalance();
+        double taskCost = someTask.getCost();
+        if (userBalance < taskCost) {
+            return ResponseEntity.status(500).body("User don't have enough size of balance for this task cost!");
+        }
+
+        userService.withdrawFromUserBalance(someUser, taskCost);
 
         return ResponseEntity.ok().body(taskService.createTask(someTask));
     }

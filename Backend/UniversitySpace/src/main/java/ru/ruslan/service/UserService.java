@@ -1,5 +1,6 @@
 package ru.ruslan.service;
 
+import org.springframework.transaction.annotation.Transactional;
 import ru.ruslan.entity.Role;
 import ru.ruslan.entity.User;
 import ru.ruslan.repository.RoleRepository;
@@ -63,6 +64,18 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    @Transactional
+    public void depositToUserBalance(User someUser, Double amount) {
+        User user = findUserById(someUser.getId());
+        user.setBalance(user.getBalance() + amount);
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public void withdrawFromUserBalance(User someUser, Double amount) {
+        depositToUserBalance(someUser, -amount);
     }
 
     private enum ROLES {
