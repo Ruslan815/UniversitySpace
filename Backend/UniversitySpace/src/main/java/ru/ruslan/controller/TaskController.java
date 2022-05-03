@@ -80,6 +80,12 @@ public class TaskController {
         return "html/Task/newTaskPage.html";
     }
 
+    @Transactional
+    @PostMapping("/api/task/resolve")
+    public ResponseEntity<?> resolveTask(Long taskId, Long taskCommentId) {
+        return ResponseEntity.ok().body(taskService.resolveTask(taskId, taskCommentId));
+    }
+
     @PostMapping("/api/task/update")
     public ResponseEntity<?> updateTask(@RequestBody Task someTask) {
         return ResponseEntity.ok().body(taskService.updateTask(someTask));

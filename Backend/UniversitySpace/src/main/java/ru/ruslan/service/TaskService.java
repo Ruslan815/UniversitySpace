@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ruslan.entity.Task;
+import ru.ruslan.entity.TaskComment;
+import ru.ruslan.entity.User;
 import ru.ruslan.repository.TaskRepository;
 
 import java.text.SimpleDateFormat;
@@ -13,9 +15,15 @@ import java.util.List;
 public class TaskService {
     @Autowired
     private final TaskRepository taskRepository;
+    @Autowired
+    private final UserService userService;
+    @Autowired
+    private final TaskCommentService taskCommentService;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, UserService userService, TaskCommentService taskCommentService) {
         this.taskRepository = taskRepository;
+        this.userService = userService;
+        this.taskCommentService = taskCommentService;
     }
 
     public List<Task> getAllTasks() {
@@ -33,6 +41,35 @@ public class TaskService {
 
         taskRepository.save(someTask);
         return "Task created successfully!";
+    }
+
+    @Transactional
+    public String resolveTask(Long taskId, Long taskCommentId) {
+        Task task = getTaskById(taskId);
+        task.setStatus(Task.TaskStatus.Resolved);
+        task.setTaskCommentSolutionId(taskCommentId);
+        taskRepository.save(task);
+
+        long currentTimeInMillis = System.currentTimeMillis();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentTime = formatter.format(currentTimeInMillis);
+        String deadline = task.getDeadline();
+
+        TaskComment taskComment = taskCommentService.getTaskCommentById(taskCommentId);
+        Long workerId = taskComment.getAuthorId();
+        User worker = userService.findUserById(workerId);
+
+        if (currentTime.compareTo(deadline) > 0) { // deadline is expired
+            User taskOwner = userService.findUserById(task.getOwnerId());
+            userService.depositToUserBalance(taskOwner, (double) task.getCost() / 2); // refund 50% of task cost
+            userService.depositToUserBalance(worker, (double) task.getCost() / 2);
+            userService.saveUser(taskOwner);
+        } else {
+            userService.depositToUserBalance(worker, (double) task.getCost());
+        }
+        userService.saveUser(worker);
+
+        return "Task was resolved successful!";
     }
 
     public String updateTask(Task updatedTask) {

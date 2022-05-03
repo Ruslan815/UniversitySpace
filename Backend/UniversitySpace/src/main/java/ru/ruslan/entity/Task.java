@@ -18,6 +18,7 @@ public class Task {
     private String creationTime;
     private String deadline;
     private TaskStatus status = TaskStatus.Unresolved;
+    private Long taskCommentSolutionId;
 
     public Task() {
     }
@@ -101,5 +102,13 @@ public class Task {
     public enum TaskStatus {
         Unresolved,
         Resolved
+    }
+
+    public Long getTaskCommentSolutionId() {
+        return taskCommentSolutionId;
+    }
+
+    public void setTaskCommentSolutionId(Long taskCommentSolutionId) {
+        this.taskCommentSolutionId = taskCommentSolutionId;
     }
 }
