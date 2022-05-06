@@ -35,7 +35,7 @@ public class TaskController {
 
     @GetMapping("/tasks")
     public String getAllTasksPage() {
-        return "html/Task/allTasksPage.html";
+        return "html/task/allTasksPage.html";
     }
 
     @GetMapping("/api/task")
@@ -45,7 +45,7 @@ public class TaskController {
 
     @GetMapping("/task")
     public String getTaskByIdPage(@RequestParam Long taskId) {
-        return "html/Task/taskPage.html";
+        return "html/task/taskPage.html";
     }
 
     @Transactional
@@ -77,7 +77,7 @@ public class TaskController {
 
     @GetMapping("/createTask")
     public String getCreateTaskPage() {
-        return "html/Task/newTaskPage.html";
+        return "html/task/newTaskPage.html";
     }
 
     @Transactional
