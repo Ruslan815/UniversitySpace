@@ -1,4 +1,4 @@
-package ru.ruslan.repository;
+package ru.ruslan.repository.user;
 
 
 import ru.ruslan.entity.user.Role;

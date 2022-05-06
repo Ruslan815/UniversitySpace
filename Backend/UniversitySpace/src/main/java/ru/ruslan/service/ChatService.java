@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import ru.ruslan.entity.chat.Chat;
 import ru.ruslan.entity.chat.ChatView;
 import ru.ruslan.entity.user.User;
-import ru.ruslan.repository.ChatRepository;
+import ru.ruslan.repository.chat.ChatRepository;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;

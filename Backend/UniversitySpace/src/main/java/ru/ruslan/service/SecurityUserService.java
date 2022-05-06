@@ -2,7 +2,7 @@ package ru.ruslan.service;
 
 import ru.ruslan.entity.user.SecurityUser;
 import ru.ruslan.entity.user.User;
-import ru.ruslan.repository.UserRepository;
+import ru.ruslan.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

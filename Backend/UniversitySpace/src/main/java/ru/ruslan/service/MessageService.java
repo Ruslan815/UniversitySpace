@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ruslan.entity.chat.Message;
 import ru.ruslan.entity.chat.MessageView;
 import ru.ruslan.entity.user.User;
-import ru.ruslan.repository.MessageRepository;
+import ru.ruslan.repository.chat.MessageRepository;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ruslan.entity.task.Task;
 import ru.ruslan.entity.task.TaskComment;
 import ru.ruslan.entity.user.User;
-import ru.ruslan.repository.TaskRepository;
+import ru.ruslan.repository.task.TaskRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

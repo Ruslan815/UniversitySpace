@@ -1,4 +1,4 @@
-package ru.ruslan.repository;
+package ru.ruslan.repository.publication;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.ruslan.entity.publication.PublicationComment;

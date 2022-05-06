@@ -3,7 +3,7 @@ package ru.ruslan.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ruslan.entity.task.TaskComment;
-import ru.ruslan.repository.TaskCommentRepository;
+import ru.ruslan.repository.task.TaskCommentRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

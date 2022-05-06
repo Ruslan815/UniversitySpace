@@ -1,4 +1,4 @@
-package ru.ruslan.repository;
+package ru.ruslan.repository.chat;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;

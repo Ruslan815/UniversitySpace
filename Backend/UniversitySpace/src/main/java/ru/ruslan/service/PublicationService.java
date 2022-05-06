@@ -3,7 +3,7 @@ package ru.ruslan.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ruslan.entity.publication.Publication;
-import ru.ruslan.repository.PublicationRepository;
+import ru.ruslan.repository.publication.PublicationRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
