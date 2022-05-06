@@ -3,7 +3,7 @@ function printText(someText) {
 }
 
 function getAllChatsList(elem) {
-    var url = "http://localhost:8080/chatsList";
+    var url = "http://localhost:8080/api/chats";
     var userId = parseInt(document.getElementById('divUserId').innerHTML, 10);
 
     var xmlHttp = new XMLHttpRequest();
@@ -27,7 +27,7 @@ function getAllChatsList(elem) {
 
 function createNewChat(name) {
     var xhr = new XMLHttpRequest();
-    var url = "http://localhost:8080/chat";
+    var url = "http://localhost:8080/api/chat";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {

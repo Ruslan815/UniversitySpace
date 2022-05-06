@@ -23,10 +23,10 @@ public class ChatController {
 
     @GetMapping("/chat")
     public String getChatPage(@RequestParam Long userId, @RequestParam Long chatId) {
-        return "html/chatPage";
+        return "html/chat/chatPage";
     }
 
-    @PostMapping("/chat")
+    @PostMapping("/api/chat")
     public ResponseEntity<?> create(@RequestBody Chat someChat) {
         ResponseEntity<?> responseEntity;
         ChatView response;
@@ -46,16 +46,16 @@ public class ChatController {
 
     @GetMapping("/chats")
     public String getAllChatsPage() {
-        return "html/allChatsPage";
+        return "html/chat/allChatsPage";
     }
 
-    @GetMapping("/chatsList")
+    @GetMapping("/api/chats")
     @ResponseBody
-    public List<ChatView> get() {
+    public List<ChatView> getAllChats() {
         return chatService.getAll();
     }
 
-    @PostMapping("/chat/enter")
+    @PostMapping("/api/chat/enter")
     public ResponseEntity<?> enterChat(@RequestBody ChatMember chatMember) {
         ResponseEntity<?> response = ResponseEntity.ok("Successfully entered the chat!");
         Integer userId = chatMember.getUserId();
@@ -65,7 +65,7 @@ public class ChatController {
         return response;
     }
 
-    @PostMapping("/chat/leave")
+    @PostMapping("/api/chat/leave")
     public ResponseEntity<?> leaveChat(@RequestBody ChatMember chatMember) {
         ResponseEntity<?> response = ResponseEntity.ok("Successfully left the chat!");
         Integer userId = chatMember.getUserId();

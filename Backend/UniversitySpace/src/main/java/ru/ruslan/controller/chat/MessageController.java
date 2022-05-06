@@ -30,7 +30,7 @@ public class MessageController {
         this.chatService = chatService;
     }
 
-    @PostMapping("/message")
+    @PostMapping("/api/message")
     public ResponseEntity<?> create(@RequestBody Message someMessage) {
         Integer userId = someMessage.getUserId();
         Integer chatId = someMessage.getChatId();
@@ -46,7 +46,7 @@ public class MessageController {
         return ResponseEntity.ok(messageService.create(someMessage));
     }
 
-    @GetMapping("/messages")
+    @GetMapping("/api/messages")
     public ResponseEntity<?> read(@RequestParam(required = false) Integer userId, @RequestParam Integer chatId) {
         ResponseEntity<?> responseEntity;
         responseEntity = ResponseEntity.ok(messageService.getAllByChatId(chatId));
@@ -54,7 +54,7 @@ public class MessageController {
         return responseEntity;
     }
 
-    @GetMapping("/messages/unread")
+    @GetMapping("/api/messages/unread")
     public DeferredResult<ResponseEntity<?>> getUnreadMessages(@RequestParam Integer userId, @RequestParam Integer chatId) {
         DeferredResult<ResponseEntity<?>> output = new DeferredResult<>();
 

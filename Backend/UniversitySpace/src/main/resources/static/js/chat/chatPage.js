@@ -1,5 +1,5 @@
 function getAllChatMessages() {
-    var url = "http://localhost:8080/messages?chatId=" + chatId;
+    var url = "http://localhost:8080/api/messages?chatId=" + chatId;
 
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false); // false - Synchronous request
@@ -18,7 +18,7 @@ function sendMessage() {
     var messageText = document.getElementById("sendMessageContent").value;
     var data = JSON.stringify({"userId": userId, "chatId": chatId, "text": messageText});
     var xhr = new XMLHttpRequest();
-    var url = "http://localhost:8080/message";
+    var url = "http://localhost:8080/api/message";
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -37,7 +37,7 @@ function startListenChat() {
     }
     
     isListening = true;
-    var chatSubscribeUrl = 'http://localhost:8080/messages/unread?userId=' + userId + '&chatId=' + chatId;
+    var chatSubscribeUrl = 'http://localhost:8080/api/messages/unread?userId=' + userId + '&chatId=' + chatId;
     
     subscribe();
 
@@ -80,7 +80,6 @@ function scrollMessagesList() {
     var messagesListElement = document.getElementById('messages');
     messagesListElement.scrollTop = messagesListElement.scrollHeight;
 }
-
 
 var chatId = parseInt(getUrlParam('chatId'), 10);
 var userId = parseInt(getUrlParam('userId'), 10);
