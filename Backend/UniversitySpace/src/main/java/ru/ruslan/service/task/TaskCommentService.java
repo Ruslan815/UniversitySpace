@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ruslan.entity.task.TaskComment;
 import ru.ruslan.repository.task.TaskCommentRepository;
+import ru.ruslan.service.user.SecurityUserService;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -26,7 +27,9 @@ public class TaskCommentService {
         return taskCommentRepository.findAllByTaskId(taskId);
     }
 
-    public String createTaskComment(TaskComment someTaskComment) {
+    public String createTaskComment(TaskComment someTaskComment) throws Exception {
+        someTaskComment.setAuthorId(SecurityUserService.getCurrentUserId());
+
         long currentTimeInMillis = System.currentTimeMillis();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         someTaskComment.setCreationTime(formatter.format(currentTimeInMillis));

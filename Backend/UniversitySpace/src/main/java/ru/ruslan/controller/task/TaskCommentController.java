@@ -22,7 +22,11 @@ public class TaskCommentController {
 
     @PostMapping("/api/task/comment")
     public ResponseEntity<?> createTaskComment(@RequestBody TaskComment taskComment) {
-        return ResponseEntity.ok().body(taskCommentService.createTaskComment(taskComment));
+        try {
+            return ResponseEntity.ok().body(taskCommentService.createTaskComment(taskComment));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
     }
 
     @GetMapping("/api/task/comments")

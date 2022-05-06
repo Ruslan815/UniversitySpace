@@ -1,8 +1,5 @@
 package ru.ruslan.config;
 
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import ru.ruslan.service.user.SecurityUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +8,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import ru.ruslan.service.user.SecurityUserService;
 
 @Configuration
 @EnableWebSecurity
@@ -58,17 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(securityUserService).passwordEncoder(bCryptPasswordEncoder());
     }
-
-    /* TODO: get username from code
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    String username;
-    if (principal instanceof SecurityUser) {
-        username = ((SecurityUser) principal).getUsername();
-    } else {
-        username = principal.toString();
-    }
-    System.out.println(username);
-    */
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {

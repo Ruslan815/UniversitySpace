@@ -1,5 +1,6 @@
 package ru.ruslan.service.user;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import ru.ruslan.entity.user.SecurityUser;
 import ru.ruslan.entity.user.User;
 import ru.ruslan.repository.user.UserRepository;
@@ -24,5 +25,14 @@ public class SecurityUserService implements UserDetailsService {
         }
 
         return new SecurityUser(user);
+    }
+
+    public static Long getCurrentUserId() throws Exception {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof SecurityUser) {
+            return ((SecurityUser) principal).getUserId();
+        } else {
+            throw new Exception("Error with Security User!");
+        }
     }
 }

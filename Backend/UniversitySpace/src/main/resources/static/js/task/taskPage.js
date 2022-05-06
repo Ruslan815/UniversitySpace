@@ -9,7 +9,10 @@ function getUrlParam(paramName) {
 }
 
 function getTask() {
-    userId = parseInt(document.getElementById('divUserId').innerHTML, 10);
+    var userIdElement = document.getElementById('divUserId');
+    userId = parseInt(userIdElement.innerHTML, 10);
+    userIdElement.remove(); // for user security
+
     var url = "http://localhost:8080/api/task?taskId=" + taskId;
 
     var xmlHttp = new XMLHttpRequest();
@@ -90,6 +93,7 @@ function loadComments(isResolved, taskCommentId) {
             elem.append(someCommentDiv);
         }
     }  
+    userId = null; // for user security
 }
 
 function markCommentAsSolution(someCommentId) {
@@ -108,8 +112,7 @@ function markCommentAsSolution(someCommentId) {
 
 function createTaskComment() {
     var commentText = document.getElementById("newCommentText").value;
-                                                                                    // GET USER ID through Thymeleaf
-    var data = JSON.stringify({"authorId": userId, "text": commentText, "taskId": taskId});
+    var data = JSON.stringify({"text": commentText, "taskId": taskId});
     var xhr = new XMLHttpRequest();
     var url = "http://localhost:8080/api/task/comment";
     xhr.open("POST", url, false); // false - Synchronous request

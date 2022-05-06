@@ -13,6 +13,7 @@ import ru.ruslan.entity.user.SecurityUser;
 import ru.ruslan.entity.task.Task;
 import ru.ruslan.entity.user.User;
 import ru.ruslan.service.task.TaskService;
+import ru.ruslan.service.user.SecurityUserService;
 import ru.ruslan.service.user.UserService;
 
 @Controller
@@ -51,28 +52,11 @@ public class TaskController {
     @Transactional
     @PostMapping("/api/task")
     public ResponseEntity<?> createTask(@RequestBody Task someTask) {
-        if (someTask.getOwnerId() == null) {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            Long userId;
-            if (principal instanceof SecurityUser) {
-                userId = ((SecurityUser) principal).getUserId();
-            } else {
-                userId = userService.findUserByUsername(principal.toString()).getId();
-            }
-            System.out.println(userId);
-            someTask.setOwnerId(userId);
+        try {
+            return ResponseEntity.ok().body(taskService.createTask(someTask));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
         }
-
-        User someUser = userService.findUserById(someTask.getOwnerId());
-        double userBalance = someUser.getBalance();
-        double taskCost = someTask.getCost();
-        if (userBalance < taskCost) {
-            return ResponseEntity.status(500).body("User don't have enough size of balance for this task cost!");
-        }
-
-        userService.withdrawFromUserBalance(someUser, taskCost);
-
-        return ResponseEntity.ok().body(taskService.createTask(someTask));
     }
 
     @GetMapping("/createTask")
@@ -83,7 +67,11 @@ public class TaskController {
     @Transactional
     @PostMapping("/api/task/resolve")
     public ResponseEntity<?> resolveTask(@RequestParam Long taskId, @RequestParam Long taskCommentId) {
-        return ResponseEntity.ok().body(taskService.resolveTask(taskId, taskCommentId));
+        try {
+            return ResponseEntity.ok().body(taskService.resolveTask(taskId, taskCommentId));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
     }
 
     @PostMapping("/api/task/update")

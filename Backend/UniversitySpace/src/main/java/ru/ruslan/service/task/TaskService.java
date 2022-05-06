@@ -1,6 +1,7 @@
 package ru.ruslan.service.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ruslan.entity.task.Task;
@@ -8,6 +9,7 @@ import ru.ruslan.entity.task.TaskComment;
 import ru.ruslan.entity.user.User;
 import ru.ruslan.repository.task.TaskRepository;
 import ru.ruslan.service.task.TaskCommentService;
+import ru.ruslan.service.user.SecurityUserService;
 import ru.ruslan.service.user.UserService;
 
 import java.text.SimpleDateFormat;
@@ -36,7 +38,18 @@ public class TaskService {
         return taskRepository.findById(taskId).orElseThrow();
     }
 
-    public String createTask(Task someTask) {
+    @Transactional
+    public String createTask(Task someTask) throws Exception {
+        someTask.setOwnerId(SecurityUserService.getCurrentUserId());
+
+        User someUser = userService.findUserById(someTask.getOwnerId());
+        double userBalance = someUser.getBalance();
+        double taskCost = someTask.getCost();
+        if (userBalance < taskCost) {
+            throw new Exception("User don't have enough size of balance for this task cost!");
+        }
+        userService.withdrawFromUserBalance(someUser, taskCost);
+
         long currentTimeInMillis = System.currentTimeMillis();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         someTask.setCreationTime(formatter.format(currentTimeInMillis));
@@ -46,8 +59,12 @@ public class TaskService {
     }
 
     @Transactional
-    public String resolveTask(Long taskId, Long taskCommentId) {
+    public String resolveTask(Long taskId, Long taskCommentId) throws Exception {
         Task task = getTaskById(taskId);
+        if (!task.getOwnerId().equals(SecurityUserService.getCurrentUserId())) {
+            throw new Exception("Not task's author tries to mark task as resolved!");
+        }
+
         task.setStatus(Task.TaskStatus.Resolved);
         task.setTaskCommentSolutionId(taskCommentId);
         taskRepository.save(task);
