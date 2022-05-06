@@ -1,7 +1,7 @@
 package ru.ruslan.controller.user;
 
 import ru.ruslan.entity.user.User;
-import ru.ruslan.service.UserService;
+import ru.ruslan.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

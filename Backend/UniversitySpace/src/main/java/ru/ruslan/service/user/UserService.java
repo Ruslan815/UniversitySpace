@@ -1,4 +1,4 @@
-package ru.ruslan.service;
+package ru.ruslan.service.user;
 
 import org.springframework.transaction.annotation.Transactional;
 import ru.ruslan.entity.user.Role;

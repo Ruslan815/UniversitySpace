@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.ruslan.entity.publication.Publication;
 import ru.ruslan.entity.user.SecurityUser;
-import ru.ruslan.service.PublicationService;
-import ru.ruslan.service.UserService;
+import ru.ruslan.service.publication.PublicationService;
+import ru.ruslan.service.user.UserService;
 
 @Controller
 public class PublicationController {

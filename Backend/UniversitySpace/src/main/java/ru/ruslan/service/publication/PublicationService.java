@@ -1,4 +1,4 @@
-package ru.ruslan.service;
+package ru.ruslan.service.publication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

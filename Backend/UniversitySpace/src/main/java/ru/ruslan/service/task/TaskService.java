@@ -1,4 +1,4 @@
-package ru.ruslan.service;
+package ru.ruslan.service.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,6 +7,8 @@ import ru.ruslan.entity.task.Task;
 import ru.ruslan.entity.task.TaskComment;
 import ru.ruslan.entity.user.User;
 import ru.ruslan.repository.task.TaskRepository;
+import ru.ruslan.service.task.TaskCommentService;
+import ru.ruslan.service.user.UserService;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

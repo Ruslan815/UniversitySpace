@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import ru.ruslan.entity.chat.Chat;
 import ru.ruslan.entity.chat.Message;
-import ru.ruslan.service.ChatService;
-import ru.ruslan.service.MessageService;
-import ru.ruslan.service.UserService;
+import ru.ruslan.service.chat.ChatService;
+import ru.ruslan.service.chat.MessageService;
+import ru.ruslan.service.user.UserService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

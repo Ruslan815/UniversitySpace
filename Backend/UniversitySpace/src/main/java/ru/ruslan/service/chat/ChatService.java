@@ -1,4 +1,4 @@
-package ru.ruslan.service;
+package ru.ruslan.service.chat;
 
 import org.springframework.stereotype.Service;
 import ru.ruslan.entity.chat.Chat;

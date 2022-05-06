@@ -1,4 +1,4 @@
-package ru.ruslan.service;
+package ru.ruslan.service.chat;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;

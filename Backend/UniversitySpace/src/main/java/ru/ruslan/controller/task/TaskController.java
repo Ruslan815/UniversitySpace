@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.ruslan.entity.user.SecurityUser;
 import ru.ruslan.entity.task.Task;
 import ru.ruslan.entity.user.User;
-import ru.ruslan.service.TaskService;
-import ru.ruslan.service.UserService;
+import ru.ruslan.service.task.TaskService;
+import ru.ruslan.service.user.UserService;
 
 @Controller
 public class TaskController {

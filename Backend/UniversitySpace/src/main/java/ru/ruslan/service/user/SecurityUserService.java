@@ -1,4 +1,4 @@
-package ru.ruslan.service;
+package ru.ruslan.service.user;
 
 import ru.ruslan.entity.user.SecurityUser;
 import ru.ruslan.entity.user.User;
