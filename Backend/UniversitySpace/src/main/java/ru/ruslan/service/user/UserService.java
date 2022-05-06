@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -37,8 +38,14 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public List<User> allUsers() {
-        return userRepository.findAll();
+    public List<UserView> allUsers() {
+         List<User> list = userRepository.findAll();
+         List<UserView> answerList = new ArrayList<>();
+         for (User user : list) {
+             answerList.add(new UserView(user.getUsername()));
+         }
+
+         return answerList;
     }
 
     public boolean saveUser(User user) {
