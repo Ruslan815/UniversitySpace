@@ -82,7 +82,7 @@ public class TaskController {
 
     @Transactional
     @PostMapping("/api/task/resolve")
-    public ResponseEntity<?> resolveTask(Long taskId, Long taskCommentId) {
+    public ResponseEntity<?> resolveTask(@RequestParam Long taskId, @RequestParam Long taskCommentId) {
         return ResponseEntity.ok().body(taskService.resolveTask(taskId, taskCommentId));
     }
 

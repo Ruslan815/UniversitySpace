@@ -47,35 +47,38 @@ function loadComments(isResolved, taskCommentId) {
     if (!isResolved && userId == taskObject.ownerId) { // mark as resolve
         for (var x of obj) { // creating comments list
             var authorIdElement = document.createElement('p');
-            authorIdElement.innerText = userId;
+            authorIdElement.innerText = x.authorId;
             var creationTimeElement = document.createElement('p');
             creationTimeElement.innerText = x.creationTime;
             var commentTextElement = document.createElement('p');
             commentTextElement.innerText = x.text;
-            var solutionButton = document.createElement('button');
+            var solutionButton = document.createElement('input');
+            solutionButton.setAttribute("type", "button");
+            solutionButton.setAttribute("value", "Mark as solution");
+            solutionButton.setAttribute("onclick", "markCommentAsSolution(" + x.commentId + ")");
+            var horizontalLineElement = document.createElement('hr');
     
             var someCommentDiv = document.createElement('div');
+            someCommentDiv.append(horizontalLineElement);
             someCommentDiv.append(authorIdElement);
             someCommentDiv.append(creationTimeElement);
             someCommentDiv.append(commentTextElement);
             someCommentDiv.append(solutionButton);
-            
-            //////////////////////////
-            // Add onClick listener //
-            //////////////////////////
     
             elem.append(someCommentDiv);
         }
     } else {
         for (var x of obj) { // creating comments list
             var authorIdElement = document.createElement('p');
-            authorIdElement.innerText = userId;
+            authorIdElement.innerText = x.authorId;
             var creationTimeElement = document.createElement('p');
             creationTimeElement.innerText = x.creationTime;
             var commentTextElement = document.createElement('p');
             commentTextElement.innerText = x.text;
+            var horizontalLineElement = document.createElement('hr');
     
             var someCommentDiv = document.createElement('div');
+            someCommentDiv.append(horizontalLineElement);
             someCommentDiv.append(authorIdElement);
             someCommentDiv.append(creationTimeElement);
             someCommentDiv.append(commentTextElement);
@@ -89,9 +92,18 @@ function loadComments(isResolved, taskCommentId) {
     }  
 }
 
-function markCommentAsSolution() {
-    // send POST request on /api/task/resolve
-    // Add hidden field on comment with ID
+function markCommentAsSolution(someCommentId) {
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:8080/api/task/resolve?taskId=" + taskId + "&taskCommentId=" + someCommentId;
+    xhr.open("POST", url, false); // false - Synchronous request
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status != 200) {
+            alert("Error while send!");
+        }
+    };
+
+    xhr.send();
+    window.location.replace("http://localhost:8080/task?taskId=" + taskId);
 }
 
 function createTaskComment() {
