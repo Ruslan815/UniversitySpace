@@ -9,7 +9,10 @@ function getUrlParam(paramName) {
 }
 
 function getPublication() {
-    userId = parseInt(document.getElementById('divUserId').innerHTML, 10);
+    var userIdElement = document.getElementById('divUserId');
+    userId = parseInt(userIdElement.innerHTML, 10);
+    userIdElement.remove(); // for user security
+
     var url = "http://localhost:8080/api/publication?publicationId=" + publicationId;
 
     var xmlHttp = new XMLHttpRequest();
@@ -22,6 +25,13 @@ function getPublication() {
     document.getElementById("publicationAuthor").innerHTML = publicationObject.authorId;
     document.getElementById("publicationContent").value = publicationObject.content;
     publicationObject.content = ""; // for memory economy
+
+    if (userId == publicationObject.authorId) { // show buttons only for publication author
+        document.getElementById("editButton").removeAttribute("hidden");
+        document.getElementById("deleteButton").removeAttribute("hidden");
+    }
+    userId = null; // for user security
+
     loadComments();
 }
 
@@ -37,13 +47,15 @@ function loadComments() {
     var obj = JSON.parse(comments);
     for (var x of obj) { // creating comments list
         var authorIdElement = document.createElement('p');
-        authorIdElement.innerText = userId;
+        authorIdElement.innerText = x.authorId;
         var creationTimeElement = document.createElement('p');
         creationTimeElement.innerText = x.creationTime;
         var commentTextElement = document.createElement('p');
         commentTextElement.innerText = x.text;
+        var horizontalLineElement = document.createElement('hr');
 
         var someCommentDiv = document.createElement('div');
+        someCommentDiv.append(horizontalLineElement)
         someCommentDiv.append(authorIdElement);
         someCommentDiv.append(creationTimeElement);
         someCommentDiv.append(commentTextElement);
@@ -54,8 +66,7 @@ function loadComments() {
 
 function createPublicationComment() {
     var commentText = document.getElementById("newCommentText").value;
-                                                                                    // GET USER ID through Thymeleaf
-    var data = JSON.stringify({"authorId": userId, "text": commentText, "publicationId": publicationId});
+    var data = JSON.stringify({"text": commentText, "publicationId": publicationId});
     var xhr = new XMLHttpRequest();
     var url = "http://localhost:8080/api/publication/comment";
     xhr.open("POST", url, false); // false - Synchronous request

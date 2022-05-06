@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ruslan.entity.publication.Publication;
 import ru.ruslan.repository.publication.PublicationRepository;
+import ru.ruslan.service.user.SecurityUserService;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -25,7 +26,9 @@ public class PublicationService {
         return publicationRepository.findById(publicationId).orElseThrow();
     }
 
-    public String createPublication(Publication somePublication) {
+    public String createPublication(Publication somePublication) throws Exception {
+        somePublication.setAuthorId(SecurityUserService.getCurrentUserId());
+
         long currentTimeInMillis = System.currentTimeMillis();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         somePublication.setCreationTime(formatter.format(currentTimeInMillis));

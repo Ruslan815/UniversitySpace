@@ -21,7 +21,11 @@ public class PublicationCommentController {
 
     @PostMapping("/api/publication/comment")
     public ResponseEntity<?> createPublicationComment(@RequestBody PublicationComment publicationComment) {
-        return ResponseEntity.ok().body(publicationCommentService.createPublicationComment(publicationComment));
+        try {
+            return ResponseEntity.ok().body(publicationCommentService.createPublicationComment(publicationComment));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
+        }
     }
 
     @GetMapping("/api/publication/comments")

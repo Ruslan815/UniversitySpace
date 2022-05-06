@@ -18,10 +18,10 @@
 
     <!--Show these buttons only for publication author
         1) Create hidden element with current userId through Thymeleaf and then delete this element after page loading-->
-    <input id="editButton" name="editButton" type="button" value="Edit" onclick="enableEditMode()">
+    <input id="editButton" name="editButton" type="button" value="Edit" onclick="enableEditMode()" hidden="hidden">
     <input id="saveButton" name="saveButton" type="button" value="Save changes" onclick="updatePublication()" hidden="hidden">
     <p></p>
-    <input id="deleteButton" name="deleteButton" type="button" value="Delete" onclick="deletePublication()">
+    <input id="deleteButton" name="deleteButton" type="button" value="Delete" onclick="deletePublication()" hidden="hidden">
 
     <h2>Write a comment</h2>
     <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}"></div>

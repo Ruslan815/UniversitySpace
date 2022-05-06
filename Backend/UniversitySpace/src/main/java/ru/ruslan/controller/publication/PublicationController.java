@@ -45,18 +45,11 @@ public class PublicationController {
 
     @PostMapping("/api/publication")
     public ResponseEntity<?> createPublication(@RequestBody Publication somePublication) {
-        if (somePublication.getAuthorId() == null) {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            Long userId;
-            if (principal instanceof SecurityUser) {
-                userId = ((SecurityUser) principal).getUserId();
-            } else {
-                userId = userService.findUserByUsername(principal.toString()).getId();
-            }
-            System.out.println(userId);
-            somePublication.setAuthorId(userId);
+        try {
+            return ResponseEntity.ok().body(publicationService.createPublication(somePublication));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(e.getMessage());
         }
-        return ResponseEntity.ok().body(publicationService.createPublication(somePublication));
     }
 
     @GetMapping("/createPublication")
