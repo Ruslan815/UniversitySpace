@@ -30,7 +30,7 @@ public class PublicationController {
 
     @GetMapping("/publications")
     public String getAllPublicationsPage() {
-        return "html/Publication/allPublicationsPage.html";
+        return "html/publication/allPublicationsPage.html";
     }
 
     @GetMapping("/api/publication")
@@ -40,7 +40,7 @@ public class PublicationController {
 
     @GetMapping("/publication")
     public String getPublicationByIdPage(@RequestParam Long publicationId) {
-        return "html/Publication/publicationPage.html";
+        return "html/publication/publicationPage.html";
     }
 
     @PostMapping("/api/publication")
@@ -61,7 +61,7 @@ public class PublicationController {
 
     @GetMapping("/createPublication")
     public String getCreatePublicationPage() {
-        return "html/Publication/newPublicationPage.html";
+        return "html/publication/newPublicationPage.html";
     }
 
     @PostMapping("/api/publication/update")
