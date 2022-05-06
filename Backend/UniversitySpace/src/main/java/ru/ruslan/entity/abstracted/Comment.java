@@ -1,4 +1,4 @@
-package ru.ruslan.entity.comment;
+package ru.ruslan.entity.abstracted;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

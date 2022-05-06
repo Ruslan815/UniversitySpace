@@ -1,6 +1,6 @@
 package ru.ruslan.entity.publication;
 
-import ru.ruslan.entity.comment.Comment;
+import ru.ruslan.entity.abstracted.Comment;
 
 import javax.persistence.Entity;
 
