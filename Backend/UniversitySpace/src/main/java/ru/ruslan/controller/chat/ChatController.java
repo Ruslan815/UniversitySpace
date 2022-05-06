@@ -3,9 +3,9 @@ package ru.ruslan.controller.chat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.ruslan.entity.Chat;
-import ru.ruslan.entity.ChatMember;
-import ru.ruslan.entity.ChatView;
+import ru.ruslan.entity.chat.Chat;
+import ru.ruslan.entity.chat.ChatMember;
+import ru.ruslan.entity.chat.ChatView;
 import ru.ruslan.service.ChatService;
 import ru.ruslan.service.UserService;
 

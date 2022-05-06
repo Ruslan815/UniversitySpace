@@ -1,8 +1,8 @@
 package ru.ruslan.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import ru.ruslan.entity.Role;
-import ru.ruslan.entity.User;
+import ru.ruslan.entity.user.Role;
+import ru.ruslan.entity.user.User;
 import ru.ruslan.repository.RoleRepository;
 import ru.ruslan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,6 @@
-package ru.ruslan.entity;
+package ru.ruslan.entity.publication;
+
+import ru.ruslan.entity.comment.Comment;
 
 import javax.persistence.Entity;
 

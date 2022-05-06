@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.ruslan.entity.SecurityUser;
-import ru.ruslan.entity.Task;
-import ru.ruslan.entity.User;
+import ru.ruslan.entity.user.SecurityUser;
+import ru.ruslan.entity.task.Task;
+import ru.ruslan.entity.user.User;
 import ru.ruslan.service.TaskService;
 import ru.ruslan.service.UserService;
 

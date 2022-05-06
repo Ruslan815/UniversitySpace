@@ -6,9 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ru.ruslan.entity.Message;
-import ru.ruslan.entity.MessageView;
-import ru.ruslan.entity.User;
+import ru.ruslan.entity.chat.Message;
+import ru.ruslan.entity.chat.MessageView;
+import ru.ruslan.entity.user.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package ru.ruslan.service;
 
-import ru.ruslan.entity.SecurityUser;
-import ru.ruslan.entity.User;
+import ru.ruslan.entity.user.SecurityUser;
+import ru.ruslan.entity.user.User;
 import ru.ruslan.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,9 +1,9 @@
 package ru.ruslan.service;
 
 import org.springframework.stereotype.Service;
-import ru.ruslan.entity.Chat;
-import ru.ruslan.entity.ChatView;
-import ru.ruslan.entity.User;
+import ru.ruslan.entity.chat.Chat;
+import ru.ruslan.entity.chat.ChatView;
+import ru.ruslan.entity.user.User;
 import ru.ruslan.repository.ChatRepository;
 
 import javax.transaction.Transactional;

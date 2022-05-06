@@ -1,4 +1,4 @@
-package ru.ruslan.entity;
+package ru.ruslan.entity.chat;
 
 public class ChatMember {
     Integer userId;

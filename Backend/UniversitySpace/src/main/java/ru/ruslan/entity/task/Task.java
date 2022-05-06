@@ -1,4 +1,4 @@
-package ru.ruslan.entity;
+package ru.ruslan.entity.task;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

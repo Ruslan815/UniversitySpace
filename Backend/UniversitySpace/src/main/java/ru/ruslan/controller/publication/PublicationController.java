@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.ruslan.entity.Publication;
-import ru.ruslan.entity.SecurityUser;
+import ru.ruslan.entity.publication.Publication;
+import ru.ruslan.entity.user.SecurityUser;
 import ru.ruslan.service.PublicationService;
 import ru.ruslan.service.UserService;
 

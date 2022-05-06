@@ -1,4 +1,7 @@
-package ru.ruslan.entity;
+package ru.ruslan.entity.user;
+
+import ru.ruslan.entity.chat.Chat;
+import ru.ruslan.entity.chat.Message;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;

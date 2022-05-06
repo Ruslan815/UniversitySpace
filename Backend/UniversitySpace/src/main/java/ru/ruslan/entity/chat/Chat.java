@@ -1,4 +1,6 @@
-package ru.ruslan.entity;
+package ru.ruslan.entity.chat;
+
+import ru.ruslan.entity.user.User;
 
 import javax.persistence.*;
 import java.util.*;

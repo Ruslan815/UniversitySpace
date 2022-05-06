@@ -1,7 +1,7 @@
 package ru.ruslan.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.ruslan.entity.TaskComment;
+import ru.ruslan.entity.task.TaskComment;
 
 import java.util.List;
 

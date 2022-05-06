@@ -3,7 +3,7 @@ package ru.ruslan.repository;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.ruslan.entity.Message;
+import ru.ruslan.entity.chat.Message;
 
 import java.util.List;
 
