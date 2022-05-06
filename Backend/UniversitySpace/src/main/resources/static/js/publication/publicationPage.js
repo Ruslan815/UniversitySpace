@@ -73,7 +73,7 @@ function createPublicationComment() {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status != 200) {
-            alert("Error while send!");
+            alert("Error while send: " + xhr.responseText);
         }
     };
 
@@ -96,7 +96,7 @@ function updatePublication() {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status != 200) {
-            alert("Error while send!");
+            alert("Error while send: " + xhr.responseText);
         }
     };
 
@@ -112,7 +112,7 @@ function deletePublication() {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status != 200) {
-            alert("Error while send!");
+            alert("Error while send: " + xhr.responseText);
         }
     };
 

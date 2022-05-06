@@ -47,7 +47,7 @@ public class MessageController {
     }
 
     @GetMapping("/api/messages")
-    public ResponseEntity<?> read(@RequestParam(required = false) Integer userId, @RequestParam Integer chatId) {
+    public ResponseEntity<?> read(@RequestParam Integer chatId) {
         ResponseEntity<?> responseEntity;
         responseEntity = ResponseEntity.ok(messageService.getAllByChatId(chatId));
 

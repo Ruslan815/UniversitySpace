@@ -9,9 +9,9 @@
 
     <ol id="chatsList"></ol>
 
-    <input id="newChatName" type="text">
+    <input type="text" id="newChatName" >
     <input type="button" onclick="createNewChat(document.getElementById('newChatName').value)" value="Создать чат">
 
     <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}" ></div>
 </body>
-</html>
+</html> 

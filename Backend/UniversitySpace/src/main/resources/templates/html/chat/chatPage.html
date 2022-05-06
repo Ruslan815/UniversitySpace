@@ -13,7 +13,8 @@
 
     <input type="text" name="sendMessageContent" id="sendMessageContent"/>
     <input type="button" onclick="sendMessage()" value="Отправить">
-    <input type="button" onclick="startListenChat()" value="Слушать чат">
     <p>Back to the <a href="http://localhost:8080/chats">all chats</a>.</p>
+
+    <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}" ></div>
 </body>
-</html>
+</html> 

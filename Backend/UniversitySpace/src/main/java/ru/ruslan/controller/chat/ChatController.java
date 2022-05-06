@@ -22,7 +22,7 @@ public class ChatController {
     }
 
     @GetMapping("/chat")
-    public String getChatPage(@RequestParam Long userId, @RequestParam Long chatId) {
+    public String getChatPage(@RequestParam Long chatId) {
         return "html/chat/chatPage";
     }
 

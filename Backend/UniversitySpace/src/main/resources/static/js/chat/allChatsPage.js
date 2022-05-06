@@ -4,7 +4,6 @@ function printText(someText) {
 
 function getAllChatsList(elem) {
     var url = "http://localhost:8080/api/chats";
-    var userId = parseInt(document.getElementById('divUserId').innerHTML, 10);
 
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false); // false - Synchronous request
@@ -17,17 +16,18 @@ function getAllChatsList(elem) {
       var linkText = document.createTextNode(x.name);
       a.appendChild(linkText);
       a.title = x.name;
-      a.href = "http://localhost:8080/chat?chatId=" + x.chatId + "&userId=" + userId;
+      a.href = "http://localhost:8080/chat?chatId=" + x.chatId;
 
       let messageElem = document.createElement('li');
       messageElem.append(a);
       elem.append(messageElem);
     }
 }
-
+ 
 function createNewChat(name) {
     var xhr = new XMLHttpRequest();
     var url = "http://localhost:8080/api/chat";
+    var data = JSON.stringify({"name": name});
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -37,6 +37,6 @@ function createNewChat(name) {
             alert("Chat can't be named: " + name + "!");
         }
     };
-    var data = JSON.stringify({"name": name});
+    
     xhr.send(data);
 }

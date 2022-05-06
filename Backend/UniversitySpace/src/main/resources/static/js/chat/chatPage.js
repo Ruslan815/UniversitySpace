@@ -1,4 +1,14 @@
+var chatId = parseInt(getUrlParam('chatId'), 10);
+var userId;
+var isListening = false;
+
 function getAllChatMessages() {
+    var userIdElement = document.getElementById('divUserId');
+    userId = parseInt(userIdElement.innerHTML, 10);
+    userIdElement.remove(); // for user security
+    console.log("CHAT_ID: " + chatId + " : " + typeof chatId);
+    console.log("USER_ID: " + userId + " : " + typeof userId);
+
     var url = "http://localhost:8080/api/messages?chatId=" + chatId;
 
     var xmlHttp = new XMLHttpRequest();
@@ -12,6 +22,8 @@ function getAllChatMessages() {
         addNewMessageToMessagesList(x);
     }
     scrollMessagesList();
+
+    startListenChat();
 }
 
 function sendMessage() {
@@ -23,7 +35,7 @@ function sendMessage() {
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status != 200) {
-            alert("Error while send!");
+            alert("Error while send: " + xhr.responseText);
         }
     };
 
@@ -80,9 +92,3 @@ function scrollMessagesList() {
     var messagesListElement = document.getElementById('messages');
     messagesListElement.scrollTop = messagesListElement.scrollHeight;
 }
-
-var chatId = parseInt(getUrlParam('chatId'), 10);
-var userId = parseInt(getUrlParam('userId'), 10);
-console.log("CHAT_ID: " + chatId + " : " + typeof chatId);
-console.log("USER_ID: " + userId + " : " + typeof userId);
-var isListening = false;
