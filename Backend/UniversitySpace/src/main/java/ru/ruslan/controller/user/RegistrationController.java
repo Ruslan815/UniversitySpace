@@ -1,4 +1,4 @@
-package ru.ruslan.controller;
+package ru.ruslan.controller.user;
 
 import ru.ruslan.entity.User;
 import ru.ruslan.service.UserService;
@@ -23,7 +23,6 @@ public class RegistrationController {
         model.addAttribute("userForm", new User());
 
         return "html/registration";
-        //return "test";
     }
 
     @PostMapping("/registration")
@@ -42,6 +41,5 @@ public class RegistrationController {
         }
 
         return "redirect:/";
-        //return "test";
     }
 }

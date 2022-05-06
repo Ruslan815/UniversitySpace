@@ -39,7 +39,7 @@ Database is already closed (to disable automatic closing at VM shutdown, add ";D
 	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:212)
 	at com.sun.proxy.$Proxy106.save(Unknown Source)
 	at ru.ruslan.service.TaskCommentService.createTaskComment(TaskCommentService.java:38)
-	at ru.ruslan.controller.TaskCommentController.createTaskComment(TaskCommentController.java:25)
+	at ru.ruslan.controller.task.TaskCommentController.createTaskComment(TaskCommentController.java:25)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

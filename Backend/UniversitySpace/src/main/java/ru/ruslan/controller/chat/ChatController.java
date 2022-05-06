@@ -1,4 +1,4 @@
-package ru.ruslan.controller;
+package ru.ruslan.controller.chat;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

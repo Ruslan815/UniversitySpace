@@ -1,4 +1,4 @@
-package ru.ruslan.controller;
+package ru.ruslan.controller.user;
 
 import ru.ruslan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ public class AdminController {
     public String userList(Model model) {
         model.addAttribute("allUsers", userService.allUsers());
         return "html/adminTable";
-        //return "test";
     }
 
     /*@PostMapping("/admin")

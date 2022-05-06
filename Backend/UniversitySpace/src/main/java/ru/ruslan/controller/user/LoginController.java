@@ -1,4 +1,4 @@
-package ru.ruslan.controller;
+package ru.ruslan.controller.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
