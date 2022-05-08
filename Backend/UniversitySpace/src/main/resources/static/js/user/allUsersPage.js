@@ -42,4 +42,11 @@ function showOnlineUsersList(elem) {
       userElem.append(a);
       elem.append(userElem);
     }
+
+    document.getElementById("showOnlineButton").remove();
+    document.getElementById("showAllButton").removeAttribute("hidden");
+}
+
+function reloadPage() {
+    document.location.reload();
 }

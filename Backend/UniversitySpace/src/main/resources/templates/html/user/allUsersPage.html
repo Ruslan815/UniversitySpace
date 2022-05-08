@@ -7,7 +7,8 @@
 
 <body onload="getAllUsersList(document.getElementById('usersList'))">
 
-    <input type="button" onclick="showOnlineUsersList(document.getElementById('usersList'))" value="Show online"/>
+    <input type="button" onclick="showOnlineUsersList(document.getElementById('usersList'))" value="Show online" id="showOnlineButton" />
+    <input type="button" onclick="reloadPage()" value="Show all" hidden="hidden" id="showAllButton" />
 
     <ol id="usersList"></ol>
 </body>
