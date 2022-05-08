@@ -1,10 +1,12 @@
 package ru.ruslan.service.user;
 
+import ru.ruslan.entity.user.User;
+
 public class UserView {
     private String username;
 
-    public UserView(String username) {
-        this.username = username;
+    public UserView(User user) {
+        this.username = user.getUsername();
     }
 
     public String getUsername() {

@@ -34,15 +34,15 @@ public class UserService {
         return userFromDb.orElse(new User());
     }
 
-    public User findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public UserView findUserByUsername(String username) {
+        return new UserView(userRepository.findByUsername(username));
     }
 
     public List<UserView> allUsers() {
          List<User> list = userRepository.findAll();
          List<UserView> answerList = new ArrayList<>();
          for (User user : list) {
-             answerList.add(new UserView(user.getUsername()));
+             answerList.add(new UserView(user));
          }
 
          return answerList;
