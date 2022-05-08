@@ -39,6 +39,13 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUserViewByUsername(username));
     }
 
+    @GetMapping("/api/user/idByUsername")
+    public ResponseEntity<?> getUserIdByUsername(@RequestParam String username) {
+        Long id = userService.getUserIdByUsername(username);
+        if (id == null) return ResponseEntity.status(500).body("Not found user with username: " + username);
+        return ResponseEntity.ok().body(id);
+    }
+
     @GetMapping("/user")
     public String getUserPage() {
         return "html/user/userPage.html";

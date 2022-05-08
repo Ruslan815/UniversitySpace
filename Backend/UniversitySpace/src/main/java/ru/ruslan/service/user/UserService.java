@@ -35,7 +35,9 @@ public class UserService {
     }
 
     public Long getUserIdByUsername(String username) {
-        return userRepository.findByUsername(username).getId();
+        User user = userRepository.findByUsername(username);
+        if (user == null) return null;
+        return user.getId();
     }
 
     public UserView getUserViewByUsername(String username) {
@@ -52,29 +54,36 @@ public class UserService {
          return answerList;
     }
 
-    public boolean saveUser(User user) {
+    public boolean createUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
-
         if (userFromDB != null) {
             return false;
         }
 
         user.setRoles(Collections.singleton(new Role((long) ROLES.ROLE_USER.ordinal(), "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
         userRepository.save(user);
-
-        System.out.println("User was saved to DB: " + user);
-
         return true;
     }
 
-    public boolean deleteUser(Long userId) {
+    public String giveAdminRoleById(Long userId) throws Exception {
+        if (!isUserExist(userId)) {
+            throw new Exception("Not found user with id: " + userId);
+        }
+        User user = userRepository.findById(userId).orElseThrow();
+        user.getRoles().add(new Role((long) ROLES.ROLE_ADMIN.ordinal(), "ROLE_ADMIN"));
+        userRepository.save(user);
+
+        return "Admin role was granted successfully!";
+    }
+
+    public String deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
-            return true;
+            return "User was deleted successfully!";
+        } else {
+            return "Not found user with id: " + userId;
         }
-        return false;
     }
 
     @Transactional

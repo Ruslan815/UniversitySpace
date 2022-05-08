@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin panel</title>
+    <script src="/js/user/adminPanel.js"></script>
+</head>
+
+<body>
+    <p>Hello, admin <span sec:authentication="name"></span>!</p>
+    <p>Enter username:</p>
+    <input id="usernameInputField" type="text" placeholder="Enter username..." />
+    <input type="button" value="Get user id" onclick="getUserIdByUsername()"/>
+    <p id="hiddenUserId" hidden="hidden"></p>
+
+    <p>Enter id:</p>
+    <input id="idInputField" type="text" placeholder="Enter id..." />
+    <input type="button" value="Make admin" onclick="giveAdminRoleById()"/>
+    <input type="button" value="Delete user" onclick="deleteUserById()"/>
+    <input type="button" value="Delete publication" onclick="deletePublicationById()"/>
+    <input type="button" value="Delete task" onclick="deleteTaskById()"/>
+</body>
+</html>
