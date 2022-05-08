@@ -3,7 +3,6 @@ package ru.ruslan.service.publication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ruslan.entity.publication.Publication;
-import ru.ruslan.entity.task.Task;
 import ru.ruslan.repository.publication.PublicationRepository;
 import ru.ruslan.service.user.SecurityUserService;
 
@@ -14,9 +13,12 @@ import java.util.List;
 public class PublicationService {
     @Autowired
     private final PublicationRepository publicationRepository;
+    @Autowired
+    private final PublicationCommentService publicationCommentService;
 
-    public PublicationService(PublicationRepository publicationRepository) {
+    public PublicationService(PublicationRepository publicationRepository, PublicationCommentService publicationCommentService) {
         this.publicationRepository = publicationRepository;
+        this.publicationCommentService = publicationCommentService;
     }
 
     public List<Publication> getAllPublications() {
@@ -53,7 +55,12 @@ public class PublicationService {
     }
 
     public String deletePublicationById(Long publicationId) {
-        publicationRepository.deleteById(publicationId);
-        return "Publication deleted successfully!";
+        if (publicationRepository.findById(publicationId).isPresent()) {
+            publicationCommentService.deleteAllByPublicationId(publicationId);
+            publicationRepository.deleteById(publicationId);
+            return "Publication deleted successfully!";
+        } else {
+            return "Not found publication with id: " + publicationId;
+        }
     }
 }

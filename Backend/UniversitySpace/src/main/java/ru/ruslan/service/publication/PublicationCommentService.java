@@ -2,6 +2,7 @@ package ru.ruslan.service.publication;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.ruslan.entity.publication.PublicationComment;
 import ru.ruslan.repository.publication.PublicationCommentRepository;
 import ru.ruslan.service.user.SecurityUserService;
@@ -36,5 +37,10 @@ public class PublicationCommentService {
     public String deletePublicationCommentById(Long publicationCommentId) {
         publicationCommentRepository.deleteById(publicationCommentId);
         return "PublicationComment deleted successfully!";
+    }
+
+    @Transactional // transaction is necessary
+    public void deleteAllByPublicationId(Long publicationId) {
+        publicationCommentRepository.deleteAllByPublicationId(publicationId);
     }
 }

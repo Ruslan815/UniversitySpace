@@ -52,8 +52,19 @@ function deleteUserById() {
 }
 
 function deletePublicationById() {
-    var id = document.getElementById("idInputField").value;
-    alert(id);
+    var publicationId = document.getElementById("idInputField").value;
+    var url = "http://localhost:8080/api/publication/delete?publicationId=" + publicationId;
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST", url, false); // false - Synchronous request
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState === 4 && xmlHttp.status != 200) {
+            alert("Error while send: " + xmlHttp.responseText);
+        } else {
+            alert(xmlHttp.responseText);
+        }
+    };
+
+    xmlHttp.send(null);
 }
 
 function deleteTaskById() {

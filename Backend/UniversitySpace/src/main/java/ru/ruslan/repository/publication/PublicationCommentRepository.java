@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface PublicationCommentRepository extends JpaRepository<PublicationComment, Long> {
     List<PublicationComment> findAllByPublicationId(Long publicationId);
+    void deleteAllByPublicationId(Long publicationId);
 }
