@@ -38,6 +38,10 @@ public class TaskService {
         return taskRepository.findById(taskId).orElseThrow();
     }
 
+    public List<Task> getAllTasksByOwnerId(Long ownerId) {
+        return taskRepository.findAllByOwnerId(ownerId);
+    }
+
     @Transactional
     public String createTask(Task someTask) throws Exception {
         someTask.setOwnerId(SecurityUserService.getCurrentUserId());
@@ -77,6 +81,7 @@ public class TaskService {
         TaskComment taskComment = taskCommentService.getTaskCommentById(taskCommentId);
         Long workerId = taskComment.getAuthorId();
         User worker = userService.findUserById(workerId);
+        userService.incrementSolvedTaskCount(worker); // increment solved task count
 
         if (currentTime.compareTo(deadline) > 0) { // deadline is expired
             User taskOwner = userService.findUserById(task.getOwnerId());

@@ -3,6 +3,7 @@ package ru.ruslan.service.publication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.ruslan.entity.publication.Publication;
+import ru.ruslan.entity.task.Task;
 import ru.ruslan.repository.publication.PublicationRepository;
 import ru.ruslan.service.user.SecurityUserService;
 
@@ -20,6 +21,10 @@ public class PublicationService {
 
     public List<Publication> getAllPublications() {
         return publicationRepository.findAll();
+    }
+
+    public List<Publication> getAllPublicationsByAuthorId(Long authorId) {
+        return publicationRepository.findAllByAuthorId(authorId);
     }
 
     public Publication getPublicationById(Long publicationId) {

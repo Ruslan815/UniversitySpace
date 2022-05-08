@@ -34,6 +34,12 @@ public class TaskController {
         return ResponseEntity.ok().body(taskService.getAllTasks());
     }
 
+    @GetMapping("/api/tasks/user")
+    public ResponseEntity<?> getAllTasksByOwnerUsername(@RequestParam String username) {
+        Long userId = userService.getUserIdByUsername(username);
+        return ResponseEntity.ok().body(taskService.getAllTasksByOwnerId(userId));
+    }
+
     @GetMapping("/tasks")
     public String getAllTasksPage() {
         return "html/task/allTasksPage.html";
@@ -64,7 +70,6 @@ public class TaskController {
         return "html/task/newTaskPage.html";
     }
 
-    @Transactional
     @PostMapping("/api/task/resolve")
     public ResponseEntity<?> resolveTask(@RequestParam Long taskId, @RequestParam Long taskCommentId) {
         try {

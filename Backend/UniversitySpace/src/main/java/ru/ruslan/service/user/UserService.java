@@ -34,7 +34,11 @@ public class UserService {
         return userFromDb.orElse(new User());
     }
 
-    public UserView findUserByUsername(String username) {
+    public Long getUserIdByUsername(String username) {
+        return userRepository.findByUsername(username).getId();
+    }
+
+    public UserView getUserViewByUsername(String username) {
         return new UserView(userRepository.findByUsername(username));
     }
 
@@ -83,6 +87,13 @@ public class UserService {
     @Transactional
     public void withdrawFromUserBalance(User someUser, Double amount) {
         depositToUserBalance(someUser, -amount);
+    }
+
+    @Transactional
+    public void incrementSolvedTaskCount(User user) {
+        Long solvedTaskCount = user.getSolvedTaskCount();
+        solvedTaskCount++;
+        user.setSolvedTaskCount(solvedTaskCount);
     }
 
     private enum ROLES {

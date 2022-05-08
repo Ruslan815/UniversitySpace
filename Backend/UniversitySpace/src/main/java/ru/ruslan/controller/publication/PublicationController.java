@@ -28,6 +28,12 @@ public class PublicationController {
         return ResponseEntity.ok().body(publicationService.getAllPublications());
     }
 
+    @GetMapping("/api/publications/user")
+    public ResponseEntity<?> getAllPublicationsByAuthorUsername(@RequestParam String username) {
+        Long userId = userService.getUserIdByUsername(username);
+        return ResponseEntity.ok().body(publicationService.getAllPublicationsByAuthorId(userId));
+    }
+
     @GetMapping("/publications")
     public String getAllPublicationsPage() {
         return "html/publication/allPublicationsPage.html";

@@ -36,7 +36,7 @@ public class UserController {
 
     @GetMapping("/api/user")
     public ResponseEntity<?> getUser(@RequestParam String username) {
-        return ResponseEntity.ok().body(userService.findUserByUsername(username));
+        return ResponseEntity.ok().body(userService.getUserViewByUsername(username));
     }
 
     @GetMapping("/user")

@@ -25,6 +25,8 @@ public class User {
 
     private Double balance = 1000D;
 
+    private Long solvedTaskCount = 0L;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
@@ -75,6 +77,14 @@ public class User {
 
     public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public Long getSolvedTaskCount() {
+        return solvedTaskCount;
+    }
+
+    public void setSolvedTaskCount(Long solvedTaskCount) {
+        this.solvedTaskCount = solvedTaskCount;
     }
 
     public Set<Role> getRoles() {
