@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface TaskCommentRepository extends JpaRepository<TaskComment, Long> {
     List<TaskComment> findAllByTaskId(Long taskId);
+    void deleteAllByTaskId(Long taskId);
 }

@@ -1,14 +1,12 @@
 package ru.ruslan.service.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ruslan.entity.task.Task;
 import ru.ruslan.entity.task.TaskComment;
 import ru.ruslan.entity.user.User;
 import ru.ruslan.repository.task.TaskRepository;
-import ru.ruslan.service.task.TaskCommentService;
 import ru.ruslan.service.user.SecurityUserService;
 import ru.ruslan.service.user.UserService;
 
@@ -87,11 +85,11 @@ public class TaskService {
             User taskOwner = userService.findUserById(task.getOwnerId());
             userService.depositToUserBalance(taskOwner, (double) task.getCost() / 2); // refund 50% of task cost
             userService.depositToUserBalance(worker, (double) task.getCost() / 2);
-            userService.saveUser(taskOwner);
+            userService.createUser(taskOwner);
         } else {
             userService.depositToUserBalance(worker, (double) task.getCost());
         }
-        userService.saveUser(worker);
+        userService.createUser(worker);
 
         return "Task was resolved successful!";
     }
@@ -102,7 +100,12 @@ public class TaskService {
     }
 
     public String deleteTaskById(Long taskId) {
-        taskRepository.deleteById(taskId);
-        return "Task deleted successfully!";
+        if (taskRepository.findById(taskId).isPresent()) {
+            taskCommentService.deleteAllByTaskId(taskId);
+            taskRepository.deleteById(taskId);
+            return "Task deleted successfully!";
+        } else {
+            return "Not found task with id: " + taskId;
+        }
     }
 }
