@@ -47,11 +47,8 @@ public class MessageController {
     }
 
     @GetMapping("/api/messages")
-    public ResponseEntity<?> read(@RequestParam Integer chatId) {
-        ResponseEntity<?> responseEntity;
-        responseEntity = ResponseEntity.ok(messageService.getAllByChatId(chatId));
-
-        return responseEntity;
+    public ResponseEntity<?> getChatMessages(@RequestParam Integer chatId, @RequestParam Long userId) {
+        return ResponseEntity.ok(messageService.getAllByChatId(chatId, userId));
     }
 
     @GetMapping("/api/messages/unread")

@@ -9,7 +9,7 @@ function getAllChatMessages() {
     // console.log("CHAT_ID: " + chatId + " : " + typeof chatId);
     // console.log("USER_ID: " + userId + " : " + typeof userId);
 
-    var url = "http://localhost:8080/api/messages?chatId=" + chatId;
+    var url = "http://localhost:8080/api/messages?chatId=" + chatId + "&userId=" + userId;
 
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false); // false - Synchronous request

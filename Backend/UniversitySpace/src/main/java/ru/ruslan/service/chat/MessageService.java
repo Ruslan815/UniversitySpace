@@ -10,6 +10,7 @@ import ru.ruslan.entity.chat.Message;
 import ru.ruslan.entity.chat.MessageView;
 import ru.ruslan.entity.user.User;
 import ru.ruslan.repository.chat.MessageRepository;
+import ru.ruslan.service.user.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,22 +22,28 @@ public class MessageService {
     private final MessageRepository messageRepository;
     @Autowired
     private final DatabaseService databaseService;
+    @Autowired
+    private final UserService userService;
 
-    public MessageService(MessageRepository messageRepository, DatabaseService databaseService) {
+    public MessageService(MessageRepository messageRepository, DatabaseService databaseService, UserService userService) {
         this.messageRepository = messageRepository;
         this.databaseService = databaseService;
+        this.userService = userService;
     }
 
     public MessageView create(Message someMessage) {
         return new MessageView(messageRepository.save(someMessage));
     }
 
-    public List<MessageView> getAllByChatId(Integer chatId) {
+    public List<MessageView> getAllByChatId(Integer chatId, Long userId) {
+        User user = userService.findUserById(userId);
         List<Message> tempList = messageRepository.findAllByChatId(chatId, Sort.by(Sort.Direction.DESC, "sendTime"));
         List<MessageView> responseList = new ArrayList<>();
         for (Message message : tempList) {
+            message.getUsersWhoDidNotRead().remove(user);
             responseList.add(new MessageView(message));
         }
+        messageRepository.saveAll(tempList); // update users who did not read
 
         return responseList;
     }
