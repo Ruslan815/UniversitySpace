@@ -31,6 +31,7 @@ function sendMessage() {
     if (messageText == null || messageText == "") {
         return;
     }
+    document.getElementById("sendMessageContent").value = "";
 
     var data = JSON.stringify({"userId": userId, "chatId": chatId, "text": messageText});
     var xhr = new XMLHttpRequest();
