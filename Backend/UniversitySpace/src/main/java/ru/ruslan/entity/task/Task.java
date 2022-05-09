@@ -11,6 +11,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long taskId;
     private Long ownerId;
+    private String ownerUsername;
     private String title;
     private String description;
     private Integer cost;
@@ -22,10 +23,11 @@ public class Task {
     public Task() {
     }
 
-    public Task(Long taskId, Long ownerId, String title, String description, Integer cost,
+    public Task(Long taskId, Long ownerId, String ownerUsername, String title, String description, Integer cost,
                 String creationTime, String deadline, TaskStatus status) {
         this.taskId = taskId;
         this.ownerId = ownerId;
+        this.ownerUsername = ownerUsername;
         this.title = title;
         this.description = description;
         this.cost = cost;
@@ -48,6 +50,14 @@ public class Task {
 
     public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
+    }
+
+    public String getOwnerUsername() {
+        return ownerUsername;
+    }
+
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
     }
 
     public String getTitle() {

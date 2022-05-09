@@ -43,6 +43,8 @@ public class TaskService {
     @Transactional
     public String createTask(Task someTask) throws Exception {
         someTask.setOwnerId(SecurityUserService.getCurrentUserId());
+        String ownerUsername = userService.findUserById(someTask.getOwnerId()).getUsername();
+        someTask.setOwnerUsername(ownerUsername);
 
         User someUser = userService.findUserById(someTask.getOwnerId());
         double userBalance = someUser.getBalance();

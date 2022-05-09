@@ -22,7 +22,7 @@ function getTask() {
 
     taskObject = JSON.parse(task);
     document.getElementById("taskTitle").innerHTML = taskObject.title;
-    document.getElementById("taskOwner").innerHTML = taskObject.ownerId;
+    document.getElementById("taskOwner").innerHTML = taskObject.ownerUsername;
     document.getElementById("taskDescription").value = taskObject.description;
     taskObject.description = ""; // for memory economy
     document.getElementById("taskCost").innerHTML = taskObject.cost;
@@ -125,4 +125,4 @@ function createTaskComment() {
 
     xhr.send(data);
     window.location.replace("http://localhost:8080/task?taskId=" + taskId);
-}
+} 
