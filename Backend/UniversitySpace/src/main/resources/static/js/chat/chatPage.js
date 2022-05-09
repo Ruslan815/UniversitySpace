@@ -28,6 +28,10 @@ function getAllChatMessages() {
 
 function sendMessage() {
     var messageText = document.getElementById("sendMessageContent").value;
+    if (messageText == null || messageText == "") {
+        return;
+    }
+
     var data = JSON.stringify({"userId": userId, "chatId": chatId, "text": messageText});
     var xhr = new XMLHttpRequest();
     var url = "http://localhost:8080/api/message";

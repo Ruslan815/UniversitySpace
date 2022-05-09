@@ -1,3 +1,5 @@
+var userId;
+
 function printText(someText) {
     alert(someText);
 }
@@ -28,7 +30,7 @@ function getAllChatsList(elem) {
  
 function getUserChatsList(elem) {
     var userIdElement = document.getElementById('divUserId');
-    var userId = parseInt(userIdElement.innerHTML, 10);
+    userId = parseInt(userIdElement.innerHTML, 10);
     userIdElement.remove(); // for user security
 
     var url = "http://localhost:8080/api/user/chats?userId=" + userId;
@@ -61,10 +63,30 @@ function createNewChat(name) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             alert("Chat named: " + name + ", was created!");
+            enterChat(JSON.parse(xhr.responseText).chatId);
         } else if (xhr.status === 500) {
             alert("Chat can't be named: " + name + "!");
         }
     };
     
     xhr.send(data);
+}
+
+function enterChat(chatId) {
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:8080/api/chat/enter";
+    var data = JSON.stringify({"userId": userId, "chatId": chatId});
+    xhr.open("POST", url, false); // false - synchronous
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            alert("You successfully entered the chat!");
+            sendMessage(7, chatId, "User " + xhr.responseText + " joined to this chat!");
+        } else if (xhr.status === 500) {
+            alert("Error while sending: " + xhr.responseText);
+        }
+    };
+    
+    xhr.send(data);
+    window.location.replace("http://localhost:8080/chats");
 }
