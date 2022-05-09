@@ -33,6 +33,7 @@ function searchByInput() {
 }
 
 function clearSearchResult() {
+    document.getElementById('searchInput').value = "";
     document.getElementById("searchResult").setAttribute("hidden", "hidden");
     document.getElementById("searchResult").innerHTML = "";
     document.getElementById("userChatsList").removeAttribute("hidden");

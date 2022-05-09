@@ -8,6 +8,16 @@
 
 <body onload="getAllTasksList(document.getElementById('tasksList'))">
     <a href="http://localhost:8080/createTask">Create new task</a>
+    <br>
+    <br>
+    <br>
+
+    <input type="text" id="searchInput" >
+    <input type="button" onclick="searchByInput()" value="Найти">
+    <input type="button" onclick="clearSearchResult()" value="Очистить поиск">
+
+    <ol id="searchResult"></ol>
+
     <ul id="tasksList"></ul>
 </body>
-</html>
+</html> 
