@@ -7,6 +7,13 @@
 
 <body onload="getAllUsersList(document.getElementById('usersList'))">
 
+    <input type="text" id="searchInput" >
+    <input type="button" onclick="searchByInput()" value="Найти">
+    <input type="button" onclick="clearSearchResult()" value="Очистить поиск">
+
+    <ol id="searchResult"></ol>
+
+    <br>
     <input type="button" onclick="showOnlineUsersList(document.getElementById('usersList'))" value="Show online" id="showOnlineButton" />
     <input type="button" onclick="reloadPage()" value="Show all" hidden="hidden" id="showAllButton" />
 
