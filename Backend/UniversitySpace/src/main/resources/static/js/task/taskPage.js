@@ -50,7 +50,7 @@ function loadComments(isResolved, taskCommentId) {
     if (!isResolved && userId == taskObject.ownerId) { // mark as resolve
         for (var x of obj) { // creating comments list
             var authorIdElement = document.createElement('p');
-            authorIdElement.innerText = x.authorId;
+            authorIdElement.innerText = x.authorUsername;
             var creationTimeElement = document.createElement('p');
             creationTimeElement.innerText = x.creationTime;
             var commentTextElement = document.createElement('p');
@@ -73,7 +73,7 @@ function loadComments(isResolved, taskCommentId) {
     } else {
         for (var x of obj) { // creating comments list
             var authorIdElement = document.createElement('p');
-            authorIdElement.innerText = x.authorId;
+            authorIdElement.innerText = x.authorUsername;
             var creationTimeElement = document.createElement('p');
             creationTimeElement.innerText = x.creationTime;
             var commentTextElement = document.createElement('p');
