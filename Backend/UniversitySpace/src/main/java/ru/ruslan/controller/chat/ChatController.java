@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.ruslan.entity.chat.Chat;
 import ru.ruslan.entity.chat.ChatMember;
 import ru.ruslan.entity.chat.ChatView;
+import ru.ruslan.entity.user.User;
 import ru.ruslan.service.chat.ChatService;
+import ru.ruslan.service.user.SecurityUserService;
 import ru.ruslan.service.user.UserService;
 
 import java.util.List;
@@ -23,7 +25,18 @@ public class ChatController {
 
     @GetMapping("/chat")
     public String getChatPage(@RequestParam Long chatId) {
-        return "html/chat/chatPage";
+        try {
+            Long userId = SecurityUserService.getCurrentUserId();
+            User user = userService.findUserById(userId);
+            if (chatService.isUserInPrivateChat(user, chatId.intValue())) {
+                return "html/chat/chatPage";
+            } else {
+                return "html/chat/enterChatPage";
+            }
+        } catch (Exception ignored) {
+            return "error";
+        }
+
     }
 
     @PostMapping("/api/chat")
@@ -60,8 +73,12 @@ public class ChatController {
         ResponseEntity<?> response = ResponseEntity.ok("Successfully entered the chat!");
         Integer userId = chatMember.getUserId();
         Integer chatId = chatMember.getChatId();
-        chatService.enterChat(userService.findUserById((long)userId), chatId);
 
+        if (chatService.enterChat(userService.findUserById((long)userId), chatId)) {
+            response = ResponseEntity.ok().body(userService.findUserById((long) userId).getUsername());
+        } else {
+            response = ResponseEntity.status(500).body("User already in chat!");
+        }
         return response;
     }
 

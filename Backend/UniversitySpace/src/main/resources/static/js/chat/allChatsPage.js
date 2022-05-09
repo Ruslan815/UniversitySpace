@@ -18,7 +18,7 @@ function getAllChatsList(elem) {
       var linkText = document.createTextNode(x.name);
       a.appendChild(linkText);
       a.title = x.name;
-      a.href = "http://localhost:8080/chat?chatId=" + x.chatId;
+      a.href = "http://localhost:8080/chat?chatId=" + x.chatId + "&chatName=" + x.name;
 
       let chatElem = document.createElement('li');
       chatElem.append(a);
@@ -44,7 +44,7 @@ function getUserChatsList(elem) {
       var linkText = document.createTextNode(x.name);
       a.appendChild(linkText);
       a.title = x.name;
-      a.href = "http://localhost:8080/chat?chatId=" + x.chatId;
+      a.href = "http://localhost:8080/chat?chatId=" + x.chatId + "&chatName=" + x.name;
 
       let chatElem = document.createElement('li');
       chatElem.append(a);
