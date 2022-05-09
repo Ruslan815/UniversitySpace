@@ -351,3 +351,7 @@ Caused by: java.nio.channels.OverlappingFileLockException
 	at java.base/java.nio.channels.FileChannel.tryLock(FileChannel.java:1165)
 	at org.h2.mvstore.FileStore.open(FileStore.java:165)
 	... 100 more
+2022-05-09 21:15:04 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Синтаксическая ошибка в выражении SQL "DROP TABLE FROM[*] CHATS "; ожидалось "identifier"
+Syntax error in SQL statement "DROP TABLE FROM[*] CHATS "; expected "identifier"; SQL statement:
+drop table FROM CHATS [42001-197]

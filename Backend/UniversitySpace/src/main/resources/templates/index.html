@@ -7,16 +7,7 @@
 <body>
     <h2>Welcome</h2>
     <p>University</p>
-    <div sec:authorize="hasRole('USER')">Text visible to user.</div>
-    <div sec:authorize="hasRole('ADMIN')">Text visible to admin.</div>
-    <div sec:authorize="isAuthenticated()"> Text visible only to authenticated users. </div>
-    <div sec:authorize="isAuthenticated()">
-        Authenticated as <span sec:authentication="name"></span></div>
-    <!--Authenticated username:
-    <div sec:authentication="name"></div>
-    Authenticated user roles:
-    <div sec:authentication="principal.authorities"></div> -->
-
+    
     <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/login">Log in</a> <p></p>
     <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/registration">Registration</a> <p></p>
     <a sec:authorize="isAuthenticated()" href="http://localhost:8080/logout">Log out</a> <p></p>
@@ -24,5 +15,7 @@
     <a sec:authorize="isAuthenticated()" href="http://localhost:8080/publications">Публикации</a> <p></p>
     <a sec:authorize="isAuthenticated()" href="http://localhost:8080/tasks">Задания</a> <p></p>
     <a sec:authorize="isAuthenticated()" href="http://localhost:8080/users">Пользователи</a> <p></p>
+    <a sec:authorize="hasRole('ADMIN')" href="http://localhost:8080/admin">Admin panel</a> <p></p>
+    <!-- <div sec:authorize="hasRole('USER')">Text visible to user.</div> -->
 </body>
 </html>

@@ -28,7 +28,7 @@ public class ChatController {
         try {
             Long userId = SecurityUserService.getCurrentUserId();
             User user = userService.findUserById(userId);
-            if (chatService.isUserInPrivateChat(user, chatId.intValue())) {
+            if (chatService.isUserInPrivateChat(user, chatId)) {
                 return "html/chat/chatPage";
             } else {
                 return "html/chat/enterChatPage";
@@ -71,11 +71,11 @@ public class ChatController {
     @PostMapping("/api/chat/enter")
     public ResponseEntity<?> enterChat(@RequestBody ChatMember chatMember) {
         ResponseEntity<?> response;
-        Integer userId = chatMember.getUserId();
-        Integer chatId = chatMember.getChatId();
+        Long userId = chatMember.getUserId();
+        Long chatId = chatMember.getChatId();
 
-        if (chatService.enterChat(userService.findUserById((long)userId), chatId)) {
-            response = ResponseEntity.ok().body(userService.findUserById((long) userId).getUsername());
+        if (chatService.enterChat(userService.findUserById(userId), chatId)) {
+            response = ResponseEntity.ok().body(userService.findUserById(userId).getUsername());
         } else {
             response = ResponseEntity.status(500).body("User already in chat!");
         }
@@ -85,11 +85,11 @@ public class ChatController {
     @PostMapping("/api/chat/leave")
     public ResponseEntity<?> leaveChat(@RequestBody ChatMember chatMember) {
         ResponseEntity<?> response;
-        Integer userId = chatMember.getUserId();
-        Integer chatId = chatMember.getChatId();
+        Long userId = chatMember.getUserId();
+        Long chatId = chatMember.getChatId();
 
-        if (chatService.leaveChat(userService.findUserById((long)userId), chatId)) {
-            response = ResponseEntity.ok().body(userService.findUserById((long) userId).getUsername());
+        if (chatService.leaveChat(userService.findUserById(userId), chatId)) {
+            response = ResponseEntity.ok().body(userService.findUserById(userId).getUsername());
         } else {
             response = ResponseEntity.status(500).body("User not in chat!");
         }

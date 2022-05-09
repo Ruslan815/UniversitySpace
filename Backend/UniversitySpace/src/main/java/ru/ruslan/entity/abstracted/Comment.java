@@ -7,7 +7,6 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public abstract class Comment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;

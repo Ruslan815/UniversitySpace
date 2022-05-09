@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 @Entity(name = "task_comments")
 public class TaskComment extends Comment {
-
     private Long taskId;
 
     public TaskComment() {

@@ -24,20 +24,20 @@ public class DatabaseService {
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
-    public synchronized List<MessageView> readMessages(User someUser, Integer chatId) {
+    public synchronized List<MessageView> readMessages(User someUser, Long chatId) {
         String queryText1 = "SELECT * FROM MESSAGES WHERE CHAT_ID = " + chatId + " AND MESSAGE_ID in ";
         String queryText2 = "(SELECT UNREAD_MESSAGES_MESSAGE_ID FROM MESSAGES_USERS_WHO_DID_NOT_READ where USERS_WHO_DID_NOT_READ_ID = " + someUser.getId() + ");";
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(queryText1 + queryText2);
         List<MessageView> responseList = new ArrayList<>();
-        List<Integer> messageIdForDelete = new ArrayList<>();
+        List<Long> messageIdForDelete = new ArrayList<>();
 
         for (Map<String, Object> row : rows) {
             Message queryMessage = new Message();
 
-            queryMessage.setMessageId((Integer) row.get("MESSAGE_ID"));
-            messageIdForDelete.add((Integer) row.get("MESSAGE_ID"));
+            queryMessage.setMessageId((Long) row.get("MESSAGE_ID"));
+            messageIdForDelete.add((Long) row.get("MESSAGE_ID"));
 
-            queryMessage.setUserId((Integer) row.get("USER_ID"));
+            queryMessage.setUserId((Long) row.get("USER_ID"));
             queryMessage.setText((String) row.get("TEXT"));
             queryMessage.setSendTime((String) row.get("SEND_TIME"));
 

@@ -8,7 +8,6 @@ import java.util.Objects;
 
 @Entity(name = "publications")
 public class Publication {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long publicationId;

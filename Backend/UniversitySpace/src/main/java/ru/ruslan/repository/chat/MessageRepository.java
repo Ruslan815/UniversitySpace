@@ -8,7 +8,7 @@ import ru.ruslan.entity.chat.Message;
 import java.util.List;
 
 @Repository
-public interface MessageRepository extends JpaRepository<Message, Integer> {
+public interface MessageRepository extends JpaRepository<Message, Long> {
     //@Lock(LockModeType.PESSIMISTIC_WRITE)
-    List<Message> findAllByChatId(Integer chatId, Sort sort);
+    List<Message> findAllByChatId(Long chatId, Sort sort);
 }

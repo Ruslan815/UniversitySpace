@@ -9,14 +9,14 @@ import java.util.*;
 public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer chatId;
+    private Long chatId;
 
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> chatMembers = new HashSet<>();
 
-    public Chat(Integer chatId, String name) {
+    public Chat(Long chatId, String name) {
         this.chatId = chatId;
         this.name = name;
     }
@@ -24,11 +24,11 @@ public class Chat {
     public Chat() {
     }
 
-    public Integer getChatId() {
+    public Long getChatId() {
         return chatId;
     }
 
-    public void setChatId(Integer chatId) {
+    public void setChatId(Long chatId) {
         this.chatId = chatId;
     }
 

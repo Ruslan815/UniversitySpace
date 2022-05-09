@@ -32,8 +32,7 @@ public class MessageController {
 
     @PostMapping("/api/message")
     public ResponseEntity<?> create(@RequestBody Message someMessage) {
-        Integer userId = someMessage.getUserId();
-        Integer chatId = someMessage.getChatId();
+        Long chatId = someMessage.getChatId();
 
         long currentTimeInMillis = System.currentTimeMillis();
         someMessage.setSendTimeSec(currentTimeInMillis / 1000);
@@ -47,12 +46,12 @@ public class MessageController {
     }
 
     @GetMapping("/api/messages")
-    public ResponseEntity<?> getChatMessages(@RequestParam Integer chatId, @RequestParam Long userId) {
+    public ResponseEntity<?> getChatMessages(@RequestParam Long chatId, @RequestParam Long userId) {
         return ResponseEntity.ok(messageService.getAllByChatId(chatId, userId));
     }
 
     @GetMapping("/api/messages/unread")
-    public DeferredResult<ResponseEntity<?>> getUnreadMessages(@RequestParam Integer userId, @RequestParam Integer chatId) {
+    public DeferredResult<ResponseEntity<?>> getUnreadMessages(@RequestParam Long userId, @RequestParam Long chatId) {
         DeferredResult<ResponseEntity<?>> output = new DeferredResult<>();
 
         output.onError((Throwable t) -> {
@@ -61,7 +60,7 @@ public class MessageController {
 
         Thread newThread = new Thread(() -> {
             int timeoutCounter = 0;
-            while (!messageService.isUnreadMessagesExist(userService.findUserById((long) userId), chatId)) {
+            while (!messageService.isUnreadMessagesExist(userService.findUserById(userId), chatId)) {
                 if (timeoutCounter++ > 165) {
                     output.setErrorResult(ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body("Request timeout"));
                     return;
@@ -74,7 +73,7 @@ public class MessageController {
             }
 
             ResponseEntity<?> someResponse = ResponseEntity
-                    .ok(messageService.readMessages(userService.findUserById((long) userId), chatId));
+                    .ok(messageService.readMessages(userService.findUserById(userId), chatId));
             output.setResult(someResponse);
         });
         newThread.start();

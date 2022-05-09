@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AdminController {
     @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public AdminController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/admin")
     public String getAdminPanel() {

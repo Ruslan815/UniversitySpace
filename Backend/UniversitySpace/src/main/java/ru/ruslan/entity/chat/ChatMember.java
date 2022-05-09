@@ -1,27 +1,27 @@
 package ru.ruslan.entity.chat;
 
 public class ChatMember {
-    Integer userId;
-    Integer chatId;
+    private Long userId;
+    private Long chatId;
 
-    public ChatMember(Integer userId, Integer chatId) {
+    public ChatMember(Long userId, Long chatId) {
         this.userId = userId;
         this.chatId = chatId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Integer getChatId() {
+    public Long getChatId() {
         return chatId;
     }
 
-    public void setChatId(Integer chatId) {
+    public void setChatId(Long chatId) {
         this.chatId = chatId;
     }
 

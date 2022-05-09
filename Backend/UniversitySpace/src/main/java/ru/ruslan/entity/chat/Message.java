@@ -9,16 +9,15 @@ import java.util.Objects;
 
 @Entity(name = "messages")
 public class Message {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer messageId;
+    private Long messageId;
 
     @Column(nullable = false)
-    private Integer userId;
+    private Long userId;
 
     @Column(nullable = false)
-    private Integer chatId;
+    private Long chatId;
 
     @Column(nullable = false)
     private String text;
@@ -32,7 +31,7 @@ public class Message {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<User> usersWhoDidNotRead = new ArrayList<>();
 
-    public Message(Integer messageId, Integer userId, Integer chatId, String text, String sendTime) {
+    public Message(Long messageId, Long userId, Long chatId, String text, String sendTime) {
         this.messageId = messageId;
         this.userId = userId;
         this.chatId = chatId;
@@ -43,27 +42,27 @@ public class Message {
     public Message() {
     }
 
-    public Integer getMessageId() {
+    public Long getMessageId() {
         return messageId;
     }
 
-    public void setMessageId(Integer messageId) {
+    public void setMessageId(Long messageId) {
         this.messageId = messageId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Integer getChatId() {
+    public Long getChatId() {
         return chatId;
     }
 
-    public void setChatId(Integer chatId) {
+    public void setChatId(Long chatId) {
         this.chatId = chatId;
     }
 

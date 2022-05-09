@@ -3,7 +3,7 @@ package ru.ruslan.entity.chat;
 import java.util.Objects;
 
 public class ChatView {
-    private Integer chatId;
+    private Long chatId;
     private String name;
 
     public ChatView(Chat chat) {
@@ -11,16 +11,11 @@ public class ChatView {
         this.setName(chat.getName());
     }
 
-    public ChatView(Integer chatId, String name) {
-        this.chatId = chatId;
-        this.name = name;
-    }
-
-    public Integer getChatId() {
+    public Long getChatId() {
         return chatId;
     }
 
-    public void setChatId(Integer chatId) {
+    public void setChatId(Long chatId) {
         this.chatId = chatId;
     }
 

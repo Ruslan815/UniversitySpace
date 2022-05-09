@@ -7,7 +7,6 @@ import javax.persistence.Id;
 
 @Entity(name = "tasks")
 public class Task {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long taskId;

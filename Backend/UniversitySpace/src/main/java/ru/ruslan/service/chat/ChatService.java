@@ -34,7 +34,7 @@ public class ChatService {
         return responseList;
     }
 
-    public Chat getByChatId(Integer chatId) {
+    public Chat getByChatId(Long chatId) {
         return chatRepository.findById(chatId).orElseThrow();
     }
 
@@ -43,7 +43,7 @@ public class ChatService {
     }
 
     @Transactional
-    public boolean enterChat(User user, Integer chatId) {
+    public boolean enterChat(User user, Long chatId) {
         Chat chat = chatRepository.getByChatId(chatId);
         boolean isUserNotInChat = chat.getChatMembers().add(user);
         if (isUserNotInChat) {
@@ -53,7 +53,7 @@ public class ChatService {
     }
 
     @Transactional
-    public boolean leaveChat(User user, Integer chatId) {
+    public boolean leaveChat(User user, Long chatId) {
         Chat chat = chatRepository.getByChatId(chatId);
         boolean isUserAlreadyInChat = chat.getChatMembers().remove(user);
         if (isUserAlreadyInChat) {
@@ -62,7 +62,7 @@ public class ChatService {
         return isUserAlreadyInChat;
     }
 
-    public boolean isUserInPrivateChat(User user, Integer chatId) {
+    public boolean isUserInPrivateChat(User user, Long chatId) {
         if (this.isPrivateChatExist(chatId)) {
             Chat chat = chatRepository.getByChatId(chatId);
             return chat.getChatMembers().contains(user);
@@ -70,7 +70,7 @@ public class ChatService {
         return false;
     }
 
-    public boolean isPrivateChatExist(Integer chatId) {
+    public boolean isPrivateChatExist(Long chatId) {
         if (chatId == null) return false;
         return chatRepository.existsById(chatId);
     }

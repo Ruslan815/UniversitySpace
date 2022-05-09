@@ -35,7 +35,7 @@ public class MessageService {
         return new MessageView(messageRepository.save(someMessage));
     }
 
-    public List<MessageView> getAllByChatId(Integer chatId, Long userId) {
+    public List<MessageView> getAllByChatId(Long chatId, Long userId) {
         User user = userService.findUserById(userId);
         List<Message> tempList = messageRepository.findAllByChatId(chatId, Sort.by(Sort.Direction.DESC, "sendTime"));
         List<MessageView> responseList = new ArrayList<>();
@@ -48,12 +48,12 @@ public class MessageService {
         return responseList;
     }
 
-    public synchronized List<MessageView> readMessages(User someUser, Integer chatId) {
+    public synchronized List<MessageView> readMessages(User someUser, Long chatId) {
         return databaseService.readMessages(someUser, chatId);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
-    public synchronized boolean isUnreadMessagesExist(User someUser, Integer chatId) {
+    public synchronized boolean isUnreadMessagesExist(User someUser, Long chatId) {
         List<Message> chatMessagesList = messageRepository.findAllByChatId(chatId, Sort.by(Sort.Direction.DESC, "sendTime"));
         for (Message someMessage : chatMessagesList) {
             if (someMessage.getUsersWhoDidNotRead().contains(someUser)) {
