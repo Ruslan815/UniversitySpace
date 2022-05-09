@@ -6,8 +6,8 @@ function getAllChatMessages() {
     var userIdElement = document.getElementById('divUserId');
     userId = parseInt(userIdElement.innerHTML, 10);
     userIdElement.remove(); // for user security
-    console.log("CHAT_ID: " + chatId + " : " + typeof chatId);
-    console.log("USER_ID: " + userId + " : " + typeof userId);
+    // console.log("CHAT_ID: " + chatId + " : " + typeof chatId);
+    // console.log("USER_ID: " + userId + " : " + typeof userId);
 
     var url = "http://localhost:8080/api/messages?chatId=" + chatId;
 
@@ -73,6 +73,40 @@ function startListenChat() {
             await subscribe();
         }
     }
+}
+
+function leaveChat() {
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:8080/api/chat/leave";
+    var data = JSON.stringify({"userId": userId, "chatId": chatId});
+    xhr.open("POST", url, false); // false - synchronous
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            alert("You successfully left the chat!");
+            sendLeaveMessage(7, chatId, "User " + xhr.responseText + " left this chat!");
+        } else if (xhr.status === 500) {
+            alert("Error while sending: " + xhr.responseText);
+        }
+    };
+    
+    xhr.send(data);
+    window.location.replace("http://localhost:8080/chats");
+}
+
+function sendLeaveMessage(userId, chatId, messageText) {
+    var data = JSON.stringify({"userId": userId, "chatId": chatId, "text": messageText});
+    var xhr = new XMLHttpRequest();
+    var url = "http://localhost:8080/api/message";
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status != 200) {
+            alert("Error while send: " + xhr.responseText);
+        }
+    };
+
+    xhr.send(data);
 }
 
 function getUrlParam(paramName) {

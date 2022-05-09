@@ -70,7 +70,7 @@ public class ChatController {
 
     @PostMapping("/api/chat/enter")
     public ResponseEntity<?> enterChat(@RequestBody ChatMember chatMember) {
-        ResponseEntity<?> response = ResponseEntity.ok("Successfully entered the chat!");
+        ResponseEntity<?> response;
         Integer userId = chatMember.getUserId();
         Integer chatId = chatMember.getChatId();
 
@@ -84,11 +84,15 @@ public class ChatController {
 
     @PostMapping("/api/chat/leave")
     public ResponseEntity<?> leaveChat(@RequestBody ChatMember chatMember) {
-        ResponseEntity<?> response = ResponseEntity.ok("Successfully left the chat!");
+        ResponseEntity<?> response;
         Integer userId = chatMember.getUserId();
         Integer chatId = chatMember.getChatId();
-        chatService.leaveChat(userService.findUserById((long)userId), chatId);
 
+        if (chatService.leaveChat(userService.findUserById((long)userId), chatId)) {
+            response = ResponseEntity.ok().body(userService.findUserById((long) userId).getUsername());
+        } else {
+            response = ResponseEntity.status(500).body("User not in chat!");
+        }
         return response;
     }
 }
