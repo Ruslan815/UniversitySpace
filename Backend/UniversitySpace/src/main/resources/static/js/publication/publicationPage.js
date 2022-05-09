@@ -47,7 +47,7 @@ function loadComments() {
     var obj = JSON.parse(comments);
     for (var x of obj) { // creating comments list
         var authorIdElement = document.createElement('p');
-        authorIdElement.innerText = x.authorId;
+        authorIdElement.innerText = x.authorUsername;
         var creationTimeElement = document.createElement('p');
         creationTimeElement.innerText = x.creationTime;
         var commentTextElement = document.createElement('p');
