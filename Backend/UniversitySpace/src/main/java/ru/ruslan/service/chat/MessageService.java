@@ -41,7 +41,10 @@ public class MessageService {
         List<MessageView> responseList = new ArrayList<>();
         for (Message message : tempList) {
             message.getUsersWhoDidNotRead().remove(user);
-            responseList.add(new MessageView(message));
+            MessageView messageView = new MessageView(message);
+            String senderUsername = userService.findUserById(messageView.getUserId()).getUsername();
+            messageView.setUsername(senderUsername);
+            responseList.add(messageView);
         }
         messageRepository.saveAll(tempList); // update users who did not read
 
@@ -49,7 +52,12 @@ public class MessageService {
     }
 
     public synchronized List<MessageView> readMessages(User someUser, Long chatId) {
-        return databaseService.readMessages(someUser, chatId);
+        List<MessageView> answerList = databaseService.readMessages(someUser, chatId);
+        for (MessageView messageView : answerList) {
+            String senderUsername = userService.findUserById(messageView.getUserId()).getUsername();
+            messageView.setUsername(senderUsername);
+        }
+        return answerList;
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)

@@ -123,7 +123,20 @@ function getUrlParam(paramName) {
 function addNewMessageToMessagesList(message) {
     var messagesListElement = document.getElementById('messages');
     var messageElement = document.createElement("li");
-    messageElement.innerHTML = "USER: " + message.userId + "; TEXT: " + message.text + "; TIME: " + message.sendTime;
+
+    var timeElement = document.createElement("div");
+    timeElement.style.color = 'grey';
+    timeElement.style.fontSize = "15px";
+    timeElement.innerHTML = message.sendTime;
+
+    var messageTextElement = document.createElement("div");
+    messageTextElement.style.color = 'black';
+    messageTextElement.style.fontSize = "20px";
+    messageTextElement.innerHTML = message.username + ": " + message.text;
+
+    messageElement.appendChild(timeElement);
+    messageElement.appendChild(messageTextElement);
+
     messagesListElement.append(messageElement);
 }
 
