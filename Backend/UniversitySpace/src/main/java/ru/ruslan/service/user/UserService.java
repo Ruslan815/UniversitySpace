@@ -1,6 +1,8 @@
 package ru.ruslan.service.user;
 
 import org.springframework.transaction.annotation.Transactional;
+import ru.ruslan.entity.chat.Chat;
+import ru.ruslan.entity.chat.ChatView;
 import ru.ruslan.entity.user.Role;
 import ru.ruslan.entity.user.User;
 import ru.ruslan.repository.user.RoleRepository;
@@ -103,6 +105,15 @@ public class UserService {
         Long solvedTaskCount = user.getSolvedTaskCount();
         solvedTaskCount++;
         user.setSolvedTaskCount(solvedTaskCount);
+    }
+
+    public List<ChatView> getAvailableChatsByUserId(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
+        List<ChatView> answerList = new ArrayList<>();
+        for (Chat chat : user.getAvailableChats()) {
+            answerList.add(new ChatView(chat));
+        }
+        return answerList;
     }
 
     private enum ROLES {

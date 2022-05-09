@@ -83,4 +83,9 @@ public class UserController {
 
         return ResponseEntity.ok().body(usernameList);
     }
+
+    @GetMapping("/api/user/chats")
+    public ResponseEntity<?> getAvailableChatsByUserId(@RequestParam Long userId) {
+        return ResponseEntity.ok().body(userService.getAvailableChatsByUserId(userId));
+    }
 }
