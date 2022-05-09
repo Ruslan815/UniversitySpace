@@ -7,6 +7,12 @@
 
 <body onload="getAllPublicationsList(document.getElementById('publicationsList'))">
     
+    <input type="text" id="searchInput" >
+    <input type="button" onclick="searchByInput()" value="Найти">
+    <input type="button" onclick="clearSearchResult()" value="Очистить поиск">
+
+    <ol id="searchResult"></ol>
+
     <ul id="publicationsList"></ul>
 
     <a href="http://localhost:8080/createPublication">Create new publication</a>
