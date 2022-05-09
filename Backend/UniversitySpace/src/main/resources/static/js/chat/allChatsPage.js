@@ -1,7 +1,42 @@
 var userId;
+var allChatsList;
 
 function printText(someText) {
     alert(someText);
+}
+
+function searchByInput() {
+    var searchString = document.getElementById('searchInput').value.toLowerCase();
+    if (searchString == null || searchString == "") {
+        return;
+    }
+
+    var elem = document.getElementById("searchResult");
+    elem.removeAttribute("hidden");
+    elem.innerHTML = "";
+    document.getElementById("userChatsList").setAttribute("hidden", "hidden");
+    document.getElementById("chatsList").setAttribute("hidden", "hidden");
+
+    for (var x of allChatsList) {
+        if (x.name.toLowerCase().includes(searchString)) {
+            var a = document.createElement('a');
+            var linkText = document.createTextNode(x.name);
+            a.appendChild(linkText);
+            a.title = x.name;
+            a.href = "http://localhost:8080/chat?chatId=" + x.chatId + "&chatName=" + x.name;
+    
+            let chatElem = document.createElement('li');
+            chatElem.append(a);
+            elem.append(chatElem);
+        }
+    }
+}
+
+function clearSearchResult() {
+    document.getElementById("searchResult").setAttribute("hidden", "hidden");
+    document.getElementById("searchResult").innerHTML = "";
+    document.getElementById("userChatsList").removeAttribute("hidden");
+    document.getElementById("chatsList").removeAttribute("hidden");
 }
 
 function getAllChatsList(elem) {
@@ -15,6 +50,7 @@ function getAllChatsList(elem) {
     let chats = xmlHttp.responseText;
 
     var obj = JSON.parse(chats);
+    allChatsList = obj;
     for (var x of obj) {
       var a = document.createElement('a');
       var linkText = document.createTextNode(x.name);

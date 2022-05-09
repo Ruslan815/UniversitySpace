@@ -7,6 +7,12 @@
 
 <body onload="getAllChatsList(document.getElementById('chatsList'))">
 
+    <input type="text" id="searchInput" >
+    <input type="button" onclick="searchByInput()" value="Найти">
+    <input type="button" onclick="clearSearchResult()" value="Очистить поиск">
+
+    <ol id="searchResult"></ol>
+
     <h2>My chats</h2>
     <ol id="userChatsList"></ol>
 
