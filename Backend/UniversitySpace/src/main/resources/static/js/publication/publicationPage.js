@@ -22,7 +22,7 @@ function getPublication() {
 
     publicationObject = JSON.parse(publication);
     document.getElementById("publicationTitle").innerHTML = publicationObject.title;
-    document.getElementById("publicationAuthor").innerHTML = publicationObject.authorId;
+    document.getElementById("publicationAuthor").innerHTML = publicationObject.authorUsername;
     document.getElementById("publicationContent").value = publicationObject.content;
     publicationObject.content = ""; // for memory economy
 

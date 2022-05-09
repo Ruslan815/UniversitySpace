@@ -9,15 +9,13 @@
     <h2>Title</h2>
     <h3 id="publicationTitle" name="publicationTitle"></h3>
 
-    <h5>Author ID (change to username)</h5>
+    <h5>Author</h5>
     <h5 id="publicationAuthor" name="publicationAuthor"></h5>
 
     <h2>Publication content</h2>
     <textarea id="publicationContent" name="publicationContent" rows="25" cols="80" style="resize:none" readonly></textarea>
     <p></p>
 
-    <!--Show these buttons only for publication author
-        1) Create hidden element with current userId through Thymeleaf and then delete this element after page loading-->
     <input id="editButton" name="editButton" type="button" value="Edit" onclick="enableEditMode()" hidden="hidden">
     <input id="saveButton" name="saveButton" type="button" value="Save changes" onclick="updatePublication()" hidden="hidden">
     <p></p>
@@ -31,4 +29,4 @@
     <h2>Comments</h2>
     <div id="commentsDiv"></div>
 </body>
-</html>
+</html> 

@@ -14,6 +14,7 @@ public class Publication {
     private String title;
     private String content;
     private Long authorId;
+    private String authorUsername;
     private String creationTime;
     private boolean isModified = false;
     private String lastModifiedTime;
@@ -21,11 +22,12 @@ public class Publication {
     public Publication() {
     }
 
-    public Publication(Long publicationId, String title, String content, Long authorId, String creationTime) {
+    public Publication(Long publicationId, String title, String content, Long authorId, String authorUsername, String creationTime) {
         this.publicationId = publicationId;
         this.title = title;
         this.content = content;
         this.authorId = authorId;
+        this.authorUsername = authorUsername;
         this.creationTime = creationTime;
     }
 
@@ -59,6 +61,14 @@ public class Publication {
 
     public void setAuthorId(Long authorId) {
         this.authorId = authorId;
+    }
+
+    public String getAuthorUsername() {
+        return authorUsername;
+    }
+
+    public void setAuthorUsername(String authorUsername) {
+        this.authorUsername = authorUsername;
     }
 
     public String getCreationTime() {

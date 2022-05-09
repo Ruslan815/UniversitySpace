@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.ruslan.entity.publication.Publication;
 import ru.ruslan.repository.publication.PublicationRepository;
 import ru.ruslan.service.user.SecurityUserService;
+import ru.ruslan.service.user.UserService;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -15,10 +16,14 @@ public class PublicationService {
     private final PublicationRepository publicationRepository;
     @Autowired
     private final PublicationCommentService publicationCommentService;
+    @Autowired
+    private final UserService userService;
 
-    public PublicationService(PublicationRepository publicationRepository, PublicationCommentService publicationCommentService) {
+    public PublicationService(PublicationRepository publicationRepository,
+                              PublicationCommentService publicationCommentService, UserService userService) {
         this.publicationRepository = publicationRepository;
         this.publicationCommentService = publicationCommentService;
+        this.userService = userService;
     }
 
     public List<Publication> getAllPublications() {
@@ -35,6 +40,8 @@ public class PublicationService {
 
     public String createPublication(Publication somePublication) throws Exception {
         somePublication.setAuthorId(SecurityUserService.getCurrentUserId());
+        String authorUsername = userService.findUserById(somePublication.getAuthorId()).getUsername();
+        somePublication.setAuthorUsername(authorUsername);
 
         long currentTimeInMillis = System.currentTimeMillis();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
