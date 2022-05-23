@@ -2,19 +2,46 @@
 <html>
 <head>
     <title>All publications</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/js/publication/allPublicationsPage.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/publication/allPublicationsPage.css">
 </head>
 
 <body onload="getAllPublicationsList(document.getElementById('publicationsList'))">
     
-    <input type="text" id="searchInput" >
-    <input type="button" onclick="searchByInput()" value="Найти">
-    <input type="button" onclick="clearSearchResult()" value="Очистить поиск">
+    <div class="header">
+        <h1>Публикации</h1>
+    </div>
 
-    <ol id="searchResult"></ol>
+    <div class="navbar">
+        <a href="http://localhost:8080" >Главная</a>
+        <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/login" class="right">Войти</a>
+        <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/registration" class="right">Регистрация</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/logout" class="right">Выйти</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/chats">Чаты</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/publications">Публикации</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/tasks">Задания</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/users">Пользователи</a>
+        <a sec:authorize="hasRole('ADMIN')" href="http://localhost:8080/admin" class="right">Панель администратора</a>
+    </div>
+    <br> <br>
 
-    <ul id="publicationsList"></ul>
+    <div class="searchDiv">
+        <input type="text" id="searchInput" >
+        <input type="button" onclick="searchByInput()" value="Найти" class="buttons">
+        <input type="button" onclick="clearSearchResult()" value="Очистить поиск" class="buttons">
+    </div>
+    <br> <br>
 
-    <a href="http://localhost:8080/createPublication">Create new publication</a>
+    <div id="searchResult" class="grid" style="display: none"></div>
+    <div id="publicationsList" class="grid"></div>
+    <br> <br>
+
+    <div class="createPublicationDiv">
+        <a href="http://localhost:8080/createPublication"> 
+            <button class="buttons">Создать новую публикацию</button> 
+        </a>
+    </div>
+    
 </body>
 </html>
