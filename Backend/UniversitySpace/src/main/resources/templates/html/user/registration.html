@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create an account</title>
+    <title>Создание аккаунта</title>
+    <link rel="stylesheet" type="text/css" href="css/user/registrationPage.css">
 </head>
 
 <body>
-<div class="container">
+<h2>Создайте аккаунт</h2>
 
-    <form method="POST" class="form-signin" th:object="${userForm}" th:action="@{/registration}">
-        <h2 class="form-signin-heading">Create your account</h2>
-        <div class="form-group">
-            <input type="text" th:field="*{username}" class="form-control" placeholder="Username"
-                   autofocus="true">
-            <span class="has-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-        </div>
-
-        <div class="form-group">
-            <input type="password" th:field="*{password}" class="form-control" placeholder="Password">
-            <span class="has-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-        </div>
-
-        <div class="form-group">
-            <input type="password" th:field="*{passwordConfirm}" class="form-control"
-                   placeholder="Confirm your password">
-            <span class="has-error" th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
-        </div>
-
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+<div class="registration">
+    <form method="POST" th:object="${userForm}" th:action="@{/registration}">
+    
+        <p>Имя пользователя</p>
+        <input type="text" th:field="*{username}" placeholder="Username" autofocus="true" id="usernameInput">
+        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+    
+        <p>Пароль</p>
+        <input type="password" th:field="*{password}" placeholder="Password" id="passwordInput">
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+    
+        <p>Повторите пароль</p>
+        <input type="password" th:field="*{passwordConfirm}" placeholder="Confirm your password" id="passwordConfirmInput">
+        <span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
+        <br><br> <br><br>
+    
+        <button type="submit" id="submitButton">Создать</button>
     </form>
-
 </div>
 
 </body>

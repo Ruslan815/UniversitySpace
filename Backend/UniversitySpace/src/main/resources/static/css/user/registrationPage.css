@@ -1,0 +1,57 @@
+body   
+{  
+    margin: 0;  
+    padding: 0;  
+    background-color:#1aa4e4ee;  
+    font-family: 'Arial';  
+}  
+
+.registration{  
+        width: 330px;  
+        overflow: hidden;  
+        margin: auto;  
+        padding: 80px;  
+        background: #0fc29e;  
+        border-radius: 15px ; 
+}  
+
+h2{  
+    text-align: center;  
+    color: #2ccf5df1;  
+    padding: 20px;  
+}  
+
+#usernameInput{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+}  
+
+#passwordInput{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+      
+}
+
+#passwordConfirmInput{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+      
+}
+
+#submitButton{  
+    width: 300px;  
+    height: 30px;  
+    border: none;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: blue;
+}
