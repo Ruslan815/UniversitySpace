@@ -30,6 +30,7 @@ The sticky value is not supported in IE or Edge 15 and earlier versions. However
     position: sticky;
     position: -webkit-sticky;
     top: 0;
+    z-index:99999;
 }
 
 /* Style the navigation bar links */
