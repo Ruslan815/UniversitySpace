@@ -1,45 +1,6 @@
 var userId;
 var allChatsList;
 
-function printText(someText) {
-    alert(someText);
-}
-
-function searchByInput() {
-    var searchString = document.getElementById('searchInput').value.toLowerCase();
-    if (searchString == null || searchString == "") {
-        return;
-    }
-
-    var elem = document.getElementById("searchResult");
-    elem.removeAttribute("hidden");
-    elem.innerHTML = "";
-    document.getElementById("userChatsList").setAttribute("hidden", "hidden");
-    document.getElementById("chatsList").setAttribute("hidden", "hidden");
-
-    for (var x of allChatsList) {
-        if (x.name.toLowerCase().includes(searchString)) {
-            var a = document.createElement('a');
-            var linkText = document.createTextNode(x.name);
-            a.appendChild(linkText);
-            a.title = x.name;
-            a.href = "http://localhost:8080/chat?chatId=" + x.chatId + "&chatName=" + x.name;
-    
-            let chatElem = document.createElement('li');
-            chatElem.append(a);
-            elem.append(chatElem);
-        }
-    }
-}
-
-function clearSearchResult() {
-    document.getElementById('searchInput').value = "";
-    document.getElementById("searchResult").setAttribute("hidden", "hidden");
-    document.getElementById("searchResult").innerHTML = "";
-    document.getElementById("userChatsList").removeAttribute("hidden");
-    document.getElementById("chatsList").removeAttribute("hidden");
-}
-
 function getAllChatsList(elem) {
     getUserChatsList(document.getElementById('userChatsList'));
 
@@ -53,18 +14,10 @@ function getAllChatsList(elem) {
     var obj = JSON.parse(chats);
     allChatsList = obj;
     for (var x of obj) {
-      var a = document.createElement('a');
-      var linkText = document.createTextNode(x.name);
-      a.appendChild(linkText);
-      a.title = x.name;
-      a.href = "http://localhost:8080/chat?chatId=" + x.chatId + "&chatName=" + x.name;
-
-      let chatElem = document.createElement('li');
-      chatElem.append(a);
-      elem.append(chatElem);
+        elem.append(createChatElement(x));
     }
 }
- 
+
 function getUserChatsList(elem) {
     var userIdElement = document.getElementById('divUserId');
     userId = parseInt(userIdElement.innerHTML, 10);
@@ -79,22 +32,39 @@ function getUserChatsList(elem) {
 
     var obj = JSON.parse(chats);
     for (var x of obj) {
-      var a = document.createElement('a');
-      var linkText = document.createTextNode(x.name);
-      a.appendChild(linkText);
-      a.title = x.name;
-      a.href = "http://localhost:8080/chat?chatId=" + x.chatId + "&chatName=" + x.name;
-
-      let chatElem = document.createElement('li');
-      chatElem.append(a);
-      elem.append(chatElem);
+        elem.append(createChatElement(x));
     }
+}
+
+function searchByInput() {
+    var searchString = document.getElementById('searchInput').value.toLowerCase();
+    if (searchString == null || searchString == "") {
+        return;
+    }
+
+    var elem = document.getElementById("searchResult");
+    elem.style.display = 'grid';
+    elem.innerHTML = "";
+    document.getElementById("chatsListDiv").style.display = 'none';
+
+    for (var x of allChatsList) {
+        if (x.name.toLowerCase().includes(searchString)) {
+            elem.append(createChatElement(x));
+        }
+    }
+}
+
+function clearSearchResult() {
+    document.getElementById('searchInput').value = "";
+    document.getElementById("searchResult").innerHTML = "";
+    document.getElementById("searchResult").style.display = 'none';
+    document.getElementById("chatsListDiv").style.display = 'grid';
 }
 
 function createNewChat(name) {
     var xhr = new XMLHttpRequest();
     var url = "http://localhost:8080/api/chat";
-    var data = JSON.stringify({"name": name});
+    var data = JSON.stringify({ "name": name });
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -105,14 +75,14 @@ function createNewChat(name) {
             alert("Chat can't be named: " + name + "!");
         }
     };
-    
+
     xhr.send(data);
 }
 
 function enterChat(chatId) {
     var xhr = new XMLHttpRequest();
     var url = "http://localhost:8080/api/chat/enter";
-    var data = JSON.stringify({"userId": userId, "chatId": chatId});
+    var data = JSON.stringify({ "userId": userId, "chatId": chatId });
     xhr.open("POST", url, false); // false - synchronous
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
@@ -123,7 +93,34 @@ function enterChat(chatId) {
             alert("Error while sending: " + xhr.responseText);
         }
     };
-    
+
     xhr.send(data);
     window.location.replace("http://localhost:8080/chats");
+}
+
+function createChatElement(x) {
+    var articleElem = document.createElement("article");
+    articleElem.setAttribute("class", "text");
+
+    var headerElem = document.createElement("h3");
+    headerElem.innerHTML = x.name;
+
+    var textElem = document.createElement("p");
+    if (x.membersCount == null || x.membersCount == 0) {
+        textElem.innerHTML = "Пока ещё нет участников";
+    } else {
+        textElem.innerHTML = "Количество участников: " + x.membersCount;
+    }
+
+    var linkElem = document.createElement("a");
+    var linkText = document.createTextNode("Войти в чат");
+    linkElem.appendChild(linkText);
+    linkElem.title = "Войти в чат";
+    linkElem.href = "http://localhost:8080/chat?chatId=" + x.chatId + "&chatName=" + x.name;
+
+    articleElem.append(headerElem);
+    articleElem.append(textElem);
+    articleElem.append(linkElem);
+
+    return articleElem;
 }

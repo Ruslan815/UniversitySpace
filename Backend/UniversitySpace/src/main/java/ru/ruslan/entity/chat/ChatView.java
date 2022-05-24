@@ -5,10 +5,12 @@ import java.util.Objects;
 public class ChatView {
     private Long chatId;
     private String name;
+    private Long membersCount;
 
     public ChatView(Chat chat) {
-        this.setChatId(chat.getChatId());
-        this.setName(chat.getName());
+        this.chatId = chat.getChatId();
+        this.name = chat.getName();
+        this.membersCount = (long) chat.getChatMembers().size();
     }
 
     public Long getChatId() {
@@ -25,6 +27,14 @@ public class ChatView {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getMembersCount() {
+        return membersCount;
+    }
+
+    public void setMembersCount(Long membersCount) {
+        this.membersCount = membersCount;
     }
 
     @Override

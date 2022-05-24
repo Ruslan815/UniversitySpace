@@ -1,27 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>All chats</title>
+    <title>Чаты</title>
     <script src="/js/chat/allChatsPage.js"></script>
-</head>
+    <link type="text/css" rel="stylesheet" href="/css/chat/allChatsPage.css">
+</head> 
 
 <body onload="getAllChatsList(document.getElementById('chatsList'))">
+    <div class="header">
+        <h1>Чаты</h1>
+    </div>
 
-    <input type="text" id="searchInput" >
-    <input type="button" onclick="searchByInput()" value="Найти">
-    <input type="button" onclick="clearSearchResult()" value="Очистить поиск">
+    <div class="navbar">
+        <a href="http://localhost:8080" >Главная</a>
+        <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/login" class="right">Войти</a>
+        <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/registration" class="right">Регистрация</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/logout" class="right">Выйти</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/chats">Чаты</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/publications">Публикации</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/tasks">Задачи</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/users">Пользователи</a>
+        <a sec:authorize="hasRole('ADMIN')" href="http://localhost:8080/admin" class="right">Панель администратора</a>
+    </div>
+    <br> <br>
 
-    <ol id="searchResult"></ol>
+    <div class="createChatDiv">
+        <input type="text" id="newChatName" >
+        <input type="button" onclick="createNewChat(document.getElementById('newChatName').value)" value="Создать чат" class="buttons">
+    </div>
+    
+    <div class="searchDiv">
+        <input type="text" id="searchInput" >
+        <input type="button" onclick="searchByInput()" value="Найти" class="buttons">
+        <input type="button" onclick="clearSearchResult()" value="Очистить поиск" class="buttons">
+    </div>
 
-    <h2>My chats</h2>
-    <ol id="userChatsList"></ol>
+    <div id="searchResult" class="grid" style="display: none;"></div>
 
-    <h2>All chats</h2>
-    <ol id="chatsList"></ol>
-
-    <input type="text" id="newChatName" >
-    <input type="button" onclick="createNewChat(document.getElementById('newChatName').value)" value="Создать чат">
-
+    <div id="chatsListDiv">
+        <h2>My chats</h2>
+        <div id="userChatsList" class="grid"></div>
+        <h2>All chats</h2>
+        <div id="chatsList" class="grid"></div>
+    </div>
+    
     <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}" ></div>
 </body>
 </html> 
