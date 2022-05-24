@@ -11,15 +11,7 @@ function getAllTasksList(elem) {
     var obj = JSON.parse(message);
     allTasksList = obj;
     for (var x of obj) {
-        var a = document.createElement('a');
-        var linkText = document.createTextNode(x.title);
-        a.appendChild(linkText);
-        a.title = x.title;
-        a.href = "http://localhost:8080/task?taskId=" + x.taskId;
-
-        let taskElem = document.createElement('li');
-        taskElem.append(a);
-        elem.append(taskElem);
+        elem.append(createCardElement(x));
     }
 }
 
@@ -30,28 +22,76 @@ function searchByInput() {
     }
 
     var elem = document.getElementById("searchResult");
-    elem.removeAttribute("hidden");
+    elem.style.display = 'grid';
     elem.innerHTML = "";
-    document.getElementById("tasksList").setAttribute("hidden", "hidden");
+    document.getElementById("tasksList").style.display = 'none'
 
     for (var x of allTasksList) {
         if (x.title.toLowerCase().includes(searchString)) {
-            var a = document.createElement('a');
-            var linkText = document.createTextNode(x.title);
-            a.appendChild(linkText);
-            a.title = x.title;
-            a.href = "http://localhost:8080/task?taskId=" + x.taskId;
-
-            let taskElem = document.createElement('li');
-            taskElem.append(a);
-            elem.append(taskElem);
+            elem.append(createCardElement(x));
         }
     }
 }
 
 function clearSearchResult() {
     document.getElementById('searchInput').value = "";
-    document.getElementById("searchResult").setAttribute("hidden", "hidden");
+    document.getElementById("searchResult").style.display = 'none';
     document.getElementById("searchResult").innerHTML = "";
-    document.getElementById("tasksList").removeAttribute("hidden");
+    document.getElementById("tasksList").style.display = 'grid';
+}
+
+function createCardElement(x) {
+    var cardElem = document.createElement("div");
+    cardElem.setAttribute("class", "flip-card");
+
+    var cardInnerElem = document.createElement("div");
+    cardInnerElem.setAttribute("class", "flip-card-inner");
+
+///////////////////////////////////////////////////////////////////
+
+    var frontCardElem = document.createElement("div");
+    frontCardElem.setAttribute("class", "flip-card-front");
+
+    var statusElem = document.createElement("h3");
+    if (x.status == "Unresolved") {
+        statusElem.innerHTML = "Не решена";
+    } else {
+        statusElem.innerHTML = "Решена";
+    }
+
+    var headerElem = document.createElement("h2");
+    if (x.title.length > 100) {
+        headerElem.innerHTML = x.title.substring(0,100) + "...";
+    } else {
+        headerElem.innerHTML = x.title;
+    }
+
+    frontCardElem.append(statusElem);
+    frontCardElem.append(headerElem);
+
+/////////////////////////////////////////////////////////////
+
+    var backCardElem = document.createElement("div");
+    backCardElem.setAttribute("class", "flip-card-back");
+
+    var costElem = document.createElement("h3");
+    costElem.innerHTML = "Стоимость: " + x.cost;
+
+    var linkElem = document.createElement("a");
+    var linkText = document.createTextNode("Посмотреть");
+    linkElem.appendChild(linkText);
+    linkElem.title = "Посмотреть";
+    linkElem.href = "http://localhost:8080/task?taskId=" + x.taskId;
+
+    backCardElem.append(costElem);
+    backCardElem.append(linkElem);
+
+///////////////////////////////////////////////////////////////
+
+    cardInnerElem.append(frontCardElem);
+    cardInnerElem.append(backCardElem);
+
+    cardElem.append(cardInnerElem);
+
+    return cardElem;
 }
