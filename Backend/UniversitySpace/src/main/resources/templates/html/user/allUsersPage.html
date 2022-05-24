@@ -1,22 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>All users</title>
+    <title>Пользователи</title>
     <script src="/js/user/allUsersPage.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/user/allUsersPage.css">
 </head>
-
+ 
 <body onload="getAllUsersList(document.getElementById('usersList'))">
+    <div class="header">
+        <h1>Пользователи</h1>
+    </div>
 
-    <input type="text" id="searchInput" >
-    <input type="button" onclick="searchByInput()" value="Найти">
-    <input type="button" onclick="clearSearchResult()" value="Очистить поиск">
+    <div class="navbar">
+        <a href="http://localhost:8080" >Главная</a>
+        <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/login" class="right">Войти</a>
+        <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/registration" class="right">Регистрация</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/logout" class="right">Выйти</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/chats">Чаты</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/publications">Публикации</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/tasks">Задачи</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/users">Пользователи</a>
+        <a sec:authorize="hasRole('ADMIN')" href="http://localhost:8080/admin" class="right">Панель администратора</a>
+    </div>
+    <br> <br>
 
-    <ol id="searchResult"></ol>
+    <div class="searchDiv">
+        <input type="text" id="searchInput" >
+        <input type="button" onclick="searchByInput()" value="Найти" class="buttons">
+        <input type="button" onclick="showAllUsersList()" value="Очистить поиск" class="buttons">
+    </div>
+    
+    <input type="button" onclick="showOnlineUsersList(document.getElementById('onlineUsersList'))" value="Показать онлайн" id="showOnlineButton" class="buttons"/>
+    <input type="button" onclick="showAllUsersList()" value="Показать всех" hidden="hidden" id="showAllButton" class="buttons"/>
 
-    <br>
-    <input type="button" onclick="showOnlineUsersList(document.getElementById('usersList'))" value="Show online" id="showOnlineButton" />
-    <input type="button" onclick="reloadPage()" value="Show all" hidden="hidden" id="showAllButton" />
-
-    <ol id="usersList"></ol>
+    <div id="searchResult" class="grid" style="display: none;"></div>
+    <div id="onlineUsersList" class="grid" style="display: none;"></div>
+    <div id="usersList" class="grid"></div>
 </body>
 </html> 

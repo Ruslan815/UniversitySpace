@@ -5,6 +5,7 @@ import ru.ruslan.entity.chat.Chat;
 import ru.ruslan.entity.chat.ChatView;
 import ru.ruslan.entity.user.Role;
 import ru.ruslan.entity.user.User;
+import ru.ruslan.entity.user.UserView;
 import ru.ruslan.repository.user.RoleRepository;
 import ru.ruslan.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.ruslan.entity.user.SecurityUser;
+import ru.ruslan.entity.user.User;
+import ru.ruslan.entity.user.UserView;
 import ru.ruslan.service.user.UserService;
 
 import java.util.ArrayList;
@@ -67,8 +69,8 @@ public class UserController {
     }
 
     @GetMapping("/api/users/online")
-    public ResponseEntity<?> getOnlineUsernamesList() {
-        List<String> usernameList = new ArrayList<>();
+    public ResponseEntity<?> getOnlineUsersViewList() {
+        List<UserView> usernameList = new ArrayList<>();
         final List<Object> allPrincipals = sessionRegistry.getAllPrincipals();
 
         for (final Object principal : allPrincipals) {
@@ -76,7 +78,7 @@ public class UserController {
                 final SecurityUser user = (SecurityUser) principal;
                 List<SessionInformation> activeUserSessions = sessionRegistry.getAllSessions(principal, false); // includeExpiredSessions
                 if (!activeUserSessions.isEmpty()) {
-                    usernameList.add(user.getUsername());
+                    usernameList.add(new UserView(user.getUser()));
                 }
             }
         }

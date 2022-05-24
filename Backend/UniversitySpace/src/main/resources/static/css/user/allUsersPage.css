@@ -1,0 +1,106 @@
+* {
+    box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+/* Header/logo Title */
+.header {
+    padding: 50px;
+    text-align: center;
+    background: #03dae9;
+    color: white;
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+    font-size: 40px;
+}
+
+/*  Sticky navbar - toggles between relative and fixed, depending on the scroll position. 
+It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). 
+The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+.navbar {
+    overflow: hidden;
+    background-color: #333;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index:99999;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+/* Right-aligned link */
+.navbar a.right {
+    float: right;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+/* Active/current link */
+.navbar a.active {
+    background-color: #666;
+    color: white;
+}
+
+.grid { 
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    /*align-items: stretch;*/
+    align-items: center;
+    padding: 20px;
+}
+
+.grid>article {
+    border-radius: 20% 5%;
+    border: 8px solid rgba(136, 131, 131, 0.767);
+    box-shadow: 2px 2px 6px 0px rgba(223, 4, 243, 0.548);
+}
+
+.text {
+    padding: 0 20px 20px;
+}
+
+.text>h3 {
+    text-align: left;
+}
+
+input{  
+    width: 300px;  
+    height: 30px;  
+    border: 5;  
+    border-radius: 3px;  
+    padding-left: 8px;  
+}  
+
+.buttons{  
+    width: 300px;  
+    height: 30px;  
+    border: 3;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: rgb(223, 224, 224);
+    background-color: blueviolet;
+}
+
+.searchDiv {
+    padding: 20px;
+}

@@ -1,14 +1,16 @@
-package ru.ruslan.service.user;
+package ru.ruslan.entity.user;
 
-import ru.ruslan.entity.user.User;
+import java.util.Arrays;
 
 public class UserView {
     private String username;
     private Long solvedTaskCount;
+    private String roles;
 
     public UserView(User user) {
         this.username = user.getUsername();
         this.solvedTaskCount = user.getSolvedTaskCount();
+        this.roles = Arrays.toString(user.getRoles().toArray());
     }
 
     public String getUsername() {
@@ -25,5 +27,13 @@ public class UserView {
 
     public void setSolvedTaskCount(Long solvedTaskCount) {
         this.solvedTaskCount = solvedTaskCount;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 }

@@ -11,21 +11,12 @@ function getAllUsersList(elem) {
     var obj = JSON.parse(users);
     allUsersList = obj;
     for (var x of obj) {
-      var a = document.createElement('a');
-      var linkText = document.createTextNode(x.username);
-      a.appendChild(linkText);
-      a.title = x.username;
-      a.href = "http://localhost:8080/user?username=" + x.username;
-
-      let userElem = document.createElement('li');
-      userElem.append(a);
-      elem.append(userElem);
+        elem.append(createUserElement(x));
     }
 }
 
 function showOnlineUsersList(elem) {
-    document.getElementById("usersList").innerHTML = "";
-
+    showAllUsersList();
     var url = "http://localhost:8080/api/users/online";
 
     var xmlHttp = new XMLHttpRequest();
@@ -35,54 +26,68 @@ function showOnlineUsersList(elem) {
 
     var obj = JSON.parse(users);
     for (var x of obj) {
-      var a = document.createElement('a');
-      var linkText = document.createTextNode(x);
-      a.appendChild(linkText);
-      a.title = x;
-      a.href = "http://localhost:8080/user?username=" + x;
-
-      let userElem = document.createElement('li');
-      userElem.append(a);
-      elem.append(userElem);
+        elem.append(createUserElement(x));
     }
 
-    document.getElementById("showOnlineButton").remove();
+    document.getElementById("usersList").style.display = 'none';
+    document.getElementById("onlineUsersList").style.display = 'grid';
+    document.getElementById("showOnlineButton").setAttribute("hidden", "hidden");
     document.getElementById("showAllButton").removeAttribute("hidden");
 }
 
-function reloadPage() {
-    document.location.reload();
-} 
-
 function searchByInput() {
-  var searchString = document.getElementById('searchInput').value.toLowerCase();
-  if (searchString == null || searchString == "") {
-      return;
-  }
+    var searchString = document.getElementById('searchInput').value.toLowerCase();
+    if (searchString == null || searchString == "") {
+        return;
+    }
+    showAllUsersList();
 
-  var elem = document.getElementById("searchResult");
-  elem.removeAttribute("hidden");
-  elem.innerHTML = "";
-  document.getElementById("usersList").setAttribute("hidden", "hidden");
+    var elem = document.getElementById("searchResult");
+    elem.style.display = 'grid';
+    elem.innerHTML = "";
+    document.getElementById("usersList").style.display = 'none';
 
-  for (var x of allUsersList) {
-      if (x.username.toLowerCase().includes(searchString)) {
-        var a = document.createElement('a');
-        var linkText = document.createTextNode(x.username);
-        a.appendChild(linkText);
-        a.title = x.username;
-        a.href = "http://localhost:8080/user?username=" + x.username;
-  
-        let userElem = document.createElement('li');
-        userElem.append(a);
-        elem.append(userElem);
-      }
-  }
+    for (var x of allUsersList) {
+        if (x.username.toLowerCase().includes(searchString)) {
+            elem.append(createUserElement(x));
+        }
+    }
 }
 
-function clearSearchResult() {
-  document.getElementById('searchInput').value = "";
-  document.getElementById("searchResult").setAttribute("hidden", "hidden");
-  document.getElementById("searchResult").innerHTML = "";
-  document.getElementById("usersList").removeAttribute("hidden");
+function showAllUsersList() {
+    document.getElementById('searchInput').value = "";
+    document.getElementById("searchResult").innerHTML = "";
+    document.getElementById("searchResult").style.display = 'none';
+    document.getElementById("onlineUsersList").innerHTML = "";
+    document.getElementById("onlineUsersList").style.display = 'none';
+    document.getElementById("usersList").style.display = 'grid';
+    document.getElementById("showOnlineButton").removeAttribute("hidden");
+    document.getElementById("showAllButton").setAttribute("hidden", "hidden");
+}
+
+function createUserElement(x) {
+    var articleElem = document.createElement("article");
+    articleElem.setAttribute("class", "text");
+
+    var headerElem = document.createElement("h3");
+    headerElem.innerHTML = x.username + " " + x.roles;
+    
+    var textElem = document.createElement("p");
+    if (x.solvedTaskCount == null || x.solvedTaskCount == 0) {
+        textElem.innerHTML = "Пока ещё нет решённых задач";
+    } else {
+        textElem.innerHTML = "Решено задач: " + x.solvedTaskCount;
+    }
+    
+    var linkElem = document.createElement("a");
+    var linkText = document.createTextNode("Открыть профиль");
+    linkElem.appendChild(linkText);
+    linkElem.title = "Открыть профиль";
+    linkElem.href = "http://localhost:8080/user?username=" + x.username;
+
+    articleElem.append(headerElem);
+    articleElem.append(textElem);
+    articleElem.append(linkElem);
+
+    return articleElem;
 }
