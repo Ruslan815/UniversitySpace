@@ -20,11 +20,17 @@
         <a sec:authorize="isAuthenticated()" href="http://localhost:8080/logout" class="right">Выйти</a>
         <a sec:authorize="isAuthenticated()" href="http://localhost:8080/chats">Чаты</a>
         <a sec:authorize="isAuthenticated()" href="http://localhost:8080/publications">Публикации</a>
-        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/tasks">Задания</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/tasks">Задачи</a>
         <a sec:authorize="isAuthenticated()" href="http://localhost:8080/users">Пользователи</a>
         <a sec:authorize="hasRole('ADMIN')" href="http://localhost:8080/admin" class="right">Панель администратора</a>
     </div>
     <br> <br>
+
+    <div class="createPublicationDiv">
+        <a href="http://localhost:8080/createPublication"> 
+            <button class="buttons">Создать новую публикацию</button> 
+        </a>
+    </div>
 
     <div class="searchDiv">
         <input type="text" id="searchInput" >
@@ -36,12 +42,6 @@
     <div id="searchResult" class="grid" style="display: none"></div>
     <div id="publicationsList" class="grid"></div>
     <br> <br>
-
-    <div class="createPublicationDiv">
-        <a href="http://localhost:8080/createPublication"> 
-            <button class="buttons">Создать новую публикацию</button> 
-        </a>
-    </div>
     
 </body>
 </html>
