@@ -1,13 +1,104 @@
-html { margin: 0em; padding: 0; }
-body { margin: 2em; padding: 0; font-family: 'DejaVu Sans', sans-serif; font-size: medium; color: #333; }
-h1 { margin: 0; padding: 0; font-size: 2em; }
-p.subtitle { margin: 0; padding: 0 0 0 0.125em; font-size: 0.77em; color: gray; }
+html {
+    margin: 0em;
+    padding: 0;
+}
 
-ul#messages { overflow: auto; height: 35em; margin: 1em 0; padding: 0 3px; list-style: none; border: 1px solid gray; }
-ul#messages li { margin: 0.35em 0; padding: 0; }
-ul#messages li small { display: block; font-size: 0.59em; color: gray; }
-ul#messages li.pending { color: #aaa; }
+body {
+    margin: 2em;
+    padding: 0;
+    font-family: 'DejaVu Sans', sans-serif;
+    font-size: medium;
+    color: #333;
+}
 
-ul#messages, input#content { width: 55em; }
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 2em;
+}
 
-pre { font-size: 0.77em; }
+p.subtitle {
+    margin: 0;
+    padding: 0 0 0 0.125em;
+    font-size: 0.77em;
+    color: gray;
+}
+
+ul#messages {
+    overflow: auto;
+    height: 35em;
+    margin: 1em 0;
+    padding: 0 3px;
+    list-style: none;
+    border: 2px solid gray;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+}
+
+ul#messages li {
+    margin: 0.35em 0;
+    padding: 0;
+}
+
+ul#messages li small {
+    display: block;
+    font-size: 0.59em;
+    color: gray;
+}
+
+ul#messages li.pending {
+    color: #aaa;
+}
+
+ul#messages,
+input#content {
+    width: 55em;
+}
+
+pre {
+    font-size: 0.77em;
+}
+
+.sendButton{  
+    width: 150px;  
+    height: 30px;  
+    border: 3;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: rgb(223, 224, 224);
+    background-color: rgba(39, 214, 33, 0.705);
+    margin-left: 15px;
+}
+
+.leaveButton{  
+    width: 170px;  
+    height: 30px;  
+    border: 3;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: rgb(223, 224, 224);
+    background-color: rgb(226, 43, 43);
+}
+
+#sendMessageContent {
+    width: 35em;
+    border: 2px solid gray;
+    background-color: #f1f1f1;
+    font-size: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+br {
+   display: block;
+   margin: 1px 0;
+}
+
+p {
+    display: block;
+    margin: 1px 0;
+}
+
+a {
+    margin: 20px 0;
+}

@@ -1,13 +1,15 @@
 var chatId = parseInt(getUrlParam('chatId'), 10);
+var chatName = getUrlParam('chatName');
 var userId;
 var isListening = false;
-
+ 
 function getAllChatMessages() {
     var userIdElement = document.getElementById('divUserId');
     userId = parseInt(userIdElement.innerHTML, 10);
     userIdElement.remove(); // for user security
     // console.log("CHAT_ID: " + chatId + " : " + typeof chatId);
     // console.log("USER_ID: " + userId + " : " + typeof userId);
+    document.getElementById("chatNameElem").innerHTML = chatName;
 
     var url = "http://localhost:8080/api/messages?chatId=" + chatId + "&userId=" + userId;
 
@@ -127,13 +129,21 @@ function addNewMessageToMessagesList(message) {
     var timeElement = document.createElement("div");
     timeElement.style.color = 'grey';
     timeElement.style.fontSize = "15px";
-    timeElement.innerHTML = message.sendTime;
+    timeElement.innerHTML = message.sendTime.substring(0, message.sendTime.length - 3);
 
     var messageTextElement = document.createElement("div");
     messageTextElement.style.color = 'black';
     messageTextElement.style.fontSize = "20px";
-    messageTextElement.innerHTML = message.username + ": " + message.text;
-
+    if (message.username.length + message.text.length > 65) {
+        var newMessageContent = "<p>";
+        for (let tempStr of message.text.match(/.{1,65}/g)) {
+            newMessageContent += tempStr + "<br>";
+        }
+        messageTextElement.innerHTML = message.username + ":<br>" + newMessageContent + "</p>";
+    } else {
+        messageTextElement.innerHTML = message.username + ": " + message.text;
+    }
+    
     messageElement.appendChild(timeElement);
     messageElement.appendChild(messageTextElement);
 

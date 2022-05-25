@@ -1,23 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Chat page</title>
+    <title>Чат</title>
     <link type="text/css" rel="stylesheet" href="/css/chat/chatPage.css"/>
     <script src="/js/chat/chatPage.js"></script>
 </head>
 
 <body onload="getAllChatMessages()">
-    <h1>Simple Chat</h1>
+    <h1 id="chatNameElem"></h1>
 
     <ul id="messages"></ul>
 
     <input type="text" name="sendMessageContent" id="sendMessageContent"/>
-    <input type="button" onclick="sendMessage()" value="Отправить">
-    <p>Back to the <a href="http://localhost:8080/chats">all chats</a>.</p>
+    <input type="button" onclick="sendMessage()" value="Отправить" class="sendButton">
+    <br> <br>
+    <a href="http://localhost:8080/chats">Обратно ко всем чатам</a>
+    <br> <br>
     <p></p>
     <p></p>
     <p></p>
-    <input type="button" onclick="leaveChat()" value="Выйти из чата">
+    <input type="button" onclick="leaveChat()" value="Выйти из чата" class="leaveButton">
 
     <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}" ></div>
 </body>
