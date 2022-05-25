@@ -22,7 +22,7 @@ function enterChat() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             alert("You successfully entered the chat!");
-            sendMessage(7, chatId, "User " + xhr.responseText + " joined to this chat!");
+            sendMessage(7, chatId, "Пользователь " + xhr.responseText + " вошёл в чат!");
         } else if (xhr.status === 500) {
             alert("Error while sending: " + xhr.responseText);
         }

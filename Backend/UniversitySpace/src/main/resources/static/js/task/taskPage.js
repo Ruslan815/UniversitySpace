@@ -70,7 +70,7 @@ function loadComments(isResolved, taskCommentId) {
 
             var solutionButton = document.createElement('input');
             solutionButton.setAttribute("type", "button");
-            solutionButton.setAttribute("value", "Mark as solution");
+            solutionButton.setAttribute("value", "Пометить как решение");
             solutionButton.setAttribute("onclick", "markCommentAsSolution(" + x.commentId + ")");
             solutionButton.style.color = "white";
             solutionButton.style.background = "green";
@@ -112,7 +112,7 @@ function loadComments(isResolved, taskCommentId) {
 
             if (x.commentId == taskCommentId) { // highlight an ANSWER 
                 var answerHighlight = document.createElement('p');
-                answerHighlight.innerText = "ANSWER"
+                answerHighlight.innerText = "ОТВЕТ"
                 answerHighlight.style.color = "green";
                 someCommentDiv.append(answerHighlight);
             }
