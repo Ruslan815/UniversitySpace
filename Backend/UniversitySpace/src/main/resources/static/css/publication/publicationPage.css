@@ -1,0 +1,87 @@
+body {
+    background-color: cornflowerblue;
+    padding-top: 50px;
+}
+
+.mainDiv {
+    margin: auto;
+    width: 50%;
+    padding: 25px;
+    border-left: 5px solid rgb(113, 7, 184);
+    border-right: 5px solid rgb(113, 7, 184);
+    background-color: rgb(186, 215, 240);
+}
+
+h2 {
+    text-align: center;
+}
+
+.greenButton {
+    width: 250px;
+    height: 30px;
+    border: 3;
+    border-radius: 17px;
+    padding-left: 7px;
+    color: rgb(223, 224, 224);
+    background-color: rgba(39, 214, 33, 0.705);
+    display: none;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+.commentButton {
+    width: 250px;
+    height: 30px;
+    border: 3;
+    border-radius: 17px;
+    padding-left: 7px;
+    color: rgb(223, 224, 224);
+    background-color: rgba(8, 98, 231, 0.897);
+    display: block;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+.redButton {
+    width: 250px;
+    height: 30px;
+    border: 3;
+    border-radius: 17px;
+    padding-left: 7px;
+    color: rgb(223, 224, 224);
+    background-color: red;
+    display: none;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+.orangeButton {
+    width: 250px;
+    height: 30px;
+    border: 3;
+    border-radius: 17px;
+    padding-left: 7px;
+    color: rgb(223, 224, 224);
+    background-color: orange;
+    display: none;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+input {
+    display: block;
+    margin: 0 auto;
+    font-size: 17px;
+    width: 80%;
+}
+
+textarea {
+    display: block;
+    margin: 0 auto;
+    font-size: 17px;
+    width: 80%;
+}
+
+a {
+    font-size: 16px;
+}

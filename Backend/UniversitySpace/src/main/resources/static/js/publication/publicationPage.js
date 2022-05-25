@@ -7,7 +7,7 @@ function getUrlParam(paramName) {
     var urlParams = new URLSearchParams(urlParamsText);
     return urlParams.get(paramName);
 }
-
+ 
 function getPublication() {
     var userIdElement = document.getElementById('divUserId');
     userId = parseInt(userIdElement.innerHTML, 10);
@@ -22,13 +22,13 @@ function getPublication() {
 
     publicationObject = JSON.parse(publication);
     document.getElementById("publicationTitle").innerHTML = publicationObject.title;
-    document.getElementById("publicationAuthor").innerHTML = publicationObject.authorUsername;
+    document.getElementById("publicationAuthor").innerHTML = "Автор: " + publicationObject.authorUsername;
     document.getElementById("publicationContent").value = publicationObject.content;
     publicationObject.content = ""; // for memory economy
 
     if (userId == publicationObject.authorId) { // show buttons only for publication author
-        document.getElementById("editButton").removeAttribute("hidden");
-        document.getElementById("deleteButton").removeAttribute("hidden");
+        document.getElementById("editButton").style.display = "block";
+        document.getElementById("deleteButton").style.display = "block";
     }
     userId = null; // for user security
 
@@ -50,8 +50,17 @@ function loadComments() {
         authorIdElement.innerText = x.authorUsername;
         var creationTimeElement = document.createElement('p');
         creationTimeElement.innerText = x.creationTime;
+        
         var commentTextElement = document.createElement('p');
-        commentTextElement.innerText = x.text;
+        if (x.text.length > 50) {
+            var newCommentContent = "<p>";
+            for (let tempStr of x.text.match(/.{1,50}/g)) {
+                newCommentContent += tempStr + "<br>";
+            }
+            commentTextElement.innerHTML = newCommentContent + "</p>";
+        } else {
+            commentTextElement.innerHTML = x.text;
+        }
         var horizontalLineElement = document.createElement('hr');
 
         var someCommentDiv = document.createElement('div');
@@ -82,14 +91,16 @@ function createPublicationComment() {
 }
 
 function enableEditMode() {
-    document.getElementById("saveButton").removeAttribute("hidden");
+    document.getElementById("saveButton").style.display = "block";
+    document.getElementById("editButton").style.display = "none";
     document.getElementById("publicationContent").removeAttribute("readonly");
 }
 
 function updatePublication() {
     var publicationContent = document.getElementById("publicationContent").value;
     var data = JSON.stringify({"publicationId": publicationId, "title": publicationObject.title, "content": publicationContent, 
-                                "authorId": publicationObject.authorId, "creationTime": publicationObject.creationTime});
+                                "authorId": publicationObject.authorId, "authorUsername": publicationObject.authorUsername, 
+                                "creationTime": publicationObject.creationTime});
     var xhr = new XMLHttpRequest();
     var url = "http://localhost:8080/api/publication/update";
     xhr.open("POST", url, false); // false - Synchronous request
