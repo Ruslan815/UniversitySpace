@@ -22,17 +22,20 @@ function getTask() {
 
     taskObject = JSON.parse(task);
     document.getElementById("taskTitle").innerHTML = taskObject.title;
-    document.getElementById("taskOwner").innerHTML = taskObject.ownerUsername;
+    document.getElementById("taskOwner").innerHTML = "Автор: " + taskObject.ownerUsername;
     document.getElementById("taskDescription").value = taskObject.description;
     taskObject.description = ""; // for memory economy
-    document.getElementById("taskCost").innerHTML = taskObject.cost;
-    document.getElementById("creationTaskTime").innerHTML = taskObject.creationTime;
-    document.getElementById("deadline").innerHTML = taskObject.deadline;
-    document.getElementById("taskStatus").innerHTML = taskObject.status;
-
+    document.getElementById("taskCost").innerHTML = "Стоимость: " + taskObject.cost;
+    document.getElementById("creationTaskTime").innerHTML = "Дата создания: " + taskObject.creationTime.substring(0, taskObject.creationTime.length - 3);
+    document.getElementById("deadline").innerHTML = "Крайний срок сдачи: " + taskObject.deadline;
+    
     if (taskObject.status == "Unresolved") {
+        document.getElementById("taskStatus").innerHTML = "Статус: Не решена";
+        document.getElementById("taskStatus").style.color = "red";
         loadComments(false, null);
     } else {
+        document.getElementById("taskStatus").innerHTML = "Статус: Решена";
+        document.getElementById("taskStatus").style.color = "green";
         loadComments(true, taskObject.taskCommentSolutionId);
     }
 }
@@ -46,19 +49,31 @@ function loadComments(isResolved, taskCommentId) {
     xmlHttp.send(null);
     let comments = xmlHttp.responseText;
     var obj = JSON.parse(comments);
-
+ 
     if (!isResolved && userId == taskObject.ownerId) { // mark as resolve
         for (var x of obj) { // creating comments list
             var authorIdElement = document.createElement('p');
             authorIdElement.innerText = x.authorUsername;
             var creationTimeElement = document.createElement('p');
             creationTimeElement.innerText = x.creationTime;
+
             var commentTextElement = document.createElement('p');
-            commentTextElement.innerText = x.text;
+            if (x.text.length > 50) {
+                var newCommentContent = "<p>";
+                for (let tempStr of x.text.match(/.{1,50}/g)) {
+                    newCommentContent += tempStr + "<br>";
+                }
+                commentTextElement.innerHTML = newCommentContent + "</p>";
+            } else {
+                commentTextElement.innerHTML = x.text;
+            }
+
             var solutionButton = document.createElement('input');
             solutionButton.setAttribute("type", "button");
             solutionButton.setAttribute("value", "Mark as solution");
             solutionButton.setAttribute("onclick", "markCommentAsSolution(" + x.commentId + ")");
+            solutionButton.style.color = "white";
+            solutionButton.style.background = "green";
             var horizontalLineElement = document.createElement('hr');
     
             var someCommentDiv = document.createElement('div');
@@ -76,8 +91,17 @@ function loadComments(isResolved, taskCommentId) {
             authorIdElement.innerText = x.authorUsername;
             var creationTimeElement = document.createElement('p');
             creationTimeElement.innerText = x.creationTime;
+
             var commentTextElement = document.createElement('p');
-            commentTextElement.innerText = x.text;
+            if (x.text.length > 50) {
+                var newCommentContent = "<p>";
+                for (let tempStr of x.text.match(/.{1,50}/g)) {
+                    newCommentContent += tempStr + "<br>";
+                }
+                commentTextElement.innerHTML = newCommentContent + "</p>";
+            } else {
+                commentTextElement.innerHTML = x.text;
+            }
             var horizontalLineElement = document.createElement('hr');
     
             var someCommentDiv = document.createElement('div');
@@ -87,7 +111,10 @@ function loadComments(isResolved, taskCommentId) {
             someCommentDiv.append(commentTextElement);
 
             if (x.commentId == taskCommentId) { // highlight an ANSWER 
-                someCommentDiv.append(document.createElement('p').innerText = "ANSWER");
+                var answerHighlight = document.createElement('p');
+                answerHighlight.innerText = "ANSWER"
+                answerHighlight.style.color = "green";
+                someCommentDiv.append(answerHighlight);
             }
     
             elem.append(someCommentDiv);
