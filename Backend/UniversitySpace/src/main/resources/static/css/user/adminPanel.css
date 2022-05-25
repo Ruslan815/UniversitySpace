@@ -40,3 +40,8 @@ p {
     display: block;
     margin-top: 5px;
 }
+
+a {
+    font-size: 20px;
+    margin-left: 15px;
+}
