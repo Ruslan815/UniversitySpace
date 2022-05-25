@@ -3,27 +3,30 @@
 <head>
     <title>Новая задача</title>
     <script src="/js/task/newTaskPage.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/task/newTaskPage.css"/>
 </head>
 
 <body>
-    <h2>Title</h2>
-    <input type="text" name="taskTitle" id="taskTitle" size="80" maxlength="255" placeholder="Write something..."/>
-
-    <h2>Task description</h2>
-    <textarea id="taskDescription" name="taskDescription" rows="25" cols="80" placeholder="Write something..." style="resize:none"></textarea>
-    <p></p>
-
-    <h2>Deadline</h2>
-    <input type="datetime-local" name="taskDeadline" id="taskDeadline"/>
-    <p></p>
-
-    <h2>Cost</h2>
-    <input type="text" name="taskCost" id="taskCost" size="10" maxlength="10" placeholder="How much?"/>
-    <p></p>
-
-    <input type="button" value="Publish" onclick="createNewTask()">
-    <p></p>
-
-    <a href="http://localhost:8080/tasks">All tasks</a>
+    <div>
+        <h2>Заголовок</h2>
+        <input type="text" name="taskTitle" id="taskTitle" size="80" maxlength="255" placeholder="Напишите что-нибудь..."/>
+    
+        <h2>Текст задачи</h2>
+        <textarea id="taskDescription" name="taskDescription" rows="25" cols="80" placeholder="Напишите что-нибудь..." style="resize:none"></textarea>
+        <p></p>
+    
+        <h2>Крайний срок сдачи</h2>
+        <input type="datetime-local" name="taskDeadline" id="taskDeadline"/>
+        <p></p>
+    
+        <h2>Стоимость</h2>
+        <input type="text" name="taskCost" id="taskCost" size="10" maxlength="10" placeholder="Сколько?"/>
+        <p></p>
+    
+        <input type="button" value="Опубликовать" onclick="createNewTask()" class="greenButton">
+        <p></p>
+    
+        <a href="http://localhost:8080/tasks">Обратно ко всем задачам</a>
+    </div>
 </body>
 </html>
