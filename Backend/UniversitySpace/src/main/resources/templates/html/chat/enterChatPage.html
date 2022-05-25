@@ -3,15 +3,16 @@
 <head>
     <title>Вход в чат</title>
     <script src="/js/chat/enterChatPage.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/chat/enterChatPage.css"/>
 </head>
 
 <body onload="loadChatName(document.getElementById('chatName'))">
-
-    <h1>Do you want enter the chat: </h1>
-    <h2 id="chatName"></h2>
-    <input type="button" onclick="enterChat()" value="Yes">
-    <p>Back to the <a href="http://localhost:8080/chats">all chats</a>.</p>
-
+    <div>
+        <h1 id="chatName"></h1>
+        <input type="button" onclick="enterChat()" value="Да" class="greenButton">
+        <br>
+        <input type="button" onclick="backToAllChats()" value="Нет" class="redButton">
+    </div>
     <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}" ></div>
 </body>
 </html> 

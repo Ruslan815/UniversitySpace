@@ -1,0 +1,35 @@
+div {
+    margin: auto;
+    width: 50%;
+    padding: 100px;
+}
+
+h1 {
+    text-align: center;
+}
+
+.greenButton{  
+    width: 250px;  
+    height: 30px;  
+    border: 3;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: rgb(223, 224, 224);
+    background-color: rgba(39, 214, 33, 0.705);
+    display: block;
+    margin : 0 auto;
+    font-size: 18px;
+}
+
+.redButton{  
+    width: 250px;  
+    height: 30px;  
+    border: 3;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: rgb(223, 224, 224);
+    background-color: rgba(214, 19, 19, 0.815);
+    display: block;
+             margin : 0 auto;
+    font-size: 18px;
+}

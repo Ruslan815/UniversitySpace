@@ -1,6 +1,10 @@
 function loadChatName(elem) {
     var chatName = getUrlParam('chatName');
-    elem.innerHTML = chatName;
+    elem.innerHTML = "Вы хотите войти в чат: " + chatName + "?";
+}
+
+function backToAllChats() {
+    window.location.replace("http://localhost:8080/chats");
 }
 
 function enterChat() {
