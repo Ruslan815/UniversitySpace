@@ -1,7 +1,10 @@
 function getUserIdByUsername() {
     var username = document.getElementById("usernameInputField").value;
-    var url = "http://localhost:8080/api/user/idByUsername?username=" + username;
+    if (username == null || username == "") {
+        return;
+    }
 
+    var url = "http://localhost:8080/api/user/idByUsername?username=" + username;
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", url, false); // false - Synchronous request
     xmlHttp.onreadystatechange = function () {
@@ -11,7 +14,7 @@ function getUserIdByUsername() {
             return;
         } else {
             let userId = xmlHttp.responseText;
-            document.getElementById("hiddenUserId").innerText = "User: " + username + ", have id: " + userId;
+            document.getElementById("hiddenUserId").innerText = "Пользователь: " + username + ", имеет id: " + userId;
             document.getElementById("hiddenUserId").removeAttribute("hidden");
         }
     };

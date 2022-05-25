@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Admin panel</title>
+    <title>Панель Администратора</title>
     <script src="/js/user/adminPanel.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/user/adminPanel.css"/>
 </head>
 
 <body>
-    <p>Hello, admin <span sec:authentication="name"></span>!</p>
-    <p>Enter username:</p>
-    <input id="usernameInputField" type="text" placeholder="Enter username..." />
-    <input type="button" value="Get user id" onclick="getUserIdByUsername()"/>
+    <h2>Привет, Администратор: <span sec:authentication="name"></span>!</h2>
+    <p>Введите имя пользователя:</p>
+    <input id="usernameInputField" type="text" placeholder="Введите имя пользователя..." class="inputField"/>
+    <input type="button" value="Получить id пользователя" onclick="getUserIdByUsername()" class="greenButton"/>
     <p id="hiddenUserId" hidden="hidden"></p>
 
-    <p>Enter id:</p>
-    <input id="idInputField" type="text" placeholder="Enter id..." />
-    <input type="button" value="Make admin" onclick="giveAdminRoleById()"/>
-    <input type="button" value="Delete user" onclick="deleteUserById()"/>
-    <input type="button" value="Delete publication" onclick="deletePublicationById()"/>
-    <input type="button" value="Delete task" onclick="deleteTaskById()"/>
+    <p>Введите id (пользователя, публикации, задачи):</p>
+    <input id="idInputField" type="text" placeholder="Введите id..." class="inputField"/>
+    <br> <br>
+    <input type="button" value="Сделать Администратором" onclick="giveAdminRoleById()" class="greenButton"/>
+    <input type="button" value="Удалить пользователя" onclick="deleteUserById()" class="redButton"/>
+    <br> <br>
+    <input type="button" value="Удалить публикацию" onclick="deletePublicationById()" class="redButton"/>
+    <input type="button" value="Удалить задачу" onclick="deleteTaskById()" class="redButton"/>
 </body>
 </html>

@@ -1,0 +1,42 @@
+body {
+    margin-left: 15px;
+    background-color: #f8f8f8;
+}
+
+.greenButton{  
+    width: 250px;  
+    height: 30px;  
+    border: 3;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: rgb(223, 224, 224);
+    background-color: rgba(39, 214, 33, 0.705);
+    margin-left: 15px;
+    font-size: 18px;
+}
+
+.redButton{  
+    width: 250px;  
+    height: 30px;  
+    border: 3;  
+    border-radius: 17px;  
+    padding-left: 7px;  
+    color: rgb(223, 224, 224);
+    background-color: rgba(214, 19, 19, 0.815);
+    margin-left: 15px;
+    font-size: 18px;
+}
+
+.inputField {
+    width: 35em;
+    border: 2px solid gray;
+    background-color: #f1f1f1;
+    font-size: 15px;
+    border-radius: 8px;
+}
+
+p {
+    font-size: 18px;
+    display: block;
+    margin-top: 5px;
+}
