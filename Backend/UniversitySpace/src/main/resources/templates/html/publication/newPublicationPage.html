@@ -3,16 +3,18 @@
 <head>
     <title>Новая публикация</title>
     <script src="/js/publication/newPublicationPage.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/publication/newPublicationPage.css"/>
 </head>
 
 <body>
-    <h2>Title</h2>
-    <input type="text" name="publicationTitle" id="publicationTitle" size="80" placeholder="Write something..."/>
-
-    <h2>Publication content</h2>
-    <textarea id="publicationContent" name="publicationContent" rows="25" cols="80" placeholder="Write something..." style="resize:none"></textarea>
-    <p></p>
-
-    <input type="button" value="Publish" onclick="createNewPublication()">
+    <div>
+        <h2>Заголовок</h2>
+        <input type="text" name="publicationTitle" id="publicationTitle" size="80" placeholder="Напишите что-нибудь..."/>
+        <h2>Текст публикации</h2>
+        <textarea id="publicationContent" name="publicationContent" rows="25" cols="80" placeholder="Напишите что-нибудь..." style="resize:none"></textarea>
+        <br> <br>
+        <input type="button" value="Опубликовать" onclick="createNewPublication()" class="greenButton">
+        <a href="http://localhost:8080/publications">Обратно ко всем публикациям</a>
+    </div>
 </body>
 </html>
