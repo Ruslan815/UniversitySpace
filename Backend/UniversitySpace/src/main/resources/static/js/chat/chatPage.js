@@ -2,7 +2,7 @@ var chatId = parseInt(getUrlParam('chatId'), 10);
 var chatName = getUrlParam('chatName');
 var userId;
 var isListening = false;
- 
+
 function getAllChatMessages() {
     var userIdElement = document.getElementById('divUserId');
     userId = parseInt(userIdElement.innerHTML, 10);
@@ -54,10 +54,10 @@ function startListenChat() {
         alert("chat already listening!");
         return;
     }
-    
+
     isListening = true;
     var chatSubscribeUrl = 'http://localhost:8080/api/messages/unread?userId=' + userId + '&chatId=' + chatId;
-    
+
     subscribe();
 
     async function subscribe() {
@@ -65,13 +65,15 @@ function startListenChat() {
 
         if (response.status == 408) { // Request timeout
             await subscribe();
+        } else if (response.status == 501) {
+            await new Promise(tempAlert("Чат обновляется, подождите...", 10000)); // Wait 10 second
         } else if (response.status != 200) { // Some error
             alert("Error: " + response.statusText + " while getting message! Trying again...");
             await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
             await subscribe(); // Try again
         } else { // Success
             let unreadMessages = await response.text();
-            
+
             var obj = JSON.parse(unreadMessages);
             for (var x of obj) {
                 addNewMessageToMessagesList(x);
@@ -80,6 +82,19 @@ function startListenChat() {
             await subscribe();
         }
     }
+}
+
+function tempAlert(msg, duration) {
+    var el = document.createElement("div");
+    el.setAttribute("style", "font-size: 25px; position:absolute; top:40%;left:20%; background-color: orange; color: white;");
+    el.innerHTML = msg;
+    document.getElementById("sendMessageContent").readOnly = true;
+    setTimeout(function () {
+        el.parentNode.removeChild(el);
+        document.getElementById("sendMessageContent").readOnly = false;
+        document.location.reload();
+    }, duration);
+    document.body.appendChild(el);
 }
 
 function leaveChat() {
@@ -96,7 +111,7 @@ function leaveChat() {
             alert("Error while sending: " + xhr.responseText);
         }
     };
-    
+
     xhr.send(data);
     window.location.replace("http://localhost:8080/chats");
 }
@@ -143,7 +158,7 @@ function addNewMessageToMessagesList(message) {
     } else {
         messageTextElement.innerHTML = message.username + ": " + message.text;
     }
-    
+
     messageElement.appendChild(timeElement);
     messageElement.appendChild(messageTextElement);
 

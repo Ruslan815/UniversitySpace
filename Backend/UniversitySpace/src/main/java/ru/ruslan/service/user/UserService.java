@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -26,6 +23,8 @@ public class UserService {
     RoleRepository roleRepository;
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private Set<Long> listeningUsers = new HashSet<>();
 
     public boolean isUserExist(Long userId) {
         if (userId == null) return false;
@@ -115,6 +114,18 @@ public class UserService {
             answerList.add(new ChatView(chat));
         }
         return answerList;
+    }
+
+    public synchronized boolean isUserListening(Long userId) {
+        return listeningUsers.contains(userId);
+    }
+
+    public synchronized void addListeningUser(Long userId) {
+        listeningUsers.add(userId);
+    }
+
+    public synchronized void removeListeningUser(Long userId) {
+        listeningUsers.remove(userId);
     }
 
     private enum ROLES {

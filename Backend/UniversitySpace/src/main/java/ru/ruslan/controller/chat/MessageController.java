@@ -53,6 +53,11 @@ public class MessageController {
     @GetMapping("/api/messages/unread")
     public DeferredResult<ResponseEntity<?>> getUnreadMessages(@RequestParam Long userId, @RequestParam Long chatId) {
         DeferredResult<ResponseEntity<?>> output = new DeferredResult<>();
+        if (userService.isUserListening(userId)) {
+            output.setResult(ResponseEntity.status(501).body("Wait please!"));
+            return output;
+        }
+        userService.addListeningUser(userId);
 
         output.onError((Throwable t) -> {
             output.setErrorResult(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error"));
@@ -61,7 +66,8 @@ public class MessageController {
         Thread newThread = new Thread(() -> {
             int timeoutCounter = 0;
             while (!messageService.isUnreadMessagesExist(userService.findUserById(userId), chatId)) {
-                if (timeoutCounter++ > 165) {
+                if (timeoutCounter++ > 60) {
+                    userService.removeListeningUser(userId);
                     output.setErrorResult(ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body("Request timeout"));
                     return;
                 }
@@ -74,6 +80,7 @@ public class MessageController {
 
             ResponseEntity<?> someResponse = ResponseEntity
                     .ok(messageService.readMessages(userService.findUserById(userId), chatId));
+            userService.removeListeningUser(userId);
             output.setResult(someResponse);
         });
         newThread.start();
