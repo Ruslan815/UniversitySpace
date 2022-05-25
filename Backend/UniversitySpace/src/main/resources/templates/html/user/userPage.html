@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>User</title>
+    <title>Профиль пользователя</title>
     <script src="/js/user/userPage.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/user/userPage.css"/>
 </head>
 
 <body onload="getUserInfo()">
-    <p id="usernameText"></p>
+    <h1 id="usernameText" style="text-align: center"></h1>
     
-    <p id="isOnlineText"></p>
+    <h3 id="isOnlineText" style="text-align: center"></h3>
 
-    <h2>User publications</h2>
+    <h2>Публикации пользователя</h2>
     <ul id="publicationsList"></ul>
 
-    <h2>User tasks</h2>
+    <h2>Задачи пользователя</h2>
     <ul id="tasksList"></ul>
     
-    <h2>User solved Task Count</h2>
-    <p id="solvedTaskCountText"></p>
+    <h2 id="solvedTaskCountText"></h2>
     
-    <p>Back to the <a href="http://localhost:8080/users">all users</a>.</p>
+    <h4><a href="http://localhost:8080/users">Вернуться к списку всех пользователей</a></h4>
 </body>
-</html> 
+</html>  

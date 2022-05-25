@@ -20,7 +20,7 @@ function getUserInfo() {
 function displayUsername() {
     document.getElementById('usernameText').innerText = username;
 }
-
+ 
 function displayOnline() {
     var url = "http://localhost:8080/api/user/online?username=" + username;
 
@@ -31,8 +31,10 @@ function displayOnline() {
 
     if (isUserOnline == "true") {
         document.getElementById('isOnlineText').innerText = "Online";
+        document.getElementById('isOnlineText').style.color = 'green';
     } else {
         document.getElementById('isOnlineText').innerText = "Offline";
+        document.getElementById('isOnlineText').style.color = 'red';
     }
 }
 
@@ -46,6 +48,13 @@ function displayAllUserPublicationsList() {
     let message = xmlHttp.responseText;
 
     var obj = JSON.parse(message);
+    if (obj.length === 0) {
+        let publicationElem = document.createElement('li');
+        publicationElem.innerHTML = "Пока здесь пусто...";
+        elem.append(publicationElem);
+        return; 
+    }
+
     for (var x of obj) {
         var a = document.createElement('a');
         var linkText = document.createTextNode(x.title);
@@ -69,6 +78,13 @@ function displayAllUserTasksList() {
     let message = xmlHttp.responseText;
 
     var obj = JSON.parse(message);
+    if (obj.length === 0) {
+        let publicationElem = document.createElement('li');
+        publicationElem.innerHTML = "Пока здесь пусто...";
+        elem.append(publicationElem);
+        return; 
+    }
+
     for (var x of obj) {
         var a = document.createElement('a');
         var linkText = document.createTextNode(x.title);
@@ -83,7 +99,11 @@ function displayAllUserTasksList() {
 } 
 
 function displayUserSolvedTaskCount() {
-    document.getElementById('solvedTaskCountText').innerText = userObj.solvedTaskCount;
+    if (userObj.solvedTaskCount == null || userObj.solvedTaskCount == 0) {
+        document.getElementById('solvedTaskCountText').innerText = "Пользователь ещё не решил ни одной задачи";
+    } else {
+        document.getElementById('solvedTaskCountText').innerText = "Количество решённых задач пользователя: " + userObj.solvedTaskCount;
+    }    
 }
 
 function getUrlParam(paramName) {
