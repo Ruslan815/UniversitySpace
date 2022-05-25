@@ -55,19 +55,45 @@ function createCardElement(x) {
     var statusElem = document.createElement("h3");
     if (x.status == "Unresolved") {
         statusElem.innerHTML = "Не решена";
+        statusElem.style.color = "red";
     } else {
         statusElem.innerHTML = "Решена";
+        statusElem.style.color = "green";
     }
+    frontCardElem.append(statusElem);
 
     var headerElem = document.createElement("h2");
-    if (x.title.length > 100) {
-        headerElem.innerHTML = x.title.substring(0,100) + "...";
+    if (x.title.length > 60) {
+        var headerElem1 = document.createElement("h2");
+        var headerElem2 = document.createElement("h2");
+        var headerElem3 = document.createElement("h2");
+        headerElem.innerHTML = x.title.substring(0,20);
+        headerElem1.innerHTML = x.title.substring(20,40);
+        headerElem2.innerHTML = x.title.substring(40,60);
+        headerElem3.innerHTML = x.title.substring(60,x.title.length) + "...";
+        frontCardElem.append(headerElem);
+        frontCardElem.append(headerElem1);
+        frontCardElem.append(headerElem2);
+        frontCardElem.append(headerElem3);
+    } else if (x.title.length > 40) {
+        var headerElem1 = document.createElement("h2");
+        var headerElem2 = document.createElement("h2");
+        headerElem.innerHTML = x.title.substring(0,20);
+        headerElem1.innerHTML = x.title.substring(20,40);
+        headerElem2.innerHTML = x.title.substring(40,x.title.length);
+        frontCardElem.append(headerElem);
+        frontCardElem.append(headerElem1);
+        frontCardElem.append(headerElem2);
+    } else if (x.title.length > 20) {
+        var headerElem1 = document.createElement("h2");
+        headerElem.innerHTML = x.title.substring(0,20);
+        headerElem1.innerHTML = x.title.substring(20,x.title.length);
+        frontCardElem.append(headerElem);
+        frontCardElem.append(headerElem1);
     } else {
         headerElem.innerHTML = x.title;
+        frontCardElem.append(headerElem);
     }
-
-    frontCardElem.append(statusElem);
-    frontCardElem.append(headerElem);
 
 /////////////////////////////////////////////////////////////
 

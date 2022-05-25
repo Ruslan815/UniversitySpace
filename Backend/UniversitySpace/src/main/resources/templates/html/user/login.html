@@ -12,15 +12,15 @@
 
         <div class="login">
             <p>Имя пользователя</p>
-            <input name="username" type="text" placeholder="Username" autofocus="true" id="usernameInput"/>
+            <input name="username" type="text" placeholder="Имя пользователя" autofocus="true" id="usernameInput"/>
 
             <p>Пароль</p>
-            <input name="password" type="password" placeholder="Password" id="passwordInput"/>
+            <input name="password" type="password" placeholder="Пароль" id="passwordInput"/>
             <span class="has-error" th:text="${error}"></span>
-            <br><br> <br><br>
-
+            <br> <br> <br>
             <button type="submit" id="submitButton">Войти</button>
             <h4><a href="/registration">Создать новый аккаунт</a></h4>
+            <h4><a href="http://localhost:8080">На главную страницу</a></h4>
         </div>
     </form>
 </div>

@@ -71,8 +71,8 @@ The sticky value is not supported in IE or Edge 15 and earlier versions. However
 
 .grid>article {
     border-radius: 20%;
-    border: 8px solid rgba(136, 131, 131, 0.767);
-    box-shadow: 2px 2px 6px 0px rgba(223, 4, 243, 0.548);
+    border: 5px solid #333;
+    box-shadow: 2px 2px 6px 0px #0ac20af5;
 }
 
 .text {
@@ -97,8 +97,9 @@ input{
     border: 3;  
     border-radius: 17px;  
     padding-left: 7px;  
-    color: rgb(223, 224, 224);
-    background-color: blueviolet;
+    color: white;
+    background-color: #0ac20af5;
+    font-weight: bold;
 }
 
 .searchDiv {
@@ -111,4 +112,8 @@ input{
 
 .createChatDiv {
     padding: 20px;
+}
+
+.bodyHeader {
+    margin: 0;
 }

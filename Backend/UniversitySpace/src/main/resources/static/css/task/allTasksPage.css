@@ -83,7 +83,7 @@ The sticky value is not supported in IE or Edge 15 and earlier versions. However
     text-align: center;
     transition: transform 0.7s;
     transform-style: preserve-3d;
-    box-shadow: 0 4px 8px 0 rgba(230, 7, 200, 0.774);
+    box-shadow: 0 4px 8px 0 #e45d03d0;
 }
 
 .flip-card:hover .flip-card-inner {
@@ -100,12 +100,12 @@ The sticky value is not supported in IE or Edge 15 and earlier versions. However
 }
 
 .flip-card-front {
-    background-color: #bbb;
+    background-color: rgb(236, 234, 234);
     color: black;
 }
 
 .flip-card-back {
-    background-color: #2980b9;
+    background-color: #e45d03d0;
     color: white;
     transform: rotateY(180deg);
 }
@@ -124,8 +124,9 @@ input{
     border: 3;  
     border-radius: 17px;  
     padding-left: 7px;  
-    color: rgb(223, 224, 224);
-    background-color: blueviolet;
+    color: white;
+    background-color: #e45d03d0;
+    font-weight: bold;
 }
 
 .searchDiv {
@@ -134,4 +135,8 @@ input{
 
 .createTaskDiv {
     padding: 20px;
+}
+
+.bodyHeader {
+    margin: 0;
 }
