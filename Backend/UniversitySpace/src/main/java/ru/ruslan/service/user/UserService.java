@@ -24,7 +24,8 @@ public class UserService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private Set<Long> listeningUsers = new HashSet<>();
+    private final Set<Long> listeningUsers = Collections.synchronizedSet(new HashSet<>());
+    private final Set<Long> updateUserConnection = Collections.synchronizedSet(new HashSet<>());
 
     public boolean isUserExist(Long userId) {
         if (userId == null) return false;
@@ -116,16 +117,28 @@ public class UserService {
         return answerList;
     }
 
-    public synchronized boolean isUserListening(Long userId) {
+    public boolean isUserListening(Long userId) {
         return listeningUsers.contains(userId);
     }
 
-    public synchronized void addListeningUser(Long userId) {
+    public void addListeningUser(Long userId) {
         listeningUsers.add(userId);
     }
 
-    public synchronized void removeListeningUser(Long userId) {
+    public void removeListeningUser(Long userId) {
         listeningUsers.remove(userId);
+    }
+
+    public boolean isUserConnectionShouldBeUpdated(Long userId) {
+        return updateUserConnection.contains(userId);
+    }
+
+    public void addUserConnectionToUpdate(Long userId) {
+        updateUserConnection.add(userId);
+    }
+
+    public void removeUserConnectionToUpdate(Long userId) {
+        updateUserConnection.remove(userId);
     }
 
     private enum ROLES {

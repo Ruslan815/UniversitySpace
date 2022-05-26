@@ -54,21 +54,36 @@ public class MessageController {
     public DeferredResult<ResponseEntity<?>> getUnreadMessages(@RequestParam Long userId, @RequestParam Long chatId) {
         DeferredResult<ResponseEntity<?>> output = new DeferredResult<>();
         if (userService.isUserListening(userId)) {
-            output.setResult(ResponseEntity.status(501).body("Wait please!"));
-            return output;
+            userService.addUserConnectionToUpdate(userId);
+            while (userService.isUserListening(userId)) {
+                try {
+                    Thread.sleep(250);
+                } catch (Exception ignored) {
+                }
+            }
         }
         userService.addListeningUser(userId);
 
         output.onError((Throwable t) -> {
+            userService.removeListeningUser(userId);
+            userService.removeUserConnectionToUpdate(userId);
             output.setErrorResult(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Internal server error"));
         });
 
         Thread newThread = new Thread(() -> {
             int timeoutCounter = 0;
             while (!messageService.isUnreadMessagesExist(userService.findUserById(userId), chatId)) {
-                if (timeoutCounter++ > 60) {
+                if (timeoutCounter++ > 135) {
                     userService.removeListeningUser(userId);
+                    userService.removeUserConnectionToUpdate(userId);
                     output.setErrorResult(ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT).body("Request timeout"));
+                    return;
+                }
+
+                if (timeoutCounter % 6 == 0 && userService.isUserConnectionShouldBeUpdated(userId)) {
+                    userService.removeListeningUser(userId);
+                    userService.removeUserConnectionToUpdate(userId);
+                    output.setErrorResult(ResponseEntity.status(502).body("Request updated"));
                     return;
                 }
 
@@ -81,6 +96,7 @@ public class MessageController {
             ResponseEntity<?> someResponse = ResponseEntity
                     .ok(messageService.readMessages(userService.findUserById(userId), chatId));
             userService.removeListeningUser(userId);
+            userService.removeUserConnectionToUpdate(userId);
             output.setResult(someResponse);
         });
         newThread.start();

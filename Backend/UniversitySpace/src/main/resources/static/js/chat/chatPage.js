@@ -65,8 +65,6 @@ function startListenChat() {
 
         if (response.status == 408) { // Request timeout
             await subscribe();
-        } else if (response.status == 501) {
-            await new Promise(tempAlert("Чат обновляется, подождите...", 10000)); // Wait 10 second
         } else if (response.status != 200) { // Some error
             alert("Error: " + response.statusText + " while getting message! Trying again...");
             await new Promise(resolve => setTimeout(resolve, 1000)); // Wait 1 second
@@ -106,7 +104,7 @@ function leaveChat() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             alert("You successfully left the chat!");
-            sendLeaveMessage(7, chatId, "User " + xhr.responseText + " left this chat!");
+            sendLeaveMessage(7, chatId, "Пользователь " + xhr.responseText + " вышел из чата!");
         } else if (xhr.status === 500) {
             alert("Error while sending: " + xhr.responseText);
         }
