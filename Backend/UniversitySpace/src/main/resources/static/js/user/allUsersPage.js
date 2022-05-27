@@ -10,6 +10,14 @@ function getAllUsersList(elem) {
 
     var obj = JSON.parse(users);
     allUsersList = obj;
+
+    var index = obj.findIndex(object => {
+        return object.username === 'SERVER_INFO';
+    });
+    if (index !== -1) {
+        obj.splice(index, 1);
+    }
+
     for (var x of obj) {
         elem.append(createUserElement(x));
     }
@@ -71,14 +79,14 @@ function createUserElement(x) {
 
     var headerElem = document.createElement("h3");
     headerElem.innerHTML = x.username + " " + x.roles;
-    
+
     var textElem = document.createElement("p");
     if (x.solvedTaskCount == null || x.solvedTaskCount == 0) {
         textElem.innerHTML = "Пока ещё нет решённых задач";
     } else {
         textElem.innerHTML = "Решено задач: " + x.solvedTaskCount;
     }
-    
+
     var linkElem = document.createElement("a");
     var linkText = document.createTextNode("Открыть профиль");
     linkElem.appendChild(linkText);
