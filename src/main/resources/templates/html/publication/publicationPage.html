@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Публикация</title>
+    <script src="/js/publication/publicationPage.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/publication/publicationPage.css"/>
+</head>
+
+<body onload="getPublication()">
+    <div class="mainDiv">
+        <a href="http://localhost:8080/publications">Вернуться к списку публикаций</a>
+        
+        <h2>Заголовок</h2>
+        <h2 id="publicationTitle" name="publicationTitle"></h2>
+    
+        <h3 id="publicationAuthor" name="publicationAuthor"></h3>
+    
+        <h2>Текст публикации</h2>
+        <textarea id="publicationContent" name="publicationContent" rows="25" cols="80" style="resize:none" readonly maxlength="2490"></textarea>
+        <p></p>
+    
+        <input id="editButton" name="editButton" type="button" value="Редактировать" onclick="enableEditMode()" class="orangeButton">
+        <input id="saveButton" name="saveButton" type="button" value="Сохранить изменения" onclick="updatePublication()" class="greenButton">
+        <p></p>
+        <input id="deleteButton" name="deleteButton" type="button" value="Удалить публикацию" onclick="deletePublication()" class="redButton">
+    
+        <h2>Напишите комментарий</h2>
+        <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}"></div>
+        <textarea id="newCommentText" name="newCommentText" rows="15" cols="50" style="resize:none" placeholder="Напишите ваши мысли об этой публикации..." maxlength="250"></textarea>
+        <input type="button" value="Опубликовать комментарий" onclick="createPublicationComment()" class="commentButton"> <p></p>
+    
+        <h2>Комментарии</h2>
+        <div id="commentsDiv"></div>
+    </div>
+</body>
+</html> 

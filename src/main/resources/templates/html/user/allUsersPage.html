@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Пользователи</title>
+    <script src="/js/user/allUsersPage.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/user/allUsersPage.css">
+</head>
+ 
+<body onload="getAllUsersList(document.getElementById('usersList'))">
+    <div class="header">
+        <h1>Пользователи</h1>
+    </div>
+
+    <div class="navbar">
+        <a href="http://localhost:8080" >Главная</a>
+        <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/login" class="right">Войти</a>
+        <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/registration" class="right">Регистрация</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/logout" class="right">Выйти</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/chats">Чаты</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/publications">Публикации</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/tasks">Задачи</a>
+        <a sec:authorize="isAuthenticated()" href="http://localhost:8080/users">Пользователи</a>
+        <a sec:authorize="hasRole('ADMIN')" href="http://localhost:8080/admin" class="right">Панель администратора</a>
+    </div>
+    <br> <br>
+
+    <div class="searchDiv">
+        <h3 class="bodyHeader">Поиск пользователей</h3>
+        <input type="text" id="searchInput" maxlength="30">
+        <input type="button" onclick="searchByInput()" value="Найти" class="buttons">
+        <input type="button" onclick="showAllUsersList()" value="Очистить поиск" class="buttons">
+    </div>
+    
+    <div class="onlineDiv">
+        <input type="button" onclick="showOnlineUsersList(document.getElementById('onlineUsersList'))" value="Показать онлайн" id="showOnlineButton" class="buttons"/>
+        <input type="button" onclick="showAllUsersList()" value="Показать всех" hidden="hidden" id="showAllButton" class="buttons"/>
+    </div>
+    
+    <div id="searchResult" class="grid" style="display: none;"></div>
+    <div id="onlineUsersList" class="grid" style="display: none;"></div>
+    <div id="usersList" class="grid"></div>
+</body>
+</html> 

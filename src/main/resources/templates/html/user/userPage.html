@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Профиль пользователя</title>
+    <script src="/js/user/userPage.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/user/userPage.css"/>
+</head>
+
+<body onload="getUserInfo()">
+    <h1 id="usernameText" style="text-align: center"></h1>
+    
+    <h3 id="isOnlineText" style="text-align: center"></h3>
+
+    <h2>Публикации пользователя</h2>
+    <ul id="publicationsList"></ul>
+
+    <h2>Задачи пользователя</h2>
+    <ul id="tasksList"></ul>
+    
+    <h2 id="solvedTaskCountText"></h2>
+    
+    <h4><a href="http://localhost:8080/users">Вернуться к списку всех пользователей</a></h4>
+</body>
+</html>  

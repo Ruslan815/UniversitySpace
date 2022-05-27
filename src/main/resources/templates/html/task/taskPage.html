@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Задача</title>
+    <script src="/js/task/taskPage.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/task/taskPage.css"/>
+</head>
+
+<body onload="getTask()">
+    <div class="mainDiv">
+        <a href="http://localhost:8080/tasks">Вернуться к списку задач</a>
+
+        <h2>Заголовок</h2>
+        <h2 id="taskTitle" name="taskTitle"></h3>
+    
+        <h3 id="taskOwner" name="taskOwner"></h3>
+        <h3 id="taskCost" name="taskCost"></h3>
+        <h3 id="creationTaskTime" name="creationTaskTime"></h3>
+        <h3 id="deadline" name="deadline"></h3>
+        <h3 id="taskStatus" name="taskStatus"></h3>
+    
+        <h2>Текст задачи</h2>
+        <textarea id="taskDescription" name="taskDescription" rows="25" cols="80" style="resize:none" readonly></textarea>
+        <p></p>
+    
+        <h2>Оставьте комментарий</h2>
+        <textarea id="newCommentText" name="newCommentText" rows="15" cols="50" style="resize:none" placeholder="Напишите что вы думаете об этом..." maxlength="250"></textarea>
+        <input type="button" value="Опубликовать комментарий" onclick="createTaskComment()" class="greenButton"> <p></p>
+    
+        <h2>Комментарии</h2>
+        <div id="commentsDiv"></div>
+
+        <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}"></div>
+    </div>
+</body>
+</html>

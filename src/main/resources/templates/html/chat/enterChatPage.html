@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Вход в чат</title>
+    <script src="/js/chat/enterChatPage.js"></script>
+    <link type="text/css" rel="stylesheet" href="/css/chat/enterChatPage.css"/>
+</head>
+
+<body onload="loadChatName(document.getElementById('chatName'))">
+    <div>
+        <h1 id="chatName"></h1>
+        <input type="button" onclick="enterChat()" value="Да" class="greenButton">
+        <br>
+        <input type="button" onclick="backToAllChats()" value="Нет" class="redButton">
+    </div>
+    <div id="divUserId" style="display: none;" th:text="${#authentication.getPrincipal().getUserId()}" ></div>
+</body>
+</html> 

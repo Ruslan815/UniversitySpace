@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Главная</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/home/mainPage.css">
+</head>
+
+<body>
+
+<div class="header">
+    <h1>University Space</h1>
+    <p>Свободное студенческое Web-пространство для общения и обмена опытом.</p>
+</div>
+
+<div class="navbar">
+    <a href="http://localhost:8080" >Главная</a>
+    <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/login" class="right">Войти</a>
+    <a sec:authorize="!isAuthenticated()" href="http://localhost:8080/registration" class="right">Регистрация</a>
+    <a sec:authorize="isAuthenticated()" href="http://localhost:8080/logout" class="right">Выйти</a>
+    <a sec:authorize="isAuthenticated()" href="http://localhost:8080/chats">Чаты</a>
+    <a sec:authorize="isAuthenticated()" href="http://localhost:8080/publications">Публикации</a>
+    <a sec:authorize="isAuthenticated()" href="http://localhost:8080/tasks">Задачи</a>
+    <a sec:authorize="isAuthenticated()" href="http://localhost:8080/users">Пользователи</a>
+    <a sec:authorize="hasRole('ADMIN')" href="http://localhost:8080/admin" class="right">Панель администратора</a>
+    <!-- <div sec:authorize="hasRole('USER')">Text visible to user.</div> -->
+</div>
+
+<div class="row">
+    <div class="main">
+        <h2>Для кого этот сайт?</h2>
+        <p>Этот сайт предназначен для студентов, желающих преобрести актуальные знания в интересующей их области или же поделиться накопленным опыт с остальными.<br>
+            <b>Студент</b> - это не тот, кто числится обучающимся в учебном заведении, а тот кто <b>учится новому</b>.</p>
+    </div>
+</div>
+
+<div class="footer">
+    <p>Разработчик: <b>Ruslan Safonov</b><br>GitHub: <b>Ruslan815</b></p>
+</div>
+
+</body>
+
+</html>
