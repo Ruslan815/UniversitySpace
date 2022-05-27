@@ -9,12 +9,12 @@
 <body>
     <h2>Привет, Администратор: <span sec:authentication="name"></span>!</h2>
     <p>Введите имя пользователя:</p>
-    <input id="usernameInputField" type="text" placeholder="Введите имя пользователя..." class="inputField"/>
+    <input id="usernameInputField" type="text" placeholder="Введите имя пользователя..." class="inputField" maxlength="30"/>
     <input type="button" value="Получить id пользователя" onclick="getUserIdByUsername()" class="greenButton"/>
     <p id="hiddenUserId" hidden="hidden"></p>
 
     <p>Введите id (пользователя, публикации, задачи):</p>
-    <input id="idInputField" type="text" placeholder="Введите id..." class="inputField"/>
+    <input id="idInputField" type="text" placeholder="Введите id..." class="inputField" maxlength="20"/>
     <br> <br>
     <input type="button" value="Сделать Администратором" onclick="giveAdminRoleById()" class="greenButton"/>
     <input type="button" value="Удалить пользователя" onclick="deleteUserById()" class="redButton"/>

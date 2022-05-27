@@ -9,9 +9,9 @@
 <body>
     <div>
         <h2>Заголовок</h2>
-        <input type="text" name="publicationTitle" id="publicationTitle" size="80" placeholder="Напишите что-нибудь..."/>
+        <input type="text" name="publicationTitle" id="publicationTitle" size="80" placeholder="Напишите что-нибудь..." maxlength="250"/>
         <h2>Текст публикации</h2>
-        <textarea id="publicationContent" name="publicationContent" rows="25" cols="80" placeholder="Напишите что-нибудь..." style="resize:none"></textarea>
+        <textarea id="publicationContent" name="publicationContent" rows="25" cols="80" placeholder="Напишите что-нибудь..." style="resize:none" maxlength="2490"></textarea>
         <br> <br>
         <input type="button" value="Опубликовать" onclick="createNewPublication()" class="greenButton">
         <a href="http://localhost:8080/publications">Обратно ко всем публикациям</a>

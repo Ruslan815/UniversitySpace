@@ -12,15 +12,15 @@
     <form method="POST" th:object="${userForm}" th:action="@{/registration}">
     
         <p>Имя пользователя</p>
-        <input type="text" th:field="*{username}" placeholder="Имя пользователя" autofocus="true" id="usernameInput">
+        <input type="text" th:field="*{username}" placeholder="Имя пользователя" autofocus="true" id="usernameInput" maxlength="30">
         <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
     
         <p>Пароль</p>
-        <input type="password" th:field="*{password}" placeholder="Пароль" id="passwordInput">
+        <input type="password" th:field="*{password}" placeholder="Пароль" id="passwordInput" maxlength="30">
         <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
     
         <p>Повторите пароль</p>
-        <input type="password" th:field="*{passwordConfirm}" placeholder="Повторите пароль" id="passwordConfirmInput">
+        <input type="password" th:field="*{passwordConfirm}" placeholder="Повторите пароль" id="passwordConfirmInput" maxlength="30">
         <span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
         <br> <br> <br>
         <button type="submit" id="submitButton">Создать</button>
