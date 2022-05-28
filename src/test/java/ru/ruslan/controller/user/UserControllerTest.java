@@ -8,10 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.ruslan.controller.chat.ChatController;
-import ru.ruslan.entity.chat.ChatMember;
-import ru.ruslan.entity.user.User;
-import ru.ruslan.service.chat.ChatService;
 import ru.ruslan.service.user.UserService;
 
 import static org.junit.Assert.assertEquals;
@@ -21,27 +17,30 @@ import static org.junit.Assert.assertEquals;
 public class UserControllerTest {
 
     @Autowired
-    private ChatController chatController;
-
-    @MockBean
-    private ChatService chatService;
+    private UserController userController;
 
     @MockBean
     private UserService userService;
 
     private final Long userId = 1L;
     private final String userName = "username";
-    private final Long chatId = 1L;
-    private final String chatName = "chatName";
 
     @Test
-    public void enterChatSuccessful() {
-        ChatMember chatMember = new ChatMember(userId, chatId);
-        User user = new User();
-        ResponseEntity<?> expectedResponse = ResponseEntity.ok().body(userName);
-        Mockito.when(userService.findUserById(userId)).thenReturn(user);
+    public void getUserIdByUsernameSuccessful() {
+        ResponseEntity<?> expectedResponse = ResponseEntity.ok().body(userId);
+        Mockito.when(userService.getUserIdByUsername(userName)).thenReturn(userId);
 
-        ResponseEntity<?> actualResponse = chatController.enterChat(chatMember);
+        ResponseEntity<?> actualResponse = userController.getUserIdByUsername(userName);
+
+        assertEquals(expectedResponse, actualResponse);
+    }
+
+    @Test
+    public void getUserIdByUsernameFailedInvalidUsername() {
+        ResponseEntity<?> expectedResponse = ResponseEntity.status(500).body("Not found user with username: " + userName);
+        Mockito.when(userService.getUserIdByUsername(userName)).thenReturn(null);
+
+        ResponseEntity<?> actualResponse = userController.getUserIdByUsername(userName);
 
         assertEquals(expectedResponse, actualResponse);
     }

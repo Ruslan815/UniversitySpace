@@ -9,12 +9,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.ruslan.entity.chat.Chat;
-import ru.ruslan.entity.chat.ChatView;
 import ru.ruslan.entity.chat.Message;
 import ru.ruslan.entity.chat.MessageView;
 import ru.ruslan.service.chat.ChatService;
 import ru.ruslan.service.chat.MessageService;
-import ru.ruslan.service.user.UserService;
 
 import java.text.SimpleDateFormat;
 
@@ -31,15 +29,10 @@ public class MessageControllerTest {
     private MessageService messageService;
 
     @MockBean
-    private UserService userService;
-
-    @MockBean
     private ChatService chatService;
 
     private final Long userId = 1L;
-    private final String userName = "username";
     private final Long chatId = 1L;
-    private final String chatName = "chatName";
     private final String messageContent = "messageContent";
 
     @Test
