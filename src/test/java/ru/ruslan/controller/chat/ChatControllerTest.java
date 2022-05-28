@@ -31,13 +31,13 @@ public class ChatControllerTest {
     private UserService userService;
 
     private final Long userId = 1L;
-    private final String username = "username";
+    private final String userName = "username";
     private final Long chatId = 1L;
-    private final String name = "someName";
+    private final String chatName = "chatName";
 
     @Test
-    public void createSuccessfulChat() {
-        Chat passedChat = new Chat(chatId, name);
+    public void createChatSuccessful() {
+        Chat passedChat = new Chat(chatId, chatName);
         ChatView expectedChat = new ChatView(passedChat);
         ResponseEntity<?> expectedResponse = ResponseEntity.ok().body(expectedChat);
         try {
@@ -52,10 +52,10 @@ public class ChatControllerTest {
     }
 
     @Test
-    public void createFailedChatNameAlreadyExists() {
-        Chat passedChat = new Chat(chatId, name);
+    public void createChatFailedChatNameAlreadyExists() {
+        Chat passedChat = new Chat(chatId, chatName);
         ResponseEntity<?> expectedResponse = ResponseEntity.status(500).body("CHAT NAME IS BUSY");
-        Mockito.when(chatService.isChatNameExists(name)).thenReturn(true);
+        Mockito.when(chatService.isChatNameExists(chatName)).thenReturn(true);
 
         ResponseEntity<?> actualResponse = chatController.create(passedChat);
 
@@ -63,8 +63,8 @@ public class ChatControllerTest {
     }
 
     @Test
-    public void createFailedChatNameNotFound() {
-        Chat passedChat = new Chat(chatId, name);
+    public void createChatFailedChatNameNotFound() {
+        Chat passedChat = new Chat(chatId, chatName);
         ResponseEntity<?> expectedResponse = ResponseEntity.status(500).body("CHAT NAME NOT FOUND");
         try {
             Mockito.when(chatService.create(passedChat)).thenThrow(Exception.class);
@@ -81,8 +81,8 @@ public class ChatControllerTest {
     public void enterChatSuccessful() {
         ChatMember chatMember = new ChatMember(userId, chatId);
         User user = new User();
-        user.setUsername(username);
-        ResponseEntity<?> expectedResponse = ResponseEntity.ok().body(username);
+        user.setUsername(userName);
+        ResponseEntity<?> expectedResponse = ResponseEntity.ok().body(userName);
         Mockito.when(userService.findUserById(userId)).thenReturn(user);
         Mockito.when(chatService.enterChat(user, chatId)).thenReturn(true);
         Mockito.when(userService.findUserById(userId)).thenReturn(user);
@@ -109,8 +109,8 @@ public class ChatControllerTest {
     public void leaveChatSuccessful() {
         ChatMember chatMember = new ChatMember(userId, chatId);
         User user = new User();
-        user.setUsername(username);
-        ResponseEntity<?> expectedResponse = ResponseEntity.ok().body(username);
+        user.setUsername(userName);
+        ResponseEntity<?> expectedResponse = ResponseEntity.ok().body(userName);
         Mockito.when(userService.findUserById(userId)).thenReturn(user);
         Mockito.when(chatService.leaveChat(user, chatId)).thenReturn(true);
         Mockito.when(userService.findUserById(userId)).thenReturn(user);
