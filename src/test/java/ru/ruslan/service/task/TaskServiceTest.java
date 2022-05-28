@@ -6,42 +6,72 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.ruslan.controller.chat.ChatController;
-import ru.ruslan.entity.chat.ChatMember;
-import ru.ruslan.entity.user.User;
-import ru.ruslan.service.chat.ChatService;
-import ru.ruslan.service.user.UserService;
+import ru.ruslan.entity.task.Task;
+import ru.ruslan.repository.task.TaskRepository;
+
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doNothing;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class TaskServiceTest {
 
     @Autowired
-    private ChatController chatController;
+    private TaskService taskService;
 
     @MockBean
-    private ChatService chatService;
+    private TaskRepository taskRepository;
 
     @MockBean
-    private UserService userService;
+    private TaskCommentService taskCommentService;
 
-    private final Long userId = 1L;
-    private final String userName = "username";
-    private final Long chatId = 1L;
-    private final String chatName = "chatName";
+    private final Long taskId = 777L;
 
     @Test
-    public void enterChatSuccessful() {
-        ChatMember chatMember = new ChatMember(userId, chatId);
-        User user = new User();
-        ResponseEntity<?> expectedResponse = ResponseEntity.ok().body(userName);
-        Mockito.when(userService.findUserById(userId)).thenReturn(user);
+    public void deleteTaskSuccessful() {
+        Task task = new Task();
+        task.setTaskId(taskId);
+        String expectedResponse = "Task deleted successfully!";
+        try {
+            Optional<Task> optional = Optional.of(task);
+            Mockito.when(taskRepository.findById(taskId)).thenReturn(optional);
+            doNothing().when(taskCommentService).deleteAllByTaskId(taskId);
+            doNothing().when(taskRepository).deleteById(taskId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        ResponseEntity<?> actualResponse = chatController.enterChat(chatMember);
+        String actualResponse = null;
+        try {
+            actualResponse = taskService.deleteTaskById(taskId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(expectedResponse, actualResponse);
+    }
+
+    @Test
+    public void deleteTaskFailedInvalidId() {
+        String expectedResponse = "Not found task with id: " + taskId;
+        try {
+            Optional<Task> optional = Optional.empty();
+            Mockito.when(taskRepository.findById(taskId)).thenReturn(optional);
+            doNothing().when(taskCommentService).deleteAllByTaskId(taskId);
+            doNothing().when(taskRepository).deleteById(taskId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String actualResponse = null;
+        try {
+            actualResponse = taskService.deleteTaskById(taskId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         assertEquals(expectedResponse, actualResponse);
     }

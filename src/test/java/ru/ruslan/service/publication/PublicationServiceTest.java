@@ -6,42 +6,75 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import ru.ruslan.controller.chat.ChatController;
-import ru.ruslan.entity.chat.ChatMember;
-import ru.ruslan.entity.user.User;
-import ru.ruslan.service.chat.ChatService;
-import ru.ruslan.service.user.UserService;
+import ru.ruslan.entity.publication.Publication;
+import ru.ruslan.repository.publication.PublicationRepository;
+
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doNothing;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class PublicationServiceTest {
 
     @Autowired
-    private ChatController chatController;
+    private PublicationService publicationService;
 
     @MockBean
-    private ChatService chatService;
+    private PublicationRepository publicationRepository;
 
     @MockBean
-    private UserService userService;
+    private PublicationCommentService publicationCommentService;
 
-    private final Long userId = 1L;
-    private final String userName = "username";
-    private final Long chatId = 1L;
-    private final String chatName = "chatName";
+    private final String title = "title";
+    private final String content = "content";
+    private final Long publicationId = 777L;
 
     @Test
-    public void enterChatSuccessful() {
-        ChatMember chatMember = new ChatMember(userId, chatId);
-        User user = new User();
-        ResponseEntity<?> expectedResponse = ResponseEntity.ok().body(userName);
-        Mockito.when(userService.findUserById(userId)).thenReturn(user);
+    public void deletePublicationSuccessful() {
+        Publication publication = new Publication();
+        publication.setTitle(title);
+        publication.setContent(content);
+        String expectedResponse = "Publication deleted successfully!";
+        try {
+            Optional<Publication> optional = Optional.of(publication);
+            Mockito.when(publicationRepository.findById(publicationId)).thenReturn(optional);
+            doNothing().when(publicationCommentService).deleteAllByPublicationId(publicationId);
+            doNothing().when(publicationRepository).deleteById(publicationId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        ResponseEntity<?> actualResponse = chatController.enterChat(chatMember);
+        String actualResponse = null;
+        try {
+            actualResponse = publicationService.deletePublicationById(publicationId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(expectedResponse, actualResponse);
+    }
+
+    @Test
+    public void deletePublicationFailedInvalidId() {
+        String expectedResponse = "Not found publication with id: " + publicationId;
+        try {
+            Optional<Publication> optional = Optional.empty();
+            Mockito.when(publicationRepository.findById(publicationId)).thenReturn(optional);
+            doNothing().when(publicationCommentService).deleteAllByPublicationId(publicationId);
+            doNothing().when(publicationRepository).deleteById(publicationId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String actualResponse = null;
+        try {
+            actualResponse = publicationService.deletePublicationById(publicationId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         assertEquals(expectedResponse, actualResponse);
     }
